@@ -23,8 +23,10 @@ function settle(){to(z>0.45?1:0,z>0.45?2200*(1-z)+400:350)}
 /* touch pinch */
 var d0=0,z0=0;
 addEventListener('touchstart',function(e){if(e.touches.length===2&&!busy()){var a=e.touches[0],b=e.touches[1];d0=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);z0=z;window.__lwPinch=1;cancelAnimationFrame(anim);els=null;document.documentElement.classList.add('lw-fzing')}},{passive:true});
-addEventListener('touchmove',function(e){if(!d0||e.touches.length<2)return;var a=e.touches[0],b=e.touches[1],r=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)/d0;z=Math.min(1,Math.max(0,z0+(1-r)*1.6));apply()},{passive:true});
-addEventListener('touchend',function(e){if(d0&&e.touches.length<2){d0=0;setTimeout(function(){window.__lwPinch=0},50);settle()}},{passive:true});
+addEventListener('touchmove',function(e){if(!d0||e.touches.length<2)return;if(e.cancelable)e.preventDefault();var a=e.touches[0],b=e.touches[1],r=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)/d0;z=Math.min(1,Math.max(0,z0+(1-r)*1.6));apply()},{passive:false});
+function tend(e){if(d0&&(!e.touches||e.touches.length<2)){d0=0;setTimeout(function(){window.__lwPinch=0},50);settle()}}addEventListener('touchend',tend,{passive:true});addEventListener('touchcancel',tend,{passive:true});
+/* iOS Safari: block native page zoom so the pinch drives the flower */
+['gesturestart','gesturechange','gestureend'].forEach(function(t){addEventListener(t,function(e){if(!busy()&&e.cancelable)e.preventDefault()},{passive:false})});
 /* trackpad pinch / ctrl+wheel, and keyboard */
 var wt;addEventListener('wheel',function(e){if(!e.ctrlKey||busy())return;e.preventDefault();e.stopImmediatePropagation();cancelAnimationFrame(anim);document.documentElement.classList.add('lw-fzing');z=Math.min(1,Math.max(0,z+e.deltaY*0.01));apply();clearTimeout(wt);wt=setTimeout(settle,180)},{passive:false,capture:true});
 addEventListener('keydown',function(e){if(busy()||/input|textarea/i.test((e.target||{}).tagName||''))return;if(e.key==='-'||e.key==='_')to(1,2600);if((e.key==='+'||e.key==='='||e.key==='Escape')&&z>0)to(0,500)});
