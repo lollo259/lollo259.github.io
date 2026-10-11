@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>laurence WHO in the DREAMeSCAPE</title><meta name="robots" content="noindex">
+<meta name="theme-color" content="#000">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;background:#000;color:#fff;overflow:hidden;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;touch-action:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+#enter{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2vh;cursor:pointer;z-index:5;background:radial-gradient(ellipse at 50% 60%,#111 0,#000 70%);transition:opacity 1.6s ease}
+
+#enter h1{font-weight:300;letter-spacing:.42em;font-size:clamp(13px,1.6vw,22px);text-align:center;padding:0 6vw;margin-right:-.42em}
+#enter p{font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.45}
+#enter.out{opacity:0;pointer-events:none}
+@keyframes br{50%{opacity:.4;transform:scale(.96)}}
+#hint{position:fixed;left:0;right:0;bottom:3.2vh;text-align:center;font-size:10px;letter-spacing:.32em;text-transform:uppercase;opacity:0;transition:opacity 2s;pointer-events:none;z-index:3}
+#hint.on{opacity:.38}
+#ttl{position:fixed;left:3vw;top:3.4vh;font-size:10px;letter-spacing:.32em;opacity:.5;z-index:3;pointer-events:none}
+#rot{display:none}
+@media (orientation:portrait) and (max-width:700px){#rot{display:block;position:fixed;top:3.4vh;right:3vw;font-size:9px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;z-index:3}}
+#bg{position:fixed;inset:0;background:var(--bg,none) center/cover no-repeat;filter:saturate(.55) brightness(.75);opacity:var(--bgo,.42);mix-blend-mode:screen;pointer-events:none;z-index:1;transition:opacity 1s}
+#cr{position:fixed;left:3vw;bottom:3vh;z-index:6;font-size:9px;letter-spacing:.18em;opacity:.45;display:flex;gap:12px;align-items:center}#cr a{color:#fff;text-decoration:none}#cr span{cursor:pointer;padding:4px}
+#c{z-index:2}#sig{position:fixed;right:3vw;bottom:3vh;height:34px;opacity:.55;z-index:6;pointer-events:none;filter:invert(1)}
+#enter{background:radial-gradient(ellipse at 50% 60%,rgba(0,0,0,.55) 0,rgba(0,0,0,.75) 75%)}
+#rot{display:none!important}
+</style></head><body>
+<canvas id="gl"></canvas><div id="bg"></div><canvas id="c"></canvas>
+<div id="ttl">laurence WHO in the DREAMeSCAPE</div><div id="rot">turn your phone ↻</div>
+<div id="hint">touch the objects · layer the sounds</div>
+<div id="enter" role="button" tabindex="0" aria-label="Enter"><h1>laurence WHO<br>in the DREAMeSCAPE</h1><p>a sound installation · tap to enter</p></div>
+<img id="sig" src="flower.svg" alt="">
+<div id="cr"><a id="crl" target="_top" href="#"></a><span id="crs" title="switch illustration">↺</span></div>
+<script>/* background slot: list of illustrations; tap ↺ or long-press to switch. */
+(function(){var B=[{u:"bg02.jpg",c:"illustration: angerylettuce",l:"https://hdqwalls.com/martian-manhunter-5k-wallpaper"},{u:"bg05.jpg",c:"illustration: Mattias Fahlberg",l:"https://www.deviantart.com/mattiasfahlberg/art/Martian-Manhunter-312308692"}];
+var i=0;try{i=+localStorage.getItem("dreamBgI")||0}catch(e){}
+function set(){var b=B[i%B.length];document.documentElement.style.setProperty("--bg","url('"+b.u+"')");var a=document.getElementById("crl");a.textContent=b.c;a.href=b.l;try{localStorage.setItem("dreamBgI",i%B.length)}catch(e){}}
+function next(){i=(i+1)%B.length;set()}set();
+document.getElementById("crs").addEventListener("click",function(e){e.stopPropagation();next()});
+var t=null,sx=0,sy=0;addEventListener("pointerdown",function(e){sx=e.clientX;sy=e.clientY;clearTimeout(t);t=setTimeout(next,700)},true);
+addEventListener("pointermove",function(e){if(Math.abs(e.clientX-sx)+Math.abs(e.clientY-sy)>12)clearTimeout(t)},true);
+addEventListener("pointerup",function(){clearTimeout(t)},true);addEventListener("pointercancel",function(){clearTimeout(t)},true);})();</script>
+<script src="app.js"></script></body></html>
