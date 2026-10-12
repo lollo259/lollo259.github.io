@@ -23,6 +23,8 @@ image: ""
 <!-- type: quote -->
 Founder of the Orem, a Libra living in the Space Antenna. — Quote: "Il Macchinista è il fondatore di Orem. Sebbene la sua identità sia sconosciuta, si ipotizza che sia Antikristos Jay Shuha, il fratello dimenticato di San Messiaen Jay Shuha. Si ipotizza che…"
 
+Quote (English, machine-assisted translation): "The Sniper is the founder of Orem. Although his identity is unknown, it is assumed that both Antikristos Jay Shuha, the forgotten brother of San Messiaen Jay Shuha. It is hypothesized that"
+
 ## Interview: Hana Nanami (the Machinist)
 <!-- type: interview | source: Il Quadrante delle emozioni | translated: yes -->
 The Machinist
