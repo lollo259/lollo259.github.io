@@ -73,7 +73,7 @@ function buildLinks(){
 }
 function inline(s,self,used){
   let h=esc(s);
-  h=h.replace(LINKRE,(all,pre,n)=>{const sl=LINKMAP[n.toLowerCase()];if(!sl||sl===self||used.has(sl))return all;used.add(sl);return `${pre}<a class="xl" href="#/${sl}">${n}</a>`});
+  h=h.replace(/\[(REM-[A-Za-z0-9\-]+|O-REM)\]\(#\/([a-z0-9\-]+)\)/g,(a,t,sl)=>`<a class="xl mono" href="#/${sl}">${t}</a>`);
   return h.replace(/\*\*([^*]+?)\*\*/g,'<b>$1</b>').replace(/\/\/([^/]+?)\/\//g,'<i>$1</i>');
 }
 const SPK=/^(?:&gt;\s*|>\s*)?\*{0,2}([A-Za-zÀ-ÿ0-9 .'’\-\[\]█<>&;]{1,48}?)\*{0,2}:\*{0,2}\s+(.+)$/;

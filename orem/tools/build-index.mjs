@@ -29,7 +29,7 @@ for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.md'))){
  out.push({slug:f.replace(/\.md$/,''),rem:d.rem,name:d.name,aliases:d.aliases||[],type:d.type||'Other',category:d.category||'',
   object_class:d.object_class||'',source:d.source||'',explicit:!!d.explicit,image:d.image||'',image2:d.image2||'',image_caption:d.image_caption||'',gallery:d.gallery||'',catalogued_by:d.catalogued_by||'',range:range(n),n,sub,
   full:types.some(t=>!['quote','note'].includes(t)),logs:types.includes('log')||/<Begin log>|▶ LOG|Inizio registro/i.test(body),
-  interviews:types.includes('interview'),excerpt:quote.slice(0,260)});}
+  interviews:types.includes('interview'),excerpt:quote.replace(/\[([^\]]+)\]\(#\/[^)]+\)/g,'$1').slice(0,260)});}
 out.sort((a,b)=>a.n-b.n||String(a.sub).localeCompare(String(b.sub),'en',{numeric:true}));
 out.forEach((e,i)=>{e.i=i;delete e.n;delete e.sub});
 fs.mkdirSync(path.join(root,'data'),{recursive:true});
