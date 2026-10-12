@@ -90,6 +90,7 @@ function section(s,self,used){
   const body=isT?transcript(s.text,self,used):s.text.split(/\n{1,}/).map(p=>`<p>${inline(p,self,used)}</p>`).join('');
   return `<div class="sec" data-type="${esc(t)}"><h3>${esc(s.title.replace(/\*\*/g,''))}</h3><div class="meta">${esc(t.toUpperCase())}${s.meta?' · '+esc(s.meta):''}</div>${body}</div>`;}
 async function entry(slug){
+  const rd=IDX.redirects&&IDX.redirects[slug];if(rd){location.replace('#/'+rd.to);return}
   const e=IDX.entries.find(x=>x.slug===slug);
   if(!e){app.innerHTML=`<div class="w">${nav()}<h2 class="t">No exhibit ${esc(slug)}</h2><a href="#/">Back</a></div>`;bindNav();return}
   app.innerHTML=`<div class="w">${nav()}<p class="mono g">Retrieving ${esc(e.rem)}…</p></div>`;

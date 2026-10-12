@@ -18,9 +18,10 @@ export function parseFront(txt){
  return {data,body:m[2]}}
 function order(rem){if(/^O-REM$/i.test(rem))return [-1,''];if(/XXX/.test(rem))return [1e6,''];const m=rem.match(/REM-(\d+)(?:-(.*))?/);return m?[+m[1],m[2]||'']:[9e5,rem]}
 function range(n){if(n<0)return 'O-REM';if(n>=1e6)return 'XXX';if(n<100)return '000–099';if(n<1000)return `${Math.floor(n/100)}00s`;return '1000+'}
-const out=[];
+const out=[];const redirects={};
 for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.md'))){
  const {data:d,body}=parseFront(fs.readFileSync(path.join(dir,f),'utf8'));
+ if(d.merged_into){redirects[f.replace(/\.md$/,'')]={to:String(d.merged_into).toLowerCase(),rem:d.rem,name:d.name};continue}
  const types=[...body.matchAll(/<!-- type: ([a-z ]+?)\s*(\||-->)/g)].map(x=>x[1]);
  const quote=(body.split('<!-- type: quote -->')[1]||'').split('\n## ')[0].trim();
  const [n,sub]=order(String(d.rem||''));
@@ -31,5 +32,5 @@ for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.md'))){
 out.sort((a,b)=>a.n-b.n||String(a.sub).localeCompare(String(b.sub),'en',{numeric:true}));
 out.forEach((e,i)=>{e.i=i;delete e.n;delete e.sub});
 fs.mkdirSync(path.join(root,'data'),{recursive:true});
-fs.writeFileSync(path.join(root,'data','index.json'),JSON.stringify({generated:new Date().toISOString(),count:out.length,entries:out}));
-console.log(`index.json: ${out.length} entries`);
+fs.writeFileSync(path.join(root,'data','index.json'),JSON.stringify({generated:new Date().toISOString(),count:out.length,redirects,entries:out}));
+console.log(`index.json: ${out.length} entries, ${Object.keys(redirects).length} merged redirects`);

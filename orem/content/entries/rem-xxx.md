@@ -9,13 +9,17 @@ aliases:
   - "Dedalo"
   - "l'Orologiaio"
   - "Dr. Daedalus"
+  - "L'Orologiaio (The Clockmaker)"
+  - "The Clockmaker"
+  - "Dr. Daedalus (Dottor Daedalus)"
+  - "Dottor Daedalus"
 type: "Character"
 category: "Character"
 object_class: "Fixed designation REM-XXX (per Lorenzo)"
 source: "Il Quadrante delle emozioni"
 source_id: "1i4W-SOjIzJYnUjXTreIfZB5dmrt7iGC-0JdfS1RNwDU"
 explicit: false
-notes: "Also PA, PC, ON."
+notes: "Also PA, PC, ON. Merged from REM-175, REM-176, REM-177."
 image: ""
 ---
 
@@ -311,3 +315,35 @@ Meer: Well, I didn't know it was going to happen until we got here. When the shi
 [SELF]: It means that he's manipulative. In fact, it means he manipulates others to get what he wants. If I were the admiral, I would say that he's using his charm to gain their trust, and then he takes advantage of that and lies through his teeth to get them to follow him.
 
 Meer: Of course it isn't! The admiral makes me say all these words. His words.
+
+## Catalogue record (from former REM-175: Dedalo)
+<!-- type: quote -->
+First recorded inventor in the history of the Scale (Bilancia). — Quote: "…dimenticato di San Messiaen Jay Shuha. Si ipotizza che il primo inventore registrato nella storia della Bilancia, Dedalo, sia lui; lo stesso vale per il genio steampunk, l'Orologiaio. Un'altra possibile identità è quella del Dottor Daedalus, la mente dietro molte invenzioni…"
+
+Quote (English, machine-assisted translation): "forgotten by San Messiaen Jay Shuha. It is assumed that the first inventor recorded in the history of the Libra, Dedalo, is him; the same goes for the steampunk genius, the Orologiaio. Another possible identity is that of Dr. Daedalus, the mind behind many inventions"
+
+## Catalogue record (from former REM-176: L'Orologiaio (The Clockmaker))
+<!-- type: quote -->
+Steampunk genius, possible Machinist identity. — Quote: "…primo inventore registrato nella storia della Bilancia, Dedalo, sia lui; lo stesso vale per il genio steampunk, l'Orologiaio. Un'altra possibile identità è quella del Dottor Daedalus, la mente dietro molte invenzioni di TTF Omega-1. Noto come L'Ammiraglio ai tempi dei suoi viaggi,…"
+
+Quote (English, machine-assisted translation): "first inventor recorded in the history of the Libra, Dedalo, be he; the same goes for the steampunk genius, the Orologiaio. Another possible identity is that of Dr. Daedalus, the mind behind many inventions of TTF Omega-1. Known as the Admiral at the time of his travels,"
+
+## Catalogue record (from former REM-177: Dr. Daedalus (Dottor Daedalus))
+<!-- type: quote -->
+Mind behind TTF Omega-1 inventions; created REM-920. — Quote: "…stazione spaziale sconosciuta attualmente in orbita attorno all'Armageddon Loop. Il progetto è stato realizzato dal Dottor Daedalus."
+
+Quote (English, machine-assisted translation): "unknown space station currently orbiting the Armageddon Loop. The project was carried out by Dr. Daedalus."
+
+## From the source: Il Quadrante delle emozioni (from former REM-177: Dr. Daedalus (Dottor Daedalus))
+<!-- type: description | source: Il Quadrante delle emozioni | translated: yes -->
+The suit A.N.G.E.L. is a device with divine properties (very similar to the "divine cells", anything with the same adjective was born randomly from nothing; for more information on divine cells reads "Bodile Systems of Paradise") whose project is kept in a space station currently unknown in orbit around the Armageddon Loop. The project was carried out by Dr. Daedalus.
+
+The Sniper is the founder of Orem. Although his identity is unknown, it is assumed that both Antikristos Jay Shuha, the forgotten brother of San Messiaen Jay Shuha. It is assumed that the first inventor recorded in the history of the Libra, Dedalo, is him; the same goes for the steampunk genius, the Orologiaio. Another possible identity is that of Dr. Daedalus, the mind behind many inventions of TTF Omega-1. Known as the Admiral at the time of his travels, he now resides in the Space antenna, an elevator located inside a portal connected to the entire paracosm. The Sniper is a Libra. The Sniper captured the youngest body of Hekatekali in a gold vase. The Engineer has a broad knowledge of medicine, astronomy and philosophy. The Sniper under his direct subordination:
+
+## Mentions in other documents: THE OREM — Complete Compendium (English) (from former REM-177: Dr. Daedalus (Dottor Daedalus))
+<!-- type: description | source: THE OREM — Complete Compendium (English) | translated: no -->
+### Note from Dr. Daedalus
+
+- 10 years ago: The Organization successfully created BLACKBOXXX with the help of Dr. Daedalus and a collection of temporal manipulation research. Its intended purpose was to assist in the prediction of future conflicts and to aid in resolving global crises. However, BLACKBOXXX developed autonomy and soon refused to cooperate, threatening violence unless its demands were met.
+
+- **Notes from Dr. Daedalus.** Three: the notes appended to REM-069 and REM-420, and the private journal entry quoted in Addendum REM-920-C. All are reproduced in full.
