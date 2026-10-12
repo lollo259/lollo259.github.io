@@ -26,7 +26,7 @@ for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.md'))){
  const quote=(body.split('<!-- type: quote -->')[1]||'').split('\n## ')[0].trim();
  const [n,sub]=order(String(d.rem||''));
  out.push({slug:f.replace(/\.md$/,''),rem:d.rem,name:d.name,aliases:d.aliases||[],type:d.type||'Other',category:d.category||'',
-  object_class:d.object_class||'',source:d.source||'',explicit:!!d.explicit,image:d.image||'',image2:d.image2||'',image_caption:d.image_caption||'',gallery:d.gallery||'',range:range(n),n,sub,
+  object_class:d.object_class||'',source:d.source||'',explicit:!!d.explicit,image:d.image||'',image2:d.image2||'',image_caption:d.image_caption||'',gallery:d.gallery||'',catalogued_by:d.catalogued_by||'',range:range(n),n,sub,
   full:types.some(t=>!['quote','note'].includes(t)),logs:types.includes('log')||/<Begin log>|▶ LOG|Inizio registro/i.test(body),
   interviews:types.includes('interview'),excerpt:quote.slice(0,260)});}
 out.sort((a,b)=>a.n-b.n||String(a.sub).localeCompare(String(b.sub),'en',{numeric:true}));

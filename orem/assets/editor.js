@@ -40,7 +40,7 @@ function toFM(d,body){
   const al=(d.aliases||[]).filter(Boolean);
   return ['---',`rem: ${q(d.rem)}`,`name: ${q(d.name)}`,al.length?'aliases:':'aliases: []',...al.map(a=>`  - ${q(a)}`),
    `type: ${q(d.type)}`,`category: ${q(d.category)}`,`object_class: ${q(d.object_class)}`,`source: ${q(d.source)}`,`source_id: ${q(d.source_id)}`,
-   `explicit: ${d.explicit?'true':'false'}`,`notes: ${q(d.notes)}`,`image: ${q(d.image)}`,...(d.image2?[`image2: ${q(d.image2)}`]:[]),...(d.image_caption?[`image_caption: ${q(d.image_caption)}`]:[]),...(d.gallery?[`gallery: ${q(d.gallery)}`]:[]),'---','',body.replace(/^\n+/,'')].join('\n');
+   `explicit: ${d.explicit?'true':'false'}`,`notes: ${q(d.notes)}`,`image: ${q(d.image)}`,...(d.image2?[`image2: ${q(d.image2)}`]:[]),...(d.image_caption?[`image_caption: ${q(d.image_caption)}`]:[]),...(d.gallery?[`gallery: ${q(d.gallery)}`]:[]),...(d.catalogued_by?[`catalogued_by: ${q(d.catalogued_by)}`]:[]),'---','',body.replace(/^\n+/,'')].join('\n');
 }
 const slugOf=rem=>String(rem).trim().toLowerCase().replace(/█/g,'redacted').replace(/[^a-z0-9-]/g,'');
 /* UI */
@@ -83,7 +83,7 @@ function form(d,body,isNew){
   <div><label>Source</label><input type="text" id="f-source" value="${esc(d.source)}"></div><div><label>Source ID</label><input type="text" id="f-source_id" value="${esc(d.source_id)}"></div></div>
   <div class="oe-g"><div><label>Image path</label><input type="text" id="f-image" value="${esc(d.image)}" placeholder="assets/img/rem-xxx.jpg"></div>
   <div><label>Upload image</label><input type="file" id="f-file" accept="image/*"></div>
-  <div><label>Image caption</label><input type="text" id="f-image_caption" value="${esc(d.image_caption||'')}"></div><div><label>Second image path (optional)</label><input type="text" id="f-image2" value="${esc(d.image2||'')}"></div><div><label>Gallery (path::caption|path::caption)</label><input type="text" id="f-gallery" value="${esc(d.gallery||'')}"></div>
+  <div><label>Image caption</label><input type="text" id="f-image_caption" value="${esc(d.image_caption||'')}"></div><div><label>Second image path (optional)</label><input type="text" id="f-image2" value="${esc(d.image2||'')}"></div><div><label>Catalogued by (optional)</label><input type="text" id="f-catalogued_by" value="${esc(d.catalogued_by||'')}"></div><div><label>Gallery (path::caption|path::caption)</label><input type="text" id="f-gallery" value="${esc(d.gallery||'')}"></div>
   <div><label>Content warning</label><label style="text-transform:none;font-size:12px;color:#111"><input type="checkbox" id="f-explicit"${d.explicit?' checked':''}> explicit (gated)</label></div></div>
   <label>Notes</label><input type="text" id="f-notes" value="${esc(d.notes)}">
   <label>Body (markdown; keep "## Title" + "&lt;!-- type: … --&gt;" markers)</label><textarea id="f-body" spellcheck="false">${esc(body)}</textarea>
@@ -92,7 +92,7 @@ function form(d,body,isNew){
 }
 function readForm(){const v=id=>$('#f-'+id).value;
   return {rem:v('rem').trim().toUpperCase(),name:v('name').trim(),aliases:v('aliases').split(';').map(s=>s.trim()).filter(Boolean),type:v('type'),category:v('category'),
-   object_class:v('object_class'),source:v('source'),source_id:v('source_id'),explicit:$('#f-explicit').checked,notes:v('notes'),image:v('image').trim(),image2:v('image2').trim(),image_caption:v('image_caption').trim(),gallery:v('gallery').trim()}}
+   object_class:v('object_class'),source:v('source'),source_id:v('source_id'),explicit:$('#f-explicit').checked,notes:v('notes'),image:v('image').trim(),image2:v('image2').trim(),image_caption:v('image_caption').trim(),gallery:v('gallery').trim(),catalogued_by:v('catalogued_by').trim()}}
 async function upload(slug){
   const f=$('#f-file').files[0];if(!f)return null;
   const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');const rel=`assets/img/${slug}.${ext}`;
