@@ -11,17 +11,16 @@ object_class: "(suggested) Thaumiel"
 source: "THE OREM — Complete Compendium (English); author's note (12 Oct 2026)"
 source_id: "1wcWu-TRfAMyZnyvo7n0Ko8-NN-Gm-BUMu7ploEgu03Q"
 explicit: false
-notes: "Code O-REM chosen by the author. The definition of the Orem as mostly the afterlife comes from the author (12 Oct 2026); the other lines are quoted from the compendium."
+notes: "Code O-REM chosen by the author. The afterlife definition is sourced from the author's notes on BLACKBOXXX (13 Oct 2026); the other lines are quoted from the compendium."
 image: ""
 ---
 
 ## Catalogue record
 <!-- type: quote -->
-The Orem is mostly the afterlife: the realm and organization where the dead go. — Quote: "That is why humanity has only one hope, which lies in the group of Orem."
+The Orem is the afterlife (author's notes, see below). — Quote: "That is why humanity has only one hope, which lies in the group of Orem."
 
 ## Description
 <!-- type: description | source: THE OREM — Complete Compendium (English) | translated: yes -->
-Per the author, the Orem is first of all the afterlife. The dead arrive there, and the Orem is also the organization that runs it (the "Organization" of the dossier).
 Compendium: "Orem / the Orem — the organization (the "Organization" of the dossier); humanity's one hope; holders of the divided Tecnica."
 "[REM-XXX](#/rem-xxx) takes the Tecnica and divides it into five (or however many members Orem has), giving each one a specialty and keeping for himself the ability to create artifacts."
 "Paradis — planet (and goddess) of the first book; Orem is on Paradis."
@@ -114,6 +113,13 @@ Terra Task Forces [[REM-319](#/rem-319)] (TTFs) are elite units composed of pers
 
 Task Force Mission: Terra Task Force Psi-1 is formed by captured deities from other universes repurposed to be helpful for the Organization.
 
+
+## The Orem as the afterlife (author's notes)
+<!-- type: description | source: Author's chat notes (13 Oct 2026; original Drive file not located) | translated: yes -->
+From the author's notes, "new idea about BLACKBOXXX" [REM-999](#/rem-999): The Orem is the afterlife. Whoever dies in the paracosm enters a waiting room to await their turn. Every event of their life is reported in a paper file (a bundle of sheets) signed by the dead. They receive a uniform and become an Orem recruit, part of TTF "Chicks" [REM-313](#/rem-313). Inspired by Beetlejuice, Men in Black and Loki (TV).
+
+How? At death, the dead person's genetic material is copied and pasted into a new, identical body, grown by TTF "Astral" [REM-307](#/rem-307) and TTF "Farmers". So, ethically, the Orem forces no one, although that is just an excuse, since they could clone everyone or make them live as long as possible. The author: "I'm very proud of the name The Orem."
+
 ## Source note
 <!-- type: note -->
-The compendium describes the Orem as an organization; it does not use the word "afterlife". That definition, and the code O-REM, come from the author. The recruits of The Farm being "the dead" is the passage that supports it in the text.
+The compendium describes the Orem as an organization; the afterlife definition comes from the author's notes on BLACKBOXXX (above). The code O-REM was chosen by the author.

@@ -1,0 +1,682 @@
+{
+ "title": "The Orem Tournament of Thirty-Two",
+ "framing": "The Orem has a device to run simulations, and it simulates.",
+ "format": "32 participants drawn from the catalogue. 8 groups of 4 play each other once; the top two of each group advance to a knockout bracket. No match has been simulated yet.",
+ "participants": [
+  "rem-000",
+  "rem-504",
+  "rem-002",
+  "rem-155",
+  "rem-100",
+  "rem-658",
+  "rem-003",
+  "rem-133",
+  "rem-101",
+  "rem-660",
+  "rem-004",
+  "rem-135",
+  "rem-505",
+  "rem-208",
+  "rem-023",
+  "rem-144",
+  "rem-514",
+  "rem-207",
+  "rem-024",
+  "rem-148",
+  "rem-115",
+  "rem-205",
+  "rem-036",
+  "rem-168",
+  "rem-107",
+  "rem-328",
+  "rem-169",
+  "rem-334",
+  "rem-103",
+  "rem-178",
+  "rem-170",
+  "rem-217"
+ ],
+ "groups": [
+  {
+   "id": "A",
+   "members": [
+    "rem-000",
+    "rem-504",
+    "rem-002",
+    "rem-155"
+   ]
+  },
+  {
+   "id": "B",
+   "members": [
+    "rem-100",
+    "rem-658",
+    "rem-003",
+    "rem-133"
+   ]
+  },
+  {
+   "id": "C",
+   "members": [
+    "rem-101",
+    "rem-660",
+    "rem-004",
+    "rem-135"
+   ]
+  },
+  {
+   "id": "D",
+   "members": [
+    "rem-505",
+    "rem-208",
+    "rem-023",
+    "rem-144"
+   ]
+  },
+  {
+   "id": "E",
+   "members": [
+    "rem-514",
+    "rem-207",
+    "rem-024",
+    "rem-148"
+   ]
+  },
+  {
+   "id": "F",
+   "members": [
+    "rem-115",
+    "rem-205",
+    "rem-036",
+    "rem-168"
+   ]
+  },
+  {
+   "id": "G",
+   "members": [
+    "rem-107",
+    "rem-328",
+    "rem-169",
+    "rem-334"
+   ]
+  },
+  {
+   "id": "H",
+   "members": [
+    "rem-103",
+    "rem-178",
+    "rem-170",
+    "rem-217"
+   ]
+  }
+ ],
+ "matches": [
+  {
+   "id": "A1",
+   "stage": "Group A",
+   "a": "rem-000",
+   "b": "rem-504",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "A2",
+   "stage": "Group A",
+   "a": "rem-000",
+   "b": "rem-002",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "A3",
+   "stage": "Group A",
+   "a": "rem-000",
+   "b": "rem-155",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "A4",
+   "stage": "Group A",
+   "a": "rem-504",
+   "b": "rem-002",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "A5",
+   "stage": "Group A",
+   "a": "rem-504",
+   "b": "rem-155",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "A6",
+   "stage": "Group A",
+   "a": "rem-002",
+   "b": "rem-155",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "B1",
+   "stage": "Group B",
+   "a": "rem-100",
+   "b": "rem-658",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "B2",
+   "stage": "Group B",
+   "a": "rem-100",
+   "b": "rem-003",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "B3",
+   "stage": "Group B",
+   "a": "rem-100",
+   "b": "rem-133",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "B4",
+   "stage": "Group B",
+   "a": "rem-658",
+   "b": "rem-003",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "B5",
+   "stage": "Group B",
+   "a": "rem-658",
+   "b": "rem-133",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "B6",
+   "stage": "Group B",
+   "a": "rem-003",
+   "b": "rem-133",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "C1",
+   "stage": "Group C",
+   "a": "rem-101",
+   "b": "rem-660",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "C2",
+   "stage": "Group C",
+   "a": "rem-101",
+   "b": "rem-004",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "C3",
+   "stage": "Group C",
+   "a": "rem-101",
+   "b": "rem-135",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "C4",
+   "stage": "Group C",
+   "a": "rem-660",
+   "b": "rem-004",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "C5",
+   "stage": "Group C",
+   "a": "rem-660",
+   "b": "rem-135",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "C6",
+   "stage": "Group C",
+   "a": "rem-004",
+   "b": "rem-135",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "D1",
+   "stage": "Group D",
+   "a": "rem-505",
+   "b": "rem-208",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "D2",
+   "stage": "Group D",
+   "a": "rem-505",
+   "b": "rem-023",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "D3",
+   "stage": "Group D",
+   "a": "rem-505",
+   "b": "rem-144",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "D4",
+   "stage": "Group D",
+   "a": "rem-208",
+   "b": "rem-023",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "D5",
+   "stage": "Group D",
+   "a": "rem-208",
+   "b": "rem-144",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "D6",
+   "stage": "Group D",
+   "a": "rem-023",
+   "b": "rem-144",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "E1",
+   "stage": "Group E",
+   "a": "rem-514",
+   "b": "rem-207",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "E2",
+   "stage": "Group E",
+   "a": "rem-514",
+   "b": "rem-024",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "E3",
+   "stage": "Group E",
+   "a": "rem-514",
+   "b": "rem-148",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "E4",
+   "stage": "Group E",
+   "a": "rem-207",
+   "b": "rem-024",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "E5",
+   "stage": "Group E",
+   "a": "rem-207",
+   "b": "rem-148",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "E6",
+   "stage": "Group E",
+   "a": "rem-024",
+   "b": "rem-148",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "F1",
+   "stage": "Group F",
+   "a": "rem-115",
+   "b": "rem-205",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "F2",
+   "stage": "Group F",
+   "a": "rem-115",
+   "b": "rem-036",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "F3",
+   "stage": "Group F",
+   "a": "rem-115",
+   "b": "rem-168",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "F4",
+   "stage": "Group F",
+   "a": "rem-205",
+   "b": "rem-036",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "F5",
+   "stage": "Group F",
+   "a": "rem-205",
+   "b": "rem-168",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "F6",
+   "stage": "Group F",
+   "a": "rem-036",
+   "b": "rem-168",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "G1",
+   "stage": "Group G",
+   "a": "rem-107",
+   "b": "rem-328",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "G2",
+   "stage": "Group G",
+   "a": "rem-107",
+   "b": "rem-169",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "G3",
+   "stage": "Group G",
+   "a": "rem-107",
+   "b": "rem-334",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "G4",
+   "stage": "Group G",
+   "a": "rem-328",
+   "b": "rem-169",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "G5",
+   "stage": "Group G",
+   "a": "rem-328",
+   "b": "rem-334",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "G6",
+   "stage": "Group G",
+   "a": "rem-169",
+   "b": "rem-334",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "H1",
+   "stage": "Group H",
+   "a": "rem-103",
+   "b": "rem-178",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "H2",
+   "stage": "Group H",
+   "a": "rem-103",
+   "b": "rem-170",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "H3",
+   "stage": "Group H",
+   "a": "rem-103",
+   "b": "rem-217",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "H4",
+   "stage": "Group H",
+   "a": "rem-178",
+   "b": "rem-170",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "H5",
+   "stage": "Group H",
+   "a": "rem-178",
+   "b": "rem-217",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "H6",
+   "stage": "Group H",
+   "a": "rem-170",
+   "b": "rem-217",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-1",
+   "stage": "Round of 16",
+   "a": "Winner Group A",
+   "b": "Runner-up Group B",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-2",
+   "stage": "Round of 16",
+   "a": "Winner Group C",
+   "b": "Runner-up Group D",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-3",
+   "stage": "Round of 16",
+   "a": "Winner Group E",
+   "b": "Runner-up Group F",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-4",
+   "stage": "Round of 16",
+   "a": "Winner Group G",
+   "b": "Runner-up Group H",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-5",
+   "stage": "Round of 16",
+   "a": "Winner Group B",
+   "b": "Runner-up Group A",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-6",
+   "stage": "Round of 16",
+   "a": "Winner Group D",
+   "b": "Runner-up Group C",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-7",
+   "stage": "Round of 16",
+   "a": "Winner Group F",
+   "b": "Runner-up Group E",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "R16-8",
+   "stage": "Round of 16",
+   "a": "Winner Group H",
+   "b": "Runner-up Group G",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "QF-1",
+   "stage": "Quarter-finals",
+   "a": "Winner R16-1",
+   "b": "Winner R16-2",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "QF-2",
+   "stage": "Quarter-finals",
+   "a": "Winner R16-3",
+   "b": "Winner R16-4",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "QF-3",
+   "stage": "Quarter-finals",
+   "a": "Winner R16-5",
+   "b": "Winner R16-6",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "QF-4",
+   "stage": "Quarter-finals",
+   "a": "Winner R16-7",
+   "b": "Winner R16-8",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "SF-1",
+   "stage": "Semi-finals",
+   "a": "Winner QF-1",
+   "b": "Winner QF-2",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "SF-2",
+   "stage": "Semi-finals",
+   "a": "Winner QF-3",
+   "b": "Winner QF-4",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  },
+  {
+   "id": "F",
+   "stage": "Final",
+   "a": "Winner SF-1",
+   "b": "Winner SF-2",
+   "result": "",
+   "winner": "",
+   "reasoning": ""
+  }
+ ]
+}

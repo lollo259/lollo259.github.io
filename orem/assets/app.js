@@ -17,7 +17,7 @@ function photo(e,size,i,big){
 }
 function nav(){
   return `<nav><a href="#/"><b>THE OREM — EXHIBIT LOCKER</b></a><span>Site-██ · Property &amp; Exhibits Unit</span>
-  <span><a href="#/">Home</a> · <a href="#/index">Index</a> · <a href="#" id="xt">Explicit: ${showAll()?'shown':'gated'}</a></span></nav>`;}
+  <span><a href="#/">Home</a> · <a href="#/index">Index</a> · <a href="#/simulations">Simulations</a> · <a href="#" id="xt">Explicit: ${showAll()?'shown':'gated'}</a></span></nav>`;}
 function bindNav(){const x=$('#xt');if(x)x.onclick=ev=>{ev.preventDefault();localStorage.setItem('orem-explicit',showAll()?'gate':'show');route()}}
 function filtered(){
   const toks=st.q.toLowerCase().split(/\s+/).filter(Boolean);
@@ -74,6 +74,7 @@ function buildLinks(){
 function inline(s,self,used){
   let h=esc(s);
   h=h.replace(/\[(REM-[A-Za-z0-9\-]+|O-REM)\]\(#\/([a-z0-9\-]+)\)/g,(a,t,sl)=>`<a class="xl mono" href="#/${sl}">${t}</a>`);
+  h=h.replace(/\[([^\]]+)\]\(([a-z0-9\-]+\.html)\)/g,'<a href="$2">$1</a>');
   return h.replace(/\*\*([^*]+?)\*\*/g,'<b>$1</b>').replace(/\/\/([^/]+?)\/\//g,'<i>$1</i>');
 }
 const SPK=/^(?:&gt;\s*|>\s*)?\*{0,2}([A-Za-zÀ-ÿ0-9 .'’\-\[\]█<>&;]{1,48}?)\*{0,2}:\*{0,2}\s+(.+)$/;
@@ -111,9 +112,36 @@ async function entry(slug){
   if(gated){$('#rv').onclick=()=>{revealed.add(slug);entry(slug)};$('#rva').onclick=()=>{localStorage.setItem('orem-explicit','show');entry(slug)}}
   window.scrollTo(0,0);document.title=`${e.rem} ${e.name.replace(/\s*\(.*$/,'')} — The Orem.`;
 }
+
+/* Simulations: data in content/simulations/tournament.json (editable via the editor). No outcomes are invented here. */
+let SIM=null;
+function remLink(sl){const e=IDX.entries.find(x=>x.slug===sl);return e?`<a class="xl mono" href="#/${sl}">${esc(e.rem)}</a> ${esc(e.name.replace(/\s*\(.*$/,''))}`:esc(sl)}
+function slotTxt(x){return x&&x.startsWith('rem-')?remLink(x):`<span class="g">${esc(x||'TBD')}</span>`}
+function resTxt(m){return m.result?`<b>${esc(m.result)}</b>`:'<span class="sim-p mono">PENDING SIMULATION</span>'}
+async function simPage(h){
+  if(!SIM){app.innerHTML=`<div class="w">${nav()}<p class="mono g">Loading simulation records…</p></div>`;bindNav();
+    try{SIM=await (await fetch('content/simulations/tournament.json',{cache:'no-cache'})).json()}catch(e){app.innerHTML=`<div class="w">${nav()}<p>Simulation records unavailable.</p></div>`;bindNav();return}}
+  const T=SIM, mm=h.match(/^simulations\/match\/(.+)$/);
+  if(mm){const m=T.matches.find(x=>x.id===mm[1]);document.title=`Simulation log ${mm[1]} — The Orem.`;
+    app.innerHTML=`<div class="w">${nav()}<div class="g mono" style="margin-top:24px;font-size:12px">SIMULATION LOG · ${esc(T.title)} · MATCH ${esc(mm[1])}</div>
+    ${m?`<h2 class="t">${esc(m.stage)}</h2><table class="sim-t"><tr><th>Participant A</th><td>${slotTxt(m.a)}</td></tr><tr><th>Participant B</th><td>${slotTxt(m.b)}</td></tr>
+    <tr><th>Result</th><td>${resTxt(m)}${m.winner?' · winner '+slotTxt(m.winner):''}</td></tr><tr><th>Reasoning</th><td>${m.reasoning?esc(m.reasoning).replace(/\n/g,'<br>'):'<span class="g">No reasoning recorded. The match has not been simulated.</span>'}</td></tr></table>
+    <p class="mono g" style="font-size:11px">Simulated only. This record is the output of the Orem's simulation device, not an event in the catalogue.</p>`:'<p>No such match.</p>'}
+    <p><a href="#/simulations">← Back to the tournament</a></p></div>`;bindNav();window.scrollTo(0,0);return}
+  document.title='Simulations — The Orem.';
+  const ml=m=>`<tr><td class="mono"><a href="#/simulations/match/${esc(m.id)}">${esc(m.id)}</a></td><td>${slotTxt(m.a)}</td><td class="g">v</td><td>${slotTxt(m.b)}</td><td>${resTxt(m)}</td></tr>`;
+  const groups=T.groups.map(g=>`<div class="sim-g"><h3 class="mono">GROUP ${esc(g.id)}</h3><ol>${g.members.map(x=>`<li>${slotTxt(x)}</li>`).join('')}</ol><table class="sim-m">${T.matches.filter(m=>m.stage==='Group '+g.id).map(ml).join('')}</table></div>`).join('');
+  const rounds=[...new Set(T.matches.filter(m=>!m.stage.startsWith('Group')).map(m=>m.stage))];
+  const ko=`<div class="sim-ko">${rounds.map(r=>`<div class="sim-r"><h3 class="mono">${esc(r.toUpperCase())}</h3>${T.matches.filter(m=>m.stage===r).map(m=>`<a class="sim-b" href="#/simulations/match/${esc(m.id)}"><span class="mono g">${esc(m.id)}</span><div>${slotTxt(m.a)}</div><div>${slotTxt(m.b)}</div><div>${resTxt(m)}</div></a>`).join('')}</div>`).join('')}</div>`;
+  app.innerHTML=`<div class="w">${nav()}<h2 class="t" style="margin-top:28px">Simulations<span class="red">.</span></h2>
+  <p>${esc(T.framing)}</p><h3 class="mono" style="margin-top:26px">${esc(T.title).toUpperCase()}</h3><p class="g">${esc(T.format)}</p>
+  <div class="sim-gs">${groups}</div><h3 class="mono" style="margin-top:30px">KNOCKOUT BRACKET</h3>${ko}
+  <p class="mono g" style="font-size:11px;margin-top:20px">Every result is simulated only. Participants and results are kept in content/simulations/tournament.json and are edited with the exhibit-locker editor.</p></div>`;
+  bindNav();
+}
 function route(){
   const h=decodeURIComponent(location.hash.replace(/^#\/?/,''));
-  if(!h){document.title='The Orem.';home()}else if(h.startsWith('index')){document.title='Index — The Orem.';indexPage()}else entry(h);
+  if(!h){document.title='The Orem.';home()}else if(h.startsWith('index')){document.title='Index — The Orem.';indexPage()}else if(h==='simulations'||h.startsWith('simulations/')){simPage(h)}else entry(h);
 }
 fetch('data/index.json',{cache:'no-cache'}).then(r=>r.json()).then(j=>{IDX=j;window.OREM={get idx(){return IDX},route,current:()=>decodeURIComponent(location.hash.replace(/^#\/?/,''))};buildLinks();addEventListener('hashchange',()=>{route();window.dispatchEvent(new Event('orem:route'))});route();window.dispatchEvent(new Event('orem:route'))})
  .catch(err=>{app.innerHTML='<div class="w"><h1>The Orem.</h1><p>Could not load data/index.json ('+esc(err)+'). Serve the folder over HTTP (GitHub Pages or <code>python3 -m http.server</code>).</p></div>'});

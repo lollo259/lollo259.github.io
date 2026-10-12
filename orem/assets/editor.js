@@ -122,7 +122,18 @@ async function openEditor(slug,isNew){
     }catch(e){if(/40[13]/.test(e.message)){clearTok();label()}msg('Save failed: '+(e.message||e),'err')}
     finally{$('#oe-save').disabled=false}};
 }
+async function openJSON(rel){
+  if(!getTok())return askCode(()=>openJSON(rel));
+  overlay(`<h3>RETRIEVING…</h3><div id="oe-msg" class="oe-msg"></div>`);let f;
+  try{f=await getFile(rel);if(!f)throw new Error('File not found: '+rel)}catch(e){if(/40[13]/.test(e.message)){clearTok();label()}msg(String(e.message||e),'err');return}
+  overlay(`<h3>EDIT SIMULATION DATA · ${esc(rel)}</h3><p>Participants are REM slugs (e.g. rem-504). Fill a match's result, winner and reasoning only after it has been simulated.</p><textarea id="f-json" spellcheck="false">${esc(f.text)}</textarea>
+  <div class="oe-row"><button class="pri" id="oe-save">Save &amp; commit</button><button id="oe-x">Cancel</button></div><div id="oe-msg" class="oe-msg"></div>`);
+  $('#oe-x').onclick=close;let sha=f.sha;
+  $('#oe-save').onclick=async()=>{const t=$('#f-json').value;try{JSON.parse(t)}catch(e){msg('Invalid JSON: '+e.message,'err');return}
+    try{$('#oe-save').disabled=true;msg('Committing…');const r=await putFile(rel,b64e(t),sha,'Update simulation data via exhibit locker');sha=r&&r.content&&r.content.sha||sha;msg('Saved. The live page updates in ~1–2 minutes.','ok')}
+    catch(e){if(/40[13]/.test(e.message)){clearTok();label()}msg('Save failed: '+(e.message||e),'err')}finally{$('#oe-save').disabled=false}}}
 btn.onclick=()=>{const cur=(window.OREM&&window.OREM.current())||'';
+  if(cur.startsWith('simulations'))return openJSON('content/simulations/tournament.json');
   const isEntry=cur&&cur!=='index'&&!cur.startsWith('index');
   if(!getTok())return askCode(()=>openEditor(isEntry?cur:'',!isEntry));
   openEditor(isEntry?cur:'',!isEntry)};
