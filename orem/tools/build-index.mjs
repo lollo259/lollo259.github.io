@@ -24,7 +24,7 @@ for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.md'))){
  if(d.removed){redirects[f.replace(/\.md$/,'')]={to:'',removed:true,rem:d.rem,name:d.name};continue}
  if(d.merged_into){redirects[f.replace(/\.md$/,'')]={to:String(d.merged_into).toLowerCase(),rem:d.rem,name:d.name};continue}
  const types=[...body.matchAll(/<!-- type: ([a-z ]+?)\s*(\||-->)/g)].map(x=>x[1]);
- const quote=(body.split('<!-- type: quote -->')[1]||'').split('\n## ')[0].trim();
+ const art=body.split('<!-- type: article -->')[1];const quote=((art!==undefined?art:body.split('<!-- type: quote -->')[1])||'').split('\n## ')[0].trim();
  const [n,sub]=order(String(d.rem||''));
  out.push({slug:f.replace(/\.md$/,''),rem:d.rem,name:d.name,aliases:d.aliases||[],type:d.type||'Other',category:d.category||'',
   object_class:d.object_class||'',source:d.source||'',explicit:!!d.explicit,image:d.image||'',image2:d.image2||'',image_caption:d.image_caption||'',gallery:d.gallery||'',catalogued_by:d.catalogued_by||'',range:range(n),n,sub,

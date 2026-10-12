@@ -90,6 +90,11 @@ function section(s,self,used){
   const t=s.type,isT=(t==='log'||t==='interview')||/<Begin log>|&lt;Begin log|<Inizio registro>/i.test(s.text);
   const body=isT?transcript(s.text,self,used):s.text.split(/\n{1,}/).map(p=>`<p>${inline(p,self,used)}</p>`).join('');
   return `<div class="sec" data-type="${esc(t)}"><h3>${esc(s.title.replace(/\*\*/g,''))}</h3><div class="meta">${esc(t.toUpperCase())}${s.meta?' · '+esc(s.meta):''}</div>${body}</div>`;}
+function renderSecs(secs,slug,used){
+  const art=secs.filter(s=>s.type==='article');if(!art.length)return secs.map(s=>section(s,slug,used)).join('');
+  const rest=secs.filter(s=>s.type!=='article');
+  const A=art.map(s=>`<div class="sec art"><h3>${esc(s.title)}</h3>${s.text.split(/\n{1,}/).map(p=>/^- /.test(p)?`<p class="li">${inline(p.slice(2),slug,used)}</p>`:`<p>${inline(p,slug,used)}</p>`).join('')}</div>`).join('');
+  return A+(rest.length?`<details class="srcx"><summary class="mono">SOURCE EXCERPTS (${rest.length})</summary>${rest.map(s=>section(s,slug,used)).join('')}</details>`:'');}
 async function entry(slug){
   const rd=IDX.redirects&&IDX.redirects[slug];if(rd&&rd.to){location.replace('#/'+rd.to);return}
   if(rd){app.innerHTML=`<div class="w">${nav()}<h2 class="t">${esc(rd.rem)}: retired</h2><p>This number was removed from the catalogue and is not reused.</p><a href="#/index">Index</a></div>`;bindNav();return}
@@ -106,7 +111,7 @@ async function entry(slug){
   <tr class="mono"><td>1</td><td>${esc(e.source)}</td><td>Dr. Daedalus</td><td>Transcription</td></tr><tr class="mono"><td>2</td><td>Dr. Daedalus</td><td>Site-██ archive</td><td>Cataloguing</td></tr><tr class="mono"><td>3</td><td>Site-██ archive</td><td>Exhibit locker</td><td>Display</td></tr></table>
   <div class="g mono" style="font-size:10px;margin-top:6px">Chain of custody</div></div>
   <div><div class="g mono" style="font-size:12px">EXHIBIT ${e.i+1} · ITEM # ${esc(e.rem)} · OBJECT CLASS: ${esc(e.object_class.toUpperCase())}</div><h2 class="t">${esc(e.name.replace(/\s*\(.*$/,'')||e.name)}</h2>${ali}
-  <div id="body">${gated?`<div class="gate"><b>CONTENT WARNING</b><p>This exhibit contains sexually explicit or extreme material from the source text. The text is reproduced intact.</p><button id="rv">Reveal this exhibit</button> <button id="rva">Reveal all exhibits</button></div>`:secs.map(s=>section(s,slug,used)).join('')}</div>
+  <div id="body">${gated?`<div class="gate"><b>CONTENT WARNING</b><p>This exhibit contains sexually explicit or extreme material from the source text. The text is reproduced intact.</p><button id="rv">Reveal this exhibit</button> <button id="rva">Reveal all exhibits</button></div>`:renderSecs(secs,slug,used)}</div>
   <div class="pn">${prev?`<a href="#/${prev.slug}">← ${esc(prev.rem)} ${esc(prev.name.slice(0,30))}</a>`:'<span></span>'}<a href="#/index">Index</a>${next?`<a href="#/${next.slug}">${esc(next.rem)} ${esc(next.name.slice(0,30))} →</a>`:'<span></span>'}</div></div></div></div>`;
   bindNav();
   if(gated){$('#rv').onclick=()=>{revealed.add(slug);entry(slug)};$('#rva').onclick=()=>{localStorage.setItem('orem-explicit','show');entry(slug)}}
