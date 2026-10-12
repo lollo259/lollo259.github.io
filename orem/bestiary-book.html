@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Bestiary — a codex of the Orem's Library</title>
+<title>The Bestiary</title>
 <style>
 @font-face{font-family:Fell;src:url(assets/fonts/IMFePIrm28P.ttf)}
 @font-face{font-family:Fell;font-style:italic;src:url(assets/fonts/IMFePIit28P.ttf)}
@@ -61,11 +61,12 @@ a{color:var(--rub)}
 .veil button,.ui button{font-family:FellSC;background:#3a2414;color:#e8d6ac;border:1px solid #c49650;padding:6px 14px;margin:6px;cursor:pointer}
 .ui{position:fixed;bottom:10px;left:0;right:0;text-align:center;color:#b88a4a;font-family:Fell;font-style:italic;font-size:14px;z-index:50}
 .ui a{color:#c49650}
+.close{position:fixed;top:10px;right:14px;z-index:60;color:#8a6a40;font:italic 13px Fell,serif;text-decoration:none;opacity:.6}.close:hover{opacity:1;color:#c49650}
 .hint{position:fixed;top:10px;left:0;right:0;text-align:center;color:#8a6a40;font-style:italic;font-size:13px}
 </style></head><body>
-<div class="hint">Drag or click a page corner, or use the ← → keys. A codex of the Orem's Library.</div>
+<div class="hint">Drag or click a page corner, or use the ← → keys.</div>
 <div id="stage"><div id="scaler"><div class="book" id="book"></div></div></div>
-<div class="ui"><button id="pv">‹</button> <span id="pn"></span> <button id="nx">›</button> · <a href="index.html#/rem-127">REM-127 Il Bestiario</a> · <a href="index.html#/rem-126">REM-126 Librarii Ofel Isandarìa</a></div>
+<div class="ui"><button id="pv">‹</button> <span id="pn"></span> <button id="nx">›</button></div><a class="close" href="index.html#/rem-127" title="Close the book">✕ close</a>
 <script>
 (async()=>{
 const D=await (await fetch('data/bestiary.json',{cache:'no-cache'})).json();
@@ -86,27 +87,27 @@ const page=(html,o={})=>pages.push({html,...o});
 const pp=(inner,o={})=>{folio++;return page(`${stains()}<div class="in">${inner}</div>${o.marg||''}<div class="folio">${o.nofolio?'':'f. '+roman(folio)}</div>`,{cls:'pg',torn:true,...o})};
 function roman(n){const m=[[50,'l'],[40,'xl'],[10,'x'],[9,'ix'],[5,'v'],[4,'iv'],[1,'i']];let r='';for(const[v,s]of m)while(n>=v){r+=s;n-=v}return r}
 // cover
-page(`<div class="frame"></div>${[[18,18],[408,18],[18,588],[408,588],[213,300]].map(([x,y])=>`<div class="boss" style="left:${x}px;top:${y}px"></div>`).join('')}<div class="t">Bestiarium</div><div class="s">Il Bestiario of the Orem<br>Monsters · Swords · Weapons</div>`,{cls:'cov'});
-page(`<div class="in" style="color:#c49650;text-align:center;top:220px"><div style="font-family:FellSC;font-size:15px;opacity:.7">Ex libris</div><div style="font-family:Fraktur;font-size:30px;opacity:.75">Librarii Ofel Isandarìa</div><div style="font-style:italic;opacity:.6;margin-top:8px">the Library of the Orem<br><a style="color:#c49650" href="index.html#/rem-126">REM-126</a></div></div>`,{cls:'wood'});
-pp(`<h2 style="text-align:center;margin-top:70px">Il Bestiario</h2><div class="orn">✠</div><p style="text-align:center;font-style:italic">A codex kept in the Library of the Orem, <a href="index.html#/rem-126">REM-126</a>, beside the other books of that zone.</p><p class="cap">${md(D.intro).slice(0,700)}</p><p style="text-align:center;font-style:italic">Catalogued as <a href="index.html#/rem-127">REM-127</a>. Swords and weapons are Monsters, and are filed here.</p>`,{nofolio:true});
-const half=Math.ceil(D.items.length/2);
-const tocL=(a,start)=>{let g='',h='';a.forEach((it,i)=>{if(it.group!==g){g=it.group;h+=`<div class="grp" style="margin-top:6px">${esc(g)}</div>`}h+=`<div><a href="#" data-go="${it.slug}">${esc(it.name)}</a> <span class="r">· ${esc(it.rem)}</span></div>`});return h};
+page(`<div class="frame"></div>${[[18,18],[408,18],[18,588],[408,588],[213,300]].map(([x,y])=>`<div class="boss" style="left:${x}px;top:${y}px"></div>`).join('')}<div class="t">Bestiarium</div><div class="s">Il Bestiario<br>Monsters · Swords · Weapons</div>`,{cls:'cov'});
+page(`<div class="in" style="color:#c49650;text-align:center;top:220px"><div style="font-family:FellSC;font-size:15px;opacity:.7">Kept in the</div><div style="font-family:Fraktur;font-size:30px;opacity:.75">Librarii Ofel Isandarìa</div><div style="font-style:italic;opacity:.6;margin-top:8px">the Library of the Orem</div></div>`,{cls:'wood'});
+pp(`<h2 style="text-align:center;margin-top:70px">Il Bestiario</h2><div class="orn">✠</div><p style="text-align:center;font-style:italic">An ancient codex, itself a Monster among those it holds. It is kept in the Library, beside the other books of that zone.</p><p class="cap">${md(D.intro).slice(0,700)}</p><p style="text-align:center;font-style:italic">Swords and weapons are Monsters, and are kept herein.</p>`,{nofolio:true});
+const half=Math.ceil(D.items.length/2);const fol={};D.items.forEach((it,i)=>fol[it.slug]=4+2*i);
+const tocL=(a,start)=>{let g='',h='';a.forEach((it,i)=>{if(it.group!==g){g=it.group;h+=`<div class="grp" style="margin-top:6px">${esc(g)}</div>`}h+=`<div><a href="#" data-go="${it.slug}">${esc(it.name)}</a> <span class="r">· f. ${roman(fol[it.slug])}</span></div>`});return h};
 pp(`<h3 style="text-align:center;font-size:19px">Tabula</h3><div class="toc">${tocL(D.items.slice(0,half))}</div>`);
 pp(`<div class="toc" style="margin-top:28px">${tocL(D.items.slice(half))}</div>`);
 const at={};
 for(const it of D.items){
  at[it.slug]=pages.length;
- const gate=it.explicit?`<div class="veil" data-veil="${it.slug}"><b>Explicit content</b><p>This leaf is gated, as in the catalogue.</p><div><button data-rv="${it.slug}">Reveal this leaf</button><button data-rva="1">Reveal all</button></div></div>`:'';
- const marg=`<a class="marg" href="index.html#/${it.slug}">${esc(it.rem)}</a>`;
+ const gate=it.explicit?`<div class="veil" data-veil="${it.slug}"><b>Explicit content</b><p>This leaf is veiled.</p><div><button data-rv="${it.slug}">Reveal this leaf</button><button data-rva="1">Reveal all</button></div></div>`:'';
+ const marg='';
  const secs=it.sections;let budget=1350,body='';
  const first=secs[0];
  // left page: title, figure, opening
- let left=`<div class="grp">${esc(it.group)}</div><h2>${esc(it.name)}</h2><div style="font-style:italic;font-size:13px;color:var(--ink2)">${esc(it.rem)}${it.explicit?' · explicit':''}</div><div class="orn" style="font-size:18px">❧</div>`;
+ let left=`<div class="grp">${esc(it.group)}</div><h2>${esc(it.name)}</h2><div class="orn" style="font-size:18px">❧</div>`;
  if(it.image)left+=`<img class="fig" src="${esc(it.image)}" alt="">`;
  let lb=it.image?260:1000;const rest=[];
- for(const s of secs){if(lb>80){const t=s.t.slice(0,lb);left+=`<h3>${esc(s.h)}</h3><p class="${s===first?'cap':''}">${md(t)}${t.length<s.t.length?'…':''}</p>`;lb-=t.length+40;if(t.length<s.t.length)rest.push({h:s.h+' (cont.)',t:s.t.slice(t.length)})}else rest.push(s)}
- for(const s of rest){if(budget<80)break;const t=s.t.slice(0,budget);body+=`<h3>${esc(s.h)}</h3><p>${md(t)}${t.length<s.t.length?'…':''}</p>`;budget-=t.length+40}
- body+=`<p style="text-align:center;font-style:italic;font-size:13px;margin-top:12px">— the full record is kept at <a href="index.html#/${it.slug}">${esc(it.rem)}</a> —</p>`;
+ for(const s of secs){if(lb>80){const t=s.t.slice(0,lb);left+=`${s.h?`<h3>${esc(s.h)}</h3>`:''}<p class="${s===first?'cap':''}">${md(t)}${t.length<s.t.length?'…':''}</p>`;lb-=t.length+40;if(t.length<s.t.length)rest.push({h:'',t:s.t.slice(t.length)})}else rest.push(s)}
+ for(const s of rest){if(budget<80)break;const t=s.t.slice(0,budget);body+=`${s.h?`<h3>${esc(s.h)}</h3>`:''}<p>${md(t)}${t.length<s.t.length?'…':''}</p>`;budget-=t.length+40}
+ body+=`<div class="orn" style="font-size:16px">❦</div>`;
  pp(left+gate.replace('data-veil','data-v1'),{marg,gated:it.explicit,slug:it.slug});
  pp(body+gate.replace('data-veil','data-v2'),{marg,gated:it.explicit,slug:it.slug});
 }
