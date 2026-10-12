@@ -12,7 +12,7 @@ const PER=60;
 function hash(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))|0;return Math.abs(h)}
 function photo(e,size,i,big){
   const inner=e.image?`<img class="fx-img" src="${esc(e.image)}" alt="${esc(e.name)}" loading="lazy">`
-   :`<div class="fx-red"><div class="fx-blk"><span>[IMAGE REDACTED]</span></div><div class="fx-tw">CLEARANCE: LEVEL ${(hash(e.slug)%4)+2} · ${esc(e.rem)}<br>OBJECT CLASS: ${esc(String(e.object_class).toUpperCase().slice(0,big?80:34))}</div></div>`;
+   :'';
   return `<div class="photo">${inner}<div class="mk" style="left:12px;top:12px">${i}</div>${big?'<div class="mk" style="right:80px;top:50px">'+i+'a</div>':''}<div class="pid">IMG_${4410+e.i}</div></div>`;
 }
 function nav(){
