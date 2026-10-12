@@ -21,6 +21,7 @@ function range(n){if(n<0)return 'O-REM';if(n>=1e6)return 'XXX';if(n<100)return '
 const out=[];const redirects={};
 for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.md'))){
  const {data:d,body}=parseFront(fs.readFileSync(path.join(dir,f),'utf8'));
+ if(d.removed){redirects[f.replace(/\.md$/,'')]={to:'',removed:true,rem:d.rem,name:d.name};continue}
  if(d.merged_into){redirects[f.replace(/\.md$/,'')]={to:String(d.merged_into).toLowerCase(),rem:d.rem,name:d.name};continue}
  const types=[...body.matchAll(/<!-- type: ([a-z ]+?)\s*(\||-->)/g)].map(x=>x[1]);
  const quote=(body.split('<!-- type: quote -->')[1]||'').split('\n## ')[0].trim();
