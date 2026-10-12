@@ -144,7 +144,8 @@ function simPrune(T){for(let k=0;k<40;k++){const X=simBuild(T);let ch=false;for(
   if(r.winner&&r.winner!==m.a&&r.winner!==m.b){delete r.winner;ch=true}
   if(!r.winner&&!r.result&&!r.reasoning){delete T.results[id];ch=true}}if(!ch)return}}
 const SS={tab:null,q:'',zoom:1,undo:[],dirty:false,open:null,msg:''};
-const simEd=()=>!!(window.OREM_EDITOR&&window.OREM_EDITOR.token&&window.OREM_EDITOR.token());
+const simEd=()=>true;
+function simDraw(){const P=IDX.entries.filter(e=>e.type==='Character').map(e=>e.slug);for(let i=P.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[P[i],P[j]]=[P[j],P[i]]}SIM.participants=P;SIM.results={};SIM.bracket_size=0;SS.undo=[];SS.dirty=false;SS.tab=null;SS.open=null;SS.msg=''}
 const nameOf=sl=>{const e=IDX.entries.find(x=>x.slug===sl);return e?(e.rem+' '+e.name):sl};
 function simSnap(){SS.undo.push(JSON.stringify(SIM.results||{}));if(SS.undo.length>200)SS.undo.shift();SS.dirty=true}
 function fighter(m,side,ed){const x=m[side],ok=x&&x.startsWith('rem-'),win=m.winner&&m.winner===x,lose=m.winner&&m.winner!==x;
@@ -166,35 +167,30 @@ function simRender(){
   app.innerHTML=`<div class="w">${nav()}<h2 class="t" style="margin-top:28px">Simulations<span class="red">.</span></h2>
   <p>${esc(T.framing)}</p><h3 class="mono" style="margin-top:22px">${esc(T.title).toUpperCase()}</h3><p class="g">${esc(T.format)}</p>
   <p class="mono" style="font-size:12px">${X.N} participants · starting bracket ${X.B} · ${total} matches · ${done} decided</p>
-  <div class="sbar">${ed?`<span class="mono clr">CLEARANCE: EDITING</span><button id="s-undo"${SS.undo.length?'':' disabled'}>Undo</button><button id="s-save" class="pri"${SS.dirty?'':' disabled'}>Save${SS.dirty?' *':''}</button>`:`<span class="mono g">READ-ONLY</span><button id="s-unlock">Unlock to edit</button>`}
+  ${X.all.F&&X.all.F.winner?`<div class="sc done" style="margin:10px 0;font-size:16px">🏆 Champion of this simulation: ${remLink(X.all.F.winner)}</div>`:''}<div class="sbar"><button id="s-new">New draw</button><button id="s-undo"${SS.undo.length?'':' disabled'}>Undo</button>
    <input id="s-q" type="search" placeholder="Search fighter or REM number" value="${esc(SS.q)}"><button id="s-zo" title="Zoom out">−</button><span class="mono">${Math.round(SS.zoom*100)}%</span><button id="s-zi" title="Zoom in">+</button><span id="s-msg" class="mono">${esc(SS.msg)}</span></div>
   <div class="tabs">${tabs}</div>${hits}
-  <div class="mono g" style="font-size:11px;margin:6px 0">${esc(R.name)} · ${R.ms.length} matches${R.byes?` · ${R.byes} fighters with byes`:''}${q?` · ${ms.length} shown`:''}${ed?' · click ☆ to pick the winner; winners advance automatically':''}</div>
+  <div class="mono g" style="font-size:11px;margin:6px 0">${esc(R.name)} · ${R.ms.length} matches${R.byes?` · ${R.byes} fighters with byes`:''}${q?` · ${ms.length} shown`:''} · click ☆ to pick the winner; winners advance automatically</div>
   <div class="sgrid" style="font-size:${13*SS.zoom}px;grid-template-columns:repeat(auto-fill,minmax(${Math.round(260*SS.zoom)}px,1fr))">${ms.map(m=>simCard(m,ed)).join('')||'<p class="g">No matches.</p>'}</div>
-  <p class="mono g" style="font-size:11px;margin-top:20px">Every result is simulated only. Data: content/simulations/tournament.json.</p></div>`;
+  <p class="mono g" style="font-size:11px;margin-top:20px">Every result is simulated only. Each visit draws a new random bracket; picks stay in this browser tab and are not saved.</p></div>`;
   bindNav();simBind();
 }
 function simBind(){const A=app;
   A.querySelectorAll('[data-tab]').forEach(b=>b.onclick=e=>{e.preventDefault();SS.tab=b.dataset.tab;simRender()});
   const q=$('#s-q');q.oninput=()=>{SS.q=q.value;const p=q.selectionStart;simRender();const n=$('#s-q');n.focus();n.setSelectionRange(p,p)};
   $('#s-zi').onclick=()=>{SS.zoom=Math.min(1.8,+(SS.zoom+.1).toFixed(1));simRender()};$('#s-zo').onclick=()=>{SS.zoom=Math.max(.6,+(SS.zoom-.1).toFixed(1));simRender()};
-  const un=$('#s-unlock');if(un)un.onclick=()=>window.OREM_EDITOR?window.OREM_EDITOR.askCode(()=>{SS.msg='';simRender()}):0;
+  $('#s-new').onclick=()=>{if(!SS.undo.length||confirm('Start a new random draw? Current picks will be lost.')){simDraw();simRender()}};
   A.querySelectorAll('.pick').forEach(b=>b.onclick=()=>{const id=b.dataset.m,w=b.dataset.w;simSnap();SIM.results=SIM.results||{};const r=SIM.results[id]=SIM.results[id]||{};
     r.winner=r.winner===w?'':w;simPrune(SIM);SS.msg='';simRender()});
   A.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{SS.open=SS.open===b.dataset.open?null:b.dataset.open;simRender()});
   A.querySelectorAll('[data-clear]').forEach(b=>b.onclick=()=>{simSnap();const r=SIM.results[b.dataset.clear];if(r)r.winner='';simPrune(SIM);simRender()});
   A.querySelectorAll('[data-f]').forEach(el=>{el.onfocus=()=>{el._snap=JSON.stringify(SIM.results||{})};el.onchange=()=>{SS.undo.push(el._snap||JSON.stringify(SIM.results||{}));SS.dirty=true;SIM.results=SIM.results||{};const r=SIM.results[el.dataset.m]=SIM.results[el.dataset.m]||{};r[el.dataset.f]=el.value.trim();simPrune(SIM);const s=$('#s-save');if(s){s.disabled=false;s.textContent='Save *'}const u=$('#s-undo');if(u)u.disabled=false}});
   const u=$('#s-undo');if(u)u.onclick=()=>{const p=SS.undo.pop();if(p!=null){SIM.results=JSON.parse(p);SS.dirty=true;simRender()}};
-  const sv=$('#s-save');if(sv)sv.onclick=async()=>{const E=window.OREM_EDITOR;sv.disabled=true;$('#s-msg').textContent='Committing…';
-    try{const rel='content/simulations/tournament.json';const f=await E.getFile(rel);const txt=JSON.stringify(SIM,null,1)+'\n';
-      const r=await E.putFile(rel,E.b64e(txt),f&&f.sha,'Update simulation results via exhibit locker');
-      SS.dirty=false;SS.undo=[];SS.msg='Saved'+(r&&r.commit?' · commit '+String(r.commit.sha).slice(0,7):'')+'. Live in ~1–2 min.';simRender()}
-    catch(e){SS.msg='Save failed: '+(e.message||e);sv.disabled=false;$('#s-msg').textContent=SS.msg}};
 }
-addEventListener('beforeunload',e=>{if(SS.dirty){e.preventDefault();e.returnValue=''}});
+
 async function simPage(h){
   if(!SIM){app.innerHTML=`<div class="w">${nav()}<p class="mono g">Loading simulation records…</p></div>`;bindNav();
-    try{SIM=await (await fetch('content/simulations/tournament.json',{cache:'no-cache'})).json();SIM.results=SIM.results||{}}catch(e){app.innerHTML=`<div class="w">${nav()}<p>Simulation records unavailable.</p></div>`;bindNav();return}}
+    try{SIM=await (await fetch('content/simulations/tournament.json',{cache:'no-cache'})).json();simDraw()}catch(e){app.innerHTML=`<div class="w">${nav()}<p>Simulation records unavailable.</p></div>`;bindNav();return}}
   const T=SIM,X=simBuild(T),mm=h.match(/^simulations\/match\/(.+)$/);
   if(mm){const m=X.all[mm[1]];document.title=`Simulation log ${mm[1]} — The Orem.`;
     app.innerHTML=`<div class="w">${nav()}<div class="g mono" style="margin-top:24px;font-size:12px">SIMULATION LOG · ${esc(T.title)} · MATCH ${esc(mm[1])}</div>

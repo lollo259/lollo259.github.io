@@ -23,6 +23,24 @@ notes: "Also PA, PC, ON. Merged from REM-175, REM-176, REM-177."
 image: ""
 ---
 
+## Description
+<!-- type: article -->
+The Machinist (Il Macchinista; formerly called the Admiral) is the founder of the Orem. His identity is unknown. He is hypothesised to be Antikristos Jay Shuha [REM-174](#/rem-174), the forgotten brother of St. Messiaen Jay Shuha [REM-145](#/rem-145), and is identified with Dedalus, the Watchmaker (l'Orologiaio) and Dr. Daedalus. He is a Libra and lives in [REM-190](#/rem-190).
+
+## Role
+<!-- type: article -->
+He took the Tecnica and divided it among the members of the Orem, keeping for himself the ability to create artifacts. He is the maker of many of the Bestiary's weapons. He calls the council of the gods the "Dogs of War".
+
+## Personality
+<!-- type: article -->
+Those around him describe great charisma. His maid Hana Nanami [REM-184](#/rem-184) calls him a conqueror whose desire is "second to none" and whose orders must be obeyed; she says he shaped her to his ideal of perfection, and calls herself his chest and him the key. The Organization's spokesperson [REM-183](#/rem-183) repeats his views; the interviewer judges him manipulative, using charm to gain trust. His interviews were repeatedly interrupted, possibly by him, and time between interruptions appeared distorted.
+
+## Relationships
+<!-- type: article -->
+- Hana Nanami [REM-184](#/rem-184): personal maid.
+- The spokesperson [REM-183](#/rem-183).
+- BLACKBOXXX [REM-999](#/rem-999): built with his help.
+
 ## Catalogue record
 <!-- type: quote -->
 Founder of the Orem, a Libra living in the [REM-190](#/rem-190). — Quote: "Il Macchinista è il fondatore di Orem. Sebbene la sua identità sia sconosciuta, si ipotizza che sia Antikristos Jay Shuha [[REM-174](#/rem-174)], il fratello dimenticato di San Messiaen Jay Shuha. Si ipotizza che…"

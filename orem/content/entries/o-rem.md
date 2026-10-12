@@ -15,6 +15,28 @@ notes: "Code O-REM chosen by the author. The afterlife definition is sourced fro
 image: ""
 ---
 
+## Description
+<!-- type: article -->
+The Orem is mostly the afterlife: the realm and the organization (the "Organization" of the dossiers) where the dead go. The sources call it humanity's only hope. It stands on Paradis, the planet and goddess of the first book. Its name is also read as "theorem": an organization of the lower creatures, created to unite all creatures and defeat the gods.
+
+## Purpose and method
+<!-- type: article -->
+A single creature is nothing next to a god, and even an anthill of creatures is small next to one. The Orem is not a simple anthill: its units attack the body of the gods like a virus. It studies the structure of the divine, the "pastures in heaven", and codifies its parts in order to bring it to collapse. When the Creation is at war with its Creator, the mind collapses and the Artist no longer rules the domain.
+
+## Structure
+<!-- type: article -->
+The Machinist [REM-XXX](#/rem-xxx), its founder, took the Tecnica and divided it among the members (five, or however many the Orem has), giving each a specialty and keeping for himself the ability to create artifacts.
+
+Its zones of interest include Babel, a branch dedicated to the writing of books; the Library [REM-126](#/rem-126) with the Bestiary; and The Farm [REM-371](#/rem-371), structures in the asteroid ring "Armageddon" run by the Astral Task Force for experimentation and for the re-education and training of new recruits, the dead. Its elite units are the Terra Task Forces [REM-319](#/rem-319), the "best of the best" of the Organization.
+
+## Conflict with the Saints
+<!-- type: article -->
+In the saga plan the fourth book is "the classic good vs bad, Orem vs Saints". The Orem keeps technical observations on the council of the gods (the Wargods, the Horsemen and the judge Hecatekali [REM-148](#/rem-148)), and the events of [REM-216](#/rem-216) are "the final battle of the wars between Saints and Orem".
+
+## Afterlife
+<!-- type: article -->
+BLACKBOXXX [REM-999](#/rem-999) is the Orem's afterlife store of the dead (see that entry).
+
 ## Catalogue record
 <!-- type: quote -->
 The Orem is the afterlife (author's notes, see below). — Quote: "That is why humanity has only one hope, which lies in the group of Orem."
