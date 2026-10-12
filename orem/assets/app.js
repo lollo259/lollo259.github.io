@@ -13,7 +13,7 @@ function hash(s){let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))|0;ret
 function photo(e,size,i,big){
   const inner=e.image?`<img class="fx-img" src="${esc(e.image)}" alt="${esc(e.name)}" loading="lazy">`
    :'';
-  return `<div class="photo">${inner}<div class="mk" style="left:12px;top:12px">${i}</div>${big?'<div class="mk" style="right:80px;top:50px">'+i+'a</div>':''}<div class="pid">IMG_${4410+e.i}</div></div>`;
+  return `<div class="photo${e.image?' has-img':''}">${inner}<div class="mk" style="left:12px;top:12px">${i}</div>${big?'<div class="mk" style="right:80px;top:50px">'+i+'a</div>':''}<div class="pid">IMG_${4410+e.i}</div></div>`;
 }
 function nav(){
   return `<nav><a href="#/"><b>THE OREM — EXHIBIT LOCKER</b></a><span>Site-██ · Property &amp; Exhibits Unit</span>

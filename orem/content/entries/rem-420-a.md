@@ -17,6 +17,13 @@ image: ""
 <!-- type: quote -->
 Test-subject designation for the suit. — Quote: "Addendum REM-420-A - Deity Erasure Effects:"
 
+
+## Source excerpts
+<!-- type: description | source: THE OREM | translated: no -->
+Grasping Power: The user demonstrated the ability to manipulate the chronotope field, bending and folding spacetime itself. Test subject REM-420-A grasped the air with one hand, causing the surrounding space to follow the motion of the arm.
+
+Throwing Power: The suit allowed the user to propel themselves across vast distances, reaching the other side of the Universe within moments. Test subject REM-420-A demonstrated the capability to move at unquantifiable speeds by utilizing the suit’s physical strength and the inherent temporal manipulation of the chronotope.
+
 ## Source note
 <!-- type: note -->
-Only a brief mention exists in the sources; the catalogue quote above is verbatim from: THE OREM.
+the catalogue quote above is verbatim from: THE OREM.
