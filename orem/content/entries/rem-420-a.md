@@ -13,6 +13,10 @@ notes: ""
 image: ""
 ---
 
+## Description
+<!-- type: article -->
+REM-420-A is the designation used for the A.N.G.E.L. Suit [REM-420](#/rem-420) test-subject addendum, titled "Deity Erasure Effects". The source gives no further detail.
+
 ## Catalogue record
 <!-- type: quote -->
 Test-subject designation for the suit. — Quote: "Addendum REM-420-A - Deity Erasure Effects:"
