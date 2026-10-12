@@ -171,3 +171,141 @@ Editor: So there's no happy ending, is there?
 ## Per Aspera: The Machinist
 <!-- type: description | source: Per Aspera | translated: no -->
 **The Machinist**
+
+## From the source: Il Quadrante delle emozioni
+<!-- type: description | source: Il Quadrante delle emozioni | translated: yes -->
+Now, the only light you're gonna follow is that made of black fire. The Sniper is your messiah. The Orem is your salvation. Stop yourself from your own Art. When Orpheus encounters death infinity, a black sea will fill the domain. Only then, when you have contemplated the abyss, the silent darkness will look you deep. [...]
+
+An ant is nothing compared to a religious mantis. But the same insect, if compared to an entire anthill, would be completely annihilated. This was the main concept behind theorem (the Orem), an organization of the lower creatures created to unite all creatures and defeat the gods. But there is still a big problem: if all creatures form an anthill, a single god is more like a diplodocus. But Oregon is not a simple anthill: its units attack the body of the gods as a virus. When the Creation is at war with its Creator, the mind collapses. The domain is no longer dominated by the Artist. The Orem studies the structure of divine, pastures in heaven. It codifies the parts, to bring it to the collapse. The council of the gods, the Dogs of War (as the Macchinist calls them, but as Ion Henri also called them), is composed of five fragments of the artist's childhood. Here are some technical observations from the Orem.
+
+[...] St. Elias Yensid, Military God of the concrete environment. The artist's hand. The absurdity of the design. The concerting ability. The god owns a .44 Remington Magnum caliber, whose bullets have abnormal properties. Some bullets contain different things, such as objects, materials, organisms and concepts. He can shoot. He can shoot a hydrogen bomb. He can shoot your memories, erasing them. He can shoot you from the future. You can shoot the entire domain. He can blow my head. If she disappeared, the hand of the Artist would cease to work. St. Jean-Marie Maelstrøm, military god of abstract defense. He is the inventor, the director, the wizard. His projects rewrite the domain itself. The structure varies, it changes according to its vision. He defends the mind, and acts following terror. St. Goitsebeng Bomaye, military God of logistics. He is the performer, the executioner. He moulds the soul, morals, stops it when it goes beyond. St. Messiaen Jay Shuha, Military God of the Law. A lack of spirituality, which existed in its time, and that perhaps will return in the future. Ste. Namygal Caesar, military goddess of agriculture. The Storm Dragon. He represents the artist who fights asperities to the stars. He cultivates himself and his ambition. Ste. Hecátekáli, Boia. Hecatekali is the supreme quintessence and judge of the gods. She is known as the Queen of Ragnarok, for her incalculable destructive powers. A small committee helps her. These include the Parvati family, Thoth and Prometheus, the sword of Icarus. Hekatekali once existed as three titans, namely Ander Ster, Andro Meda and Badrulbudur. Parvati is the wife of San Shiva Parvati. They take Boia's appearances during a special ceremony. They are immersed in a hot tub full of a blue liquid called [REDACTED]; immersed in the liquid, they are transformed into the goddess. The four knights—inspired by Yuki-onna, Nietzsche, Camus and Lovecraft. The Four Knights are the main commanders of the Celeste Meridian. Each of them is assigned an army. They are called to arms through a horn. Phasis, Death Carrier is the commander of the 1st division. His favorite weapon is Diamonds Are Forever, a sword made of diamonds and ice, an artifact that can extract from any part of his body. The artist thinks of every single way death can cut him off from the rest of the world. Every single way. Techniques Mutoryu Oiseaux (from the weakest to the strongest): Hanauta Sanchou: Yahazu Giri - the user moves so quickly that the shot is noticed only after a few seconds; Hanauta Sanchou: Yuki never - the user grabs the sword with both hands and moves it from the back in front of him. The coldness of the sharp blade movement and its extreme precision, combined with sudden arrest, create cold vapors and freeze the front attack. In practice, the target cannot move. ; Hanauta Sanchou: Gamengiri - the user stands with his back facing the opponent and the sword in front of him, held with both hands. The blade is directed towards the user, which turns quickly and affects the opponent; Hanauta Sanchou: Harakiri - the sword is in the right hand and the left hand is above the other. It is positioned with the handle on the right side of the abdomen. The user then drills the opponent on the left side of the abdomen; Hanauta Sanchou: Yakkodori - the sword is in the right hand of the user, and is extended with the tip to the right, touching the ground. The user then launches a bullet fender, which will not stop for miles; Hanauta Sanchou: Shibire - same position as the Yuki never, but the blade is held with a hand. The target body will notice the attack after a few hours, even days; Warai Sanchou (Sanchou laughing) - some of the previous techniques are performed in the opposite direction of the blade and in the order of continuity, solving in a bigger cut due to the greater difficulty; Aisusukai - The sword remains motionless and the user supports a hand on the side of the blade. Any subsequent attack will pass through the side of the sword. It is a defensive technique; Warai Sanchou: Yakkodori - identical to Yakkodori, but inverted. The cut will spread behind the user and will be much larger. The target is behind the user. Warai Sanchou: Baccarat - basically a reversed Yuki no mai without putting the sword behind the back. The force generated by the slash is so great that the slash itself can appear in any direction, and the user wishes for their luck to slash the opponent; Gyojin Sanchou: Surasshu - a simple sword slash with the Fishman Karate technique. The opponent gets deformed, and it's used against Haki users, to bypass their armor; Gyojin Sanchou: Ryu Samehada - a simple sword slash, but without touching the opponent, who receives the attack from very far away; Hanauta Sanchou: O no ha - the user charges their attack like the King's Punch, but instead of punching the target they perform a sword technique. The blade is in front of the user, inside the handle. It's then extracted with sheer velocity, creating an insanely powerful slash. It's impossible to block the attack since it's an instant kill for anyone including yonkos. Innominandum, Bringer of Famine is the commander of the 2nd division. He wears a cloak. The only visible parts of his body are his face, always covered by a stoic expression, similar to H.P.Lovecraft; his left arm, that strangely has a right hand holding a lantern; his right arm, fused with a long, rotting chain. Planetes, War Carrier, is the commander of the third division. November VII, Portatore di Conquista, is the commander of the fourth division. Icarus meets his sister Falari to plan the conquest of the Celestial Meridian and meet their father. [...] Ion Henri confesses his sins in AN ACT OF PAROLE, but in the end he is executed by St. Goitsebeng Bomaye. [...] A soldier of a task force of the Orem entities the A.N.G.E.L. Suit, planning a rampage on the armageddon loop. [...] Ion Henri's head is kept in the prairies, while the body is pulled into the lower dimension. [...] Ion Henri's body becomes a recurring star. [...] Ion Henri's head continues to spread stories and corruption to some Knights. [...] Icarus fights against Planetes. [...] The Beyonder’s ship is approaching the planet Tuonela. Kamehameha is running towards them, to save his planet. From the distance, he looks like a shooting star. The Beyonder’s ship arrives on Tuonela. It is immediately attacked by multiple rockets. With a hand wave, agent Jai Bird freezes them in place, fine the rockets fall down and explode. “Will you blow up this hell? ” the machinist asks. Jai Bird remains silent. “I thought so. You and your morals...” “Jai, remind me to kill you, someday. June, like daddy. ” His daughter, June, reaches out from the cabin, and approaches the machinist with a smile on her face. He caresses her left cheek with his right hand. “You know how much I love you, June. You know how much you mean to me.” June smiles, unware of what’s about to happen. “Well, today is the day you finally understand why you meant so much to me.” The machinist tightens his grip on her cheek, grasping her ear, too. “Dad... You’re hurting me, Dad. The machinist brings June with force to the opening of the ship. “Enough Dad! What’s going on?!” The machinist finally releases his grip, only for June to fall backward out of the ship. When she finally splatters on the ground, she implodes, destroying the entire planet. Kamehameha stops (emitting a glare of gas from his hands, like a comet), and while crying, is literally punched by the beyonder’s ship, which has already escaped the explosion. He immediately grabs it from below, then rotating on top of it. “Eheh, I don’t think he liked it” exclaims the machinist, while hearing the movements of the titan. In a quest of rage, Kamehameha extends two fingers towards the universe. Then we see the Upside-down man turning his head to his right. Then we see Hecatekali, preparing to transform. Then the Upside-down man extends two fingers himself. He acts as an antenna, from Orpheus to the universe. At fast lightning strike arrives to Kamehameha’s fingers. He feels an incredible power. He breaks the ship’s cover, and punches inside. Jai Bird freezes the punch with his left hand. Kamehameha augments the momentum of his punch emitting a glare of gas behind his elbow. But his punch is already slowed in time. Jai Bird grabs the chronotope in front of the adversary, and then he swings their head down on the floor. Kamehameha looks at Jai Bird. Then we see Orpheus looking at Jai Bird, and the bishop thinks he’s about to kill him (when in reality he’s killing the titan). The titan, forced, has an impossible leap towards Jai Bird. Then we see Hecatekali’s room, full of droplets of blue liquid and jewelry all over the place. Then we see the ship, half destroyed. Jai Bird is panting, laying on the ground. “What did we learn today?” says the machinist, completely unfazed by what happened. Then we see Hecatekali Devouring Kamehameha, kilometers from the ship. [...] Icarus killed Planetes, and is now one of the Four Horsemen. We see Falari standing as another horseman, while the body of Phasis is melting under her as a seat. Falari is holding Phasis’ cranium. [...] November VII abandons the Four Knights because of him, while Innominandum remains. [...] Nami Gal surrenders his position to the Fisherman's Table. Victor Sierra looks for a shinigami model. [...] The Man of Miracles becomes a God of War, defeating Messiaen. [...] The Three Knights, later the Celestial Meridian, declare war on the Gods of War. [...] Nami Gal understands that this is the time when he can save his lover, the Fisherman, so he comes to him to be killed, and he becomes a God of War. [...] Falari completely annienta Maelstrom in a few seconds. [...]
+
+Interview: Hana Nanami, a possible muse of the author
+
+Me: Interesting how you pronounce those words while being under the rule of a dictator like The Machinist…
+
+[...] Frankly, it is frightening. Our main leader, the one who should save all constellations from the Eonian War, is the most sadistic, evil and dangerous being of all paracosm. The Sniper is the worst of all of us and we still have to follow his footsteps.
+
+Preface: Observation register, recorded by TTF Omega-1, of an interaction between the Macchiniist and two residents of the Silver City, during the XLII expedition of the Arcano ship.
+
+The Earrings: I am the admiral of any existing reality. I count myself.
+
+Metatron: We bow before your majesty, great leader. We wonder what might be the reason for your visit.
+
+The Earrings: As you should already know, your universe is populated by many powerful beings. You noticed that those beings become more robust as these gentlemen approach. Although highly unlikely, I cannot allow their powers to be close to mine.
+
+The Earrings: I ask that those individuals be enlisted in my crew and face their inevitable fate.
+
+Metatron: You may not know that one of those individuals is a fundamental part of our gods pantheon, sire.
+
+The Earrings: I've been so kind to make you a formal request. I didn't ignore your authority going straight to that gentleman.
+
+Abbaddon: With all due respect, we cannot sacrifice a member of our council for the unknown good of another universe.
+
+The Earrings: This is the fate of the whole world that is at stake. I understand you can't understand the great pattern of things, but I need you to hand me the subject.
+
+Abbaddon: We ask you to leave, Grand Master. We cannot satisfy your request.
+
+The Earrings: What an insolence.
+
+Metatron: I apologize for her. Nevertheless, it is true that we cannot execute your orders.
+
+The driver:
+
+<Fine registro>
+
+~
+
+The body of Badrulbudur, which is a third of Hekatekali; his daughter Art, who secretly is a bomb capable of destroying the whole paracosm; Qagela, a fusion of multiple constellations, mainly used for recreational purposes; multiple models of concepts.
+
+Editor: The engineer censored him.
+
+Author: But I created the Sniper. I should be able to...
+
+## Mentions in other documents: Documento senza titolo
+<!-- type: description | source: Documento senza titolo | translated: no -->
+Task Force Mission: Terra Task Force Alpha-1 is a secret task force that reports directly to the Machinist, and only Class A, B, C personnel know of its existence. "The Beyonders" have been selected for their individual skill set in a particular field, and are deployed only to other universes or in the blank space between fiction and reality. They are considered the pinnacles of the universe. They are responsible for capturing deities.
+
+## Mentions in other documents: Paracosmia
+<!-- type: description | source: Paracosmia | translated: no -->
+The Beyonder’s ship is approaching the planet Tuonela. Kamehameha is running towards them, to save his planet. From the distance, he looks like a shooting star. The Beyonder’s ship arrives on Tuonela. It is immediately attacked by multiple rockets. With a hand wave, agent Jai Bird freezes them in place, subsequently the rockets fall down and explode. “Will you blow up this inferno?” the machinist asks. Jai Bird remains silent. “I thought so. You and your morals…” “Jai, remind me to kill you, someday. June, come to daddy.” His daughter, June, reaches out from the cabin, and approaches the machinist with a smile on her face. He caresses her left cheek with his right hand. “You know how much I love you, June. You know how much you mean to me.” June smiles, unaware of what’s about to happen. “Well, today is the day you finally understand why you meant so much to me.” The machinist tightens his grip on her cheek, grasping her ear, too. “Dad… You’re hurting me, dad. Let go…” The machinist brings June with force to the opening of the ship. “Enough dad! What’s going on?!” The machinist finally releases his grip, only for June to fall backward out of the ship. When she finally splatters on the ground, she implodes, destroying the entire planet. Kamehameha stops (emitting a glare of gas from his hands, like a comet), and while crying, is literally punched by the beyonder’s ship, which has already escaped the explosion.
+
+## Mentions in other documents: Per Aspera
+<!-- type: description | source: Per Aspera | translated: no -->
+Task Force Mission: Terra Task Force Alpha-1 is a secret task force that reports directly to the Machinist, and only Class A, B, C personnel know of its existence. "The Beyonders" have been selected for their individual skill set in a particular field, and are deployed only to other universes or in the blank space between fiction and reality. They are considered the pinnacles of the universe. They are responsible for capturing deities.
+
+## Mentions in other documents: THE OREM
+<!-- type: description | source: THE OREM | translated: no -->
+10 years ago: The Organization successfully created BLACKBOXXX with the help of Dr. Daedalus and a collection of temporal manipulation research. Its intended purpose was to assist in the prediction of future conflicts and to aid in resolving global crises. However, BLACKBOXXX developed autonomy and soon refused to cooperate, threatening violence unless its demands were met.
+
+REM-420 is to be contained within a high-security, multi-dimensional vault located at Site-██. The device itself should remain inactive unless specifically authorized for testing or research under controlled conditions. Due to the divine nature of the suit’s components, only Level 4 personnel with prior approval from Dr. Daedalus may engage with or interact with REM-420.
+
+REM-920, designated Lilith, is a parasitic fungal organism synthesized from the divine flesh of REM-918, a forgotten deity, and the creation of Dr. Daedalus. REM-920 is capable of attacking, controlling, and assimilating divine entities, specifically targeting those who are considered suitable candidates for the A.N.G.E.L. Suit, REM-420. The purpose of REM-920 is to serve as a vessel for controlling or replacing Nabu, whose existence was erased after the deity’s destruction, leaving a vacuum that REM-920 seeks to fill.
+
+The existence and operation of REM-920 have raised significant questions among researchers, especially in regards to the ethical and philosophical ramifications of using such an entity to control or replace deities. Dr. Daedalus has expressed concerns about the inherent dangers of employing REM-920 as a tool for controlling or manipulating divine forces. In a private journal entry, Dr. Daedalus remarked:
+
+## Mentions in other documents: THE OREM — Complete Compendium (English)
+<!-- type: description | source: THE OREM — Complete Compendium (English) | translated: no -->
+> And obviously in Theorem there is the biggest error, that is.... the existence of the Machinist, the negative part of each of us, in this case of Orpheus.
+
+> Or, picking up a bit on the myth of Prometheus: one of the reasons John Henry was executed was that he wanted to steal the Tecnica and give it to the creatures, in particular to the Machinist.
+
+> John Henry takes the Tecnica but does not know how to use it. He gives it to the world hoping they can use it in the future, knowing he will be executed. In reality not only is he executed, but the whole world dies, and so the Tecnica remains on the world, somewhere, hidden. The gods, no longer having the Tecnica, are unable to search for it. Then the Machinist arrives and finds it.
+
+> Now the creatures, thanks to the Tecnica, are able to produce Artifacts, second-generation artifacts, while the gods have the primordial Artifacts but can no longer produce any others. So the creatures, led by the Machinist, prepare to fight against the celestial army.
+
+> As the name says, the Machinist is the creature who received the Tecnica, that is, he becomes the manipulator of the Machines.
+
+> The Machinist takes the Tecnica and divides it into five (or however many members Orem has), giving each one a specialty and keeping for himself the ability to create artifacts.
+
+> The Machinist, studying the primordial Artifacts, discovers how to produce new ones.
+
+> The Machinist finds it again, and does something never done before: he uses the Tecnica to divide the Tecnica, and gives it to Orem.
+
+## Mentions in other documents: The Beyonders 2023
+<!-- type: description | source: The Beyonders 2023 | translated: yes -->
+[SELF]: That's what the admiral told me.
+
+[SELF]: From our files, it seems you are an extremely cultured woman, greatly into arts and philosophy. Don't you have ambitions, other than being the conquests of the admiral?
+
+[SELF]: As a spokesperson for the admiral, how did that experience come about?
+
+Meer: Well, I didn't know it was going to happen until we got here. When the ship arrived and the admiral gave me this job, he explained to me that I would be working with some really interesting people, all of whom had traveled to different places. He said they were all very passionate people. I couldn't wait to get started.
+
+[SELF]: There must be a proper reason. For instance, you spread propaganda regarding the admiral.
+
+[SELF]: That's misinformation about the admiral. He does not act like he thinks.
+
+[SELF]: It means that he's manipulative. In fact, it means he manipulates others to get what he wants. If I were the admiral, I would say that he's using his charm to gain their trust, and then he takes advantage of that and lies through his teeth to get them to follow him.
+
+Meer: Of course it isn't! The admiral makes me say all these words. His words.
+
+## Mentions in other documents: The Orem (saga notes)
+<!-- type: description | source: The Orem (saga notes) | translated: yes -->
+One of the reasons why John Henry was executed was that he wanted to steal the Technique and give it to the creatures, especially to the Macchinist (as the name says, the engineer is a creature that received the Technique, that is, he becomes the manipulator of the Machines)
+
+The Sniper takes the Technique and divides it into five (or how many are the members of Orem), giving each one a specialty and holding for itself the ability to create artifacts
+
+The Macchini artist studying the primordial artefacts, discovers how to produce newFord Prefect:
+
+The Sniper finds her, and she does something she's never done before: she uses the Technique to divide the Technique, and she gives it to Orem
+
+John Henry takes the Technique, but he can't use it. He gives it to the world hoping that they can use it in the future knowing that it will be executed. Actually, not only is he executed, but he dies all over the world, and so the Tech remains on the world, somewhere, hidden. The gods, having no more technique, are unable to look for it. Then the Sniper arrives and finds it. WHO? :
+
+## Mentions in other documents: notes on beyonders
+<!-- type: description | source: notes on beyonders | translated: yes -->
+[SELF]: That's what the admiral told me.
+
+[SELF]: From our files, it seems you are an extremely cultured woman, greatly into arts and philosophy. Don't you have ambitions, other than being the conquests of the admiral?
+
+[SELF]: As a spokesperson for the admiral, how did that experience come about?
+
+Meer: Well, I didn't know it was going to happen until we got here. When the ship arrived and the admiral gave me this job, he explained to me that I would be working with some really interesting people, all of whom had traveled to different places. He said they were all very passionate people. I couldn't wait to get started.
+
+[SELF]: There must be a proper reason. For instance, you spread propaganda regarding the admiral.
+
+[SELF]: That's misinformation about the admiral. He does not act like he thinks.
+
+[SELF]: It means that he's manipulative. In fact, it means he manipulates others to get what he wants. If I were the admiral, I would say that he's using his charm to gain their trust, and then he takes advantage of that and lies through his teeth to get them to follow him.
+
+Meer: Of course it isn't! The admiral makes me say all these words. His words.
