@@ -69,7 +69,7 @@ function askCode(next){
   const go=async()=>{const pw=$('#oe-code').value;if(!pw)return;msg('Verifying…');
     try{const tok=await window.OREM_CLEARANCE.decrypt(CLR,pw);if(!/^(github_pat_|ghp_)/.test(tok))throw 0;sessionStorage.setItem(KEY,tok)}
     catch{msg('Clearance denied.','err');return}
-    $('#oe-code').value='';label();close();next&&next()};
+    $('#oe-code').value='';label();close();next&&next();window.dispatchEvent(new Event('orem:clearance'))};
   $('#oe-go').onclick=go;$('#oe-code').onkeydown=e=>{if(e.key==='Enter')go()};$('#oe-code').focus();
 }
 function form(d,body,isNew){
@@ -137,5 +137,5 @@ btn.onclick=()=>{const cur=(window.OREM&&window.OREM.current())||'';
   const isEntry=cur&&cur!=='index'&&!cur.startsWith('index');
   if(!getTok())return askCode(()=>openEditor(isEntry?cur:'',!isEntry));
   openEditor(isEntry?cur:'',!isEntry)};
-window.OREM_EDITOR={openEditor,askCode,_parseFM:parseFM,_toFM:toFM};
+window.OREM_EDITOR={openEditor,askCode,token:getTok,getFile,putFile,b64e,_parseFM:parseFM,_toFM:toFM};
 })();
