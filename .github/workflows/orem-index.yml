@@ -1,0 +1,23 @@
+name: Rebuild Orem index
+on:
+  push:
+    branches: [main]
+    paths: ['orem/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: orem-index, cancel-in-progress: false }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: node orem/tools/build-index.mjs
+      - name: Commit index if changed
+        run: |
+          git config user.name "orem-bot"
+          git config user.email "orem-bot@users.noreply.github.com"
+          git add orem/data/index.json
+          git diff --cached --quiet || (git commit -m "Rebuild Orem index [skip ci]" && git push)
