@@ -118,25 +118,41 @@ let SIM=null;
 function remLink(sl){const e=IDX.entries.find(x=>x.slug===sl);return e?`<a class="xl mono" href="#/${sl}">${esc(e.rem)}</a> ${esc(e.name.replace(/\s*\(.*$/,''))}`:esc(sl)}
 function slotTxt(x){return x&&x.startsWith('rem-')?remLink(x):`<span class="g">${esc(x||'TBD')}</span>`}
 function resTxt(m){return m.result?`<b>${esc(m.result)}</b>`:'<span class="sim-p mono">PENDING SIMULATION</span>'}
+function simBuild(T){
+  const P=(T.participants||[]).filter(Boolean),N=P.length;let B=1;while(B*2<=N)B*=2;
+  if(T.bracket_size&&T.bracket_size>=2&&T.bracket_size<=N&&!(T.bracket_size&(T.bracket_size-1)))B=T.bracket_size;
+  const R=T.results||{},rounds=[];
+  // preliminary: enough matches so that exactly B remain; surplus fighters play repeatedly-structured prelims, the rest get byes
+  let field=P.map(x=>x),pr=0;
+  while(field.length>B){pr++;const need=Math.min(field.length-B,Math.floor(field.length/2));const byes=field.slice(0,field.length-2*need),pool=field.slice(field.length-2*need);
+    const ms=[];for(let i=0;i<need;i++){const id=(pr>1?`P${pr}-`:'P-')+(i+1);ms.push({id,a:pool[2*i],b:pool[2*i+1]})}
+    rounds.push({name:pr>1?`Preliminary round ${pr}`:'Preliminary round',byes:byes.length,ms});field=[...byes,...ms.map(m=>'@'+m.id)]}
+  let size=field.length;const nm=n=>n===2?'Final':n===4?'Semi-finals':n===8?'Quarter-finals':`Round of ${n}`,pre=n=>n===2?'F':n===4?'SF':n===8?'QF':`R${n}`;
+  while(size>=2){const ms=[];for(let i=0;i<size/2;i++){const id=size===2?'F':`${pre(size)}-${i+1}`;ms.push({id,a:field[i],b:field[size-1-i]})}
+    rounds.push({name:nm(size),ms});field=ms.map(m=>'@'+m.id);size/=2}
+  const all={};rounds.forEach(r=>r.ms.forEach(m=>{all[m.id]=m;Object.assign(m,R[m.id]||{})}));
+  const res=x=>{if(x&&x[0]==='@'){const m=all[x.slice(1)];return m&&m.winner?m.winner:'Winner '+x.slice(1)}return x};
+  rounds.forEach(r=>r.ms.forEach(m=>{m.a=res(m.a);m.b=res(m.b)}));
+  return {N,B,rounds,all};
+}
 async function simPage(h){
   if(!SIM){app.innerHTML=`<div class="w">${nav()}<p class="mono g">Loading simulation records…</p></div>`;bindNav();
     try{SIM=await (await fetch('content/simulations/tournament.json',{cache:'no-cache'})).json()}catch(e){app.innerHTML=`<div class="w">${nav()}<p>Simulation records unavailable.</p></div>`;bindNav();return}}
-  const T=SIM, mm=h.match(/^simulations\/match\/(.+)$/);
-  if(mm){const m=T.matches.find(x=>x.id===mm[1]);document.title=`Simulation log ${mm[1]} — The Orem.`;
+  const T=SIM,X=simBuild(T),mm=h.match(/^simulations\/match\/(.+)$/);
+  if(mm){const m=X.all[mm[1]];const rd=X.rounds.find(r=>r.ms.includes(m));document.title=`Simulation log ${mm[1]} — The Orem.`;
     app.innerHTML=`<div class="w">${nav()}<div class="g mono" style="margin-top:24px;font-size:12px">SIMULATION LOG · ${esc(T.title)} · MATCH ${esc(mm[1])}</div>
-    ${m?`<h2 class="t">${esc(m.stage)}</h2><table class="sim-t"><tr><th>Participant A</th><td>${slotTxt(m.a)}</td></tr><tr><th>Participant B</th><td>${slotTxt(m.b)}</td></tr>
+    ${m?`<h2 class="t">${esc(rd.name)}</h2><table class="sim-t"><tr><th>Participant A</th><td>${slotTxt(m.a)}</td></tr><tr><th>Participant B</th><td>${slotTxt(m.b)}</td></tr>
     <tr><th>Result</th><td>${resTxt(m)}${m.winner?' · winner '+slotTxt(m.winner):''}</td></tr><tr><th>Reasoning</th><td>${m.reasoning?esc(m.reasoning).replace(/\n/g,'<br>'):'<span class="g">No reasoning recorded. The match has not been simulated.</span>'}</td></tr></table>
     <p class="mono g" style="font-size:11px">Simulated only. This record is the output of the Orem's simulation device, not an event in the catalogue.</p>`:'<p>No such match.</p>'}
     <p><a href="#/simulations">← Back to the tournament</a></p></div>`;bindNav();window.scrollTo(0,0);return}
   document.title='Simulations — The Orem.';
   const ml=m=>`<tr><td class="mono"><a href="#/simulations/match/${esc(m.id)}">${esc(m.id)}</a></td><td>${slotTxt(m.a)}</td><td class="g">v</td><td>${slotTxt(m.b)}</td><td>${resTxt(m)}</td></tr>`;
-  const groups=T.groups.map(g=>`<div class="sim-g"><h3 class="mono">GROUP ${esc(g.id)}</h3><ol>${g.members.map(x=>`<li>${slotTxt(x)}</li>`).join('')}</ol><table class="sim-m">${T.matches.filter(m=>m.stage==='Group '+g.id).map(ml).join('')}</table></div>`).join('');
-  const rounds=[...new Set(T.matches.filter(m=>!m.stage.startsWith('Group')).map(m=>m.stage))];
-  const ko=`<div class="sim-ko">${rounds.map(r=>`<div class="sim-r"><h3 class="mono">${esc(r.toUpperCase())}</h3>${T.matches.filter(m=>m.stage===r).map(m=>`<a class="sim-b" href="#/simulations/match/${esc(m.id)}"><span class="mono g">${esc(m.id)}</span><div>${slotTxt(m.a)}</div><div>${slotTxt(m.b)}</div><div>${resTxt(m)}</div></a>`).join('')}</div>`).join('')}</div>`;
+  const rs=X.rounds.map((r,i)=>`<details class="sim-g"${i<2||r.ms.length<=8?' open':''}><summary class="mono"><b>${esc(r.name.toUpperCase())}</b> · ${r.ms.length} match${r.ms.length>1?'es':''}${r.byes?` · ${r.byes} byes`:''}</summary><table class="sim-m">${r.ms.map(ml).join('')}</table></details>`).join('');
   app.innerHTML=`<div class="w">${nav()}<h2 class="t" style="margin-top:28px">Simulations<span class="red">.</span></h2>
   <p>${esc(T.framing)}</p><h3 class="mono" style="margin-top:26px">${esc(T.title).toUpperCase()}</h3><p class="g">${esc(T.format)}</p>
-  <div class="sim-gs">${groups}</div><h3 class="mono" style="margin-top:30px">KNOCKOUT BRACKET</h3>${ko}
-  <p class="mono g" style="font-size:11px;margin-top:20px">Every result is simulated only. Participants and results are kept in content/simulations/tournament.json and are edited with the exhibit-locker editor.</p></div>`;
+  <p class="mono" style="font-size:12px">${X.N} participants · starting bracket ${X.B} · ${Object.keys(X.all).length} matches</p>
+  <div class="sim-rs">${rs}</div>
+  <p class="mono g" style="font-size:11px;margin-top:20px">Every result is simulated only. Participants, starting bracket size and results are kept in content/simulations/tournament.json and are edited with the exhibit-locker editor.</p></div>`;
   bindNav();
 }
 function route(){

@@ -55,3 +55,4 @@ foot,.foot{display:block;margin-top:50px;font-size:11px;color:#888;border-top:1p
 .sim-b{display:block;border:1px solid #111;padding:6px 8px;font-size:12px;text-decoration:none;color:inherit}.sim-b:hover{background:#fff7c2}
 .sim-t{border-collapse:collapse;margin:16px 0;font-size:14px;width:100%;max-width:760px}.sim-t th{text-align:left;width:160px;padding:8px;border:1px solid #111;font:11px monospace;text-transform:uppercase}.sim-t td{padding:8px;border:1px solid #111}
 @media(max-width:600px){.sim-gs{grid-template-columns:1fr}}
+.sim-rs{display:flex;flex-direction:column;gap:12px}.sim-rs summary{cursor:pointer;font-size:13px;padding:4px 0}
