@@ -7,16 +7,23 @@ var EO='cubic-bezier(.22,1,.36,1)',EIO='cubic-bezier(.65,0,.35,1)',ES='cubic-bez
 var bg=h.querySelector('.lw-bg'),fg=h.querySelector('.lw-fg'),tx=h.querySelector('.tx'),act=h.querySelector('.act');
 function A(el,k,o){return el.animate(k,o)}
 /* intro ~2.3s: slow push-in, figure settles, name rises behind it */
-(function(){if(h.hidden)return;if(RM){A(h,[{opacity:0},{opacity:1}],{duration:400});return}
+(function(){var D=document.documentElement;function rel(){D.classList.add('lw-hero-in')}
+ if(h.hidden){rel();return}
+ function run(){if(RM){A(h,[{opacity:0},{opacity:1}],{duration:400});rel();return}
  var o={easing:EO,fill:'backwards'};
- A(bg,[{transform:'scale(1.14)',opacity:0,filter:'blur(10px)'},{transform:'scale(1)',opacity:1,filter:'blur(0px)'}],Object.assign({duration:2200},o));
+ /* perf: opacity/transform only (compositor), started after the photos are decoded */
+ A(bg,[{transform:'scale(1.14)',opacity:0},{transform:'scale(1)',opacity:1}],Object.assign({duration:2200},o));
  A(fg,[{transform:'scale(1.1) translateY(2%)',opacity:0},{transform:'none',opacity:1}],Object.assign({duration:2000,delay:150},o));
- A(tx,[{transform:'translateY(.5em)',opacity:0,clipPath:'inset(0 0 100% 0)'},{transform:'none',opacity:1,clipPath:'inset(0 0 0% 0)'}],Object.assign({duration:1500,delay:450},o));
+ A(tx,[{transform:'translateY(.5em)',opacity:0},{transform:'none',opacity:1}],Object.assign({duration:1500,delay:450},o));
  [].forEach.call(act.children,function(b,i){A(b,[{transform:'translateY(12px)',opacity:0},{transform:'none',opacity:1}],Object.assign({duration:1000,delay:1250+i*140},o))});
+ rel()}
+ function dec(u){var i=new Image();i.src=u;return i.decode?i.decode().catch(function(){}):Promise.resolve()}
+ var started=false;function go1(){if(started)return;started=true;requestAnimationFrame(function(){requestAnimationFrame(run)})}
+ Promise.all([dec('hero-bg.webp'),dec('hero-person.webp')]).then(go1,go1);setTimeout(go1,2500);
 })();
 var running=false;
 ex.addEventListener('click',function(){
- if(running)return;running=true;
+ if(running)return;running=true;window.__ensureCitymap&&window.__ensureCitymap();
  var shell=document.querySelector('.site-shell'),W=innerWidth,H=innerHeight,port=H>=W,anims=[],extra=[],done=false;
  var layer=document.createElement('div');layer.className='lwm-layer';layer.innerHTML='<div class="lwm-bd"></div><div class="lwm-skip">tap to skip</div>';document.body.appendChild(layer);
  var bd=layer.firstChild;
@@ -31,7 +38,7 @@ ex.addEventListener('click',function(){
  function skip(e){if(e.target&&e.target.closest&&e.target.closest('#lw-explore'))return;e.preventDefault();e.stopPropagation();var sw=function(ev){ev.stopPropagation();ev.preventDefault();removeEventListener('click',sw,true)};addEventListener('click',sw,true);setTimeout(function(){removeEventListener('click',sw,true)},600);cleanup()}
  setTimeout(function(){addEventListener('pointerdown',skip,true)},50);
  if(RM){var a=A(h,[{opacity:1},{opacity:0}],{duration:500,fill:'forwards'});anims.push(a);a.onfinish=cleanup;return}
- function go(el,k,o){var a=el.animate(k,Object.assign({fill:'both'},o));anims.push(a);return a}
+ function go(el,k,o){if(el===h||el===bg||el===fg||(el&&el.classList&&el.classList.contains('site-shell')))k=k.map(function(f){if(!('filter' in f))return f;var c=Object.assign({},f);delete c.filter;return c});var a=el.animate(k,Object.assign({fill:'both'},o));anims.push(a);return a}
  var T,fin;
  /* buttons always bow out first */
  go(act,[{opacity:1,transform:'none'},{opacity:0,transform:'translateY(8px)'}],{duration:500,delay:OPT==1?1500:0,easing:EO});
