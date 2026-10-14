@@ -2,13 +2,13 @@
    phone: crowd as an image inside the info panel; tap opens full screen. shuffled on every load. */
 (function(){
   var V=(new URLSearchParams(location.search).get('crowd')||'b').toLowerCase();
-  var LINES=V=='l1'||V=='l2';if(['a','b','c','l1','l2'].indexOf(V)<0)V='b';
+  var LBL=(V=='l1a'||V=='l1b')?V.slice(2):'';if(LBL)V='l1';var LINES=V=='l1'||V=='l2';if(['a','b','c','l1','l2'].indexOf(V)<0)V='b';
   var CFG={a:{rows:9,bw:1,minS:.38,overlap:.42},b:{rows:7,bw:0,minS:.42,overlap:.34},c:{rows:6,bw:0,minS:.5,overlap:.22,tiers:1},l1:{rows:8,bw:0,minS:.36,overlap:.38},l2:{rows:6,bw:0,minS:.48,overlap:.25,tiers:1}}[V];
   var people=null,built={};
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=a[i];a[i]=a[j];a[j]=t}return a}
   function load(cb){if(people)return cb();fetch('inspirations/'+(LINES?'lines/':'')+'people.json?v=20261014c').then(function(r){return r.json()}).then(function(d){if(LINES){var r=[];for(var i=0;i<7;i++)r=r.concat(d);d=r}people=shuffle(d);cb()})}
   function css(){if(document.getElementById('crowd-css'))return;var s=document.createElement('style');s.id='crowd-css';s.textContent=
-  '.crowd{position:absolute;inset:0;overflow:hidden;background:#fff;pointer-events:auto;opacity:0;transform:translateY(6%);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1)}'+
+  '@font-face{font-family:"reenie";src:url(assets/fonts/reenie-beanie.woff2) format("woff2");font-display:swap}'+'.crowd .lbl{position:absolute;z-index:5;pointer-events:none;white-space:nowrap;font-family:reenie,cursive!important;color:#555;text-transform:lowercase;line-height:1;transform-origin:0 50%;transition:opacity .2s,color .2s}.crowd .lbl.on{opacity:1!important;color:#000}.crowd .lead{border:0!important;background:none!important;box-shadow:none!important;position:absolute;z-index:5;overflow:visible;pointer-events:none}.crowd .lead path{fill:none;stroke:#777;stroke-width:.8;stroke-linecap:round}'+'.crowd{position:absolute;inset:0;overflow:hidden;background:#fff;pointer-events:auto;opacity:0;transform:translateY(6%);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1)}'+
   '.crowd.up{opacity:1;transform:none}.crowd .row{position:absolute;left:0;right:0;bottom:0;height:0}'+
   '.crowd img{position:absolute;bottom:0;height:auto;user-select:none;-webkit-user-drag:none;transition:filter .3s,transform .3s;transform-origin:50% 100%;cursor:default}'+
   '.crowd img.on{filter:none!important}'+
@@ -46,6 +46,7 @@
     for(var r=0;r<R-frontRows;r++)while(rowsP[r].length<cap[r]&&rest.length)rowsP[r].push(rest.pop());
     var ri=0;while(bad.length){rowsP[ri%backRows].push(bad.pop());ri++}
     ri=0;while(rest.length){rowsP[ri%(R-frontRows)].push(rest.pop());ri++}
+    var items=[];
     for(var r=0;r<R;r++){
       var s=sc[r],h=frontH*s,w=h*.8,t=r/(R-1),d=1-t,ps=shuffle(rowsP[r]),n=ps.length;
       var row=document.createElement('div');row.className='row';
@@ -62,17 +63,18 @@
         var x=-w*.2+j*step+(Math.random()-.5)*step*.3;
         var lift=(Math.random()-.5)*h*.05-((p.q||0)<.4?h*.12:0); // weird cuts sit lower, behind the next row
         im.style.cssText='height:'+h+'px;width:'+w+'px;left:'+x+'px;bottom:'+lift+'px;z-index:'+(j%2)+(f?';filter:'+f:'');
-        row.appendChild(im);
+        row.appendChild(im);items.push({im:im,row:row,x:x,w:w,h:h,lift:lift,r:r,t:t,base:base});
       }
       c.appendChild(row);
     }
+    if(LBL&&!opts.small)labels(items,W,H);
     // soft white fade at the very bottom so no crop line shows
     var fade=document.createElement('div');fade.style.cssText='position:absolute;left:0;right:0;bottom:0;height:7%;z-index:'+(R+2)+';pointer-events:none;background:linear-gradient(rgba(255,255,255,0),#fff)';c.appendChild(fade);
     c.appendChild(tag);
     if(!opts.small){
       var cur=null;
-      function on(im,ev){if(cur)cur.classList.remove('on');cur=im;if(!im){tag.classList.remove('on');return}
-        im.classList.add('on');tag.textContent=im.dataset.n;var b=im.getBoundingClientRect(),cb=c.getBoundingClientRect();
+      function on(im,ev){if(cur){cur.classList.remove('on');cur._lbl&&cur._lbl.classList.remove('on')}cur=im;if(!im){tag.classList.remove('on');return}
+        im.classList.add('on');if(LBL){if(cur._lbl)cur._lbl.classList.add('on');return}tag.textContent=im.dataset.n;var b=im.getBoundingClientRect(),cb=c.getBoundingClientRect();
         tag.style.left=Math.max(4,Math.min(cb.width-tag.offsetWidth-4,b.left-cb.left+b.width/2-tag.offsetWidth/2))+'px';
         tag.style.top=Math.max(4,b.top-cb.top-22)+'px';tag.classList.add('on')}
       c.addEventListener('mouseover',function(e){if(e.target.tagName=='IMG')on(e.target)});
@@ -81,6 +83,29 @@
     }
     host.appendChild(c);requestAnimationFrame(function(){requestAnimationFrame(function(){c.classList.add('up')})});
     return c;
+  }
+  function labels(items,W,H){
+    var boxes=[];items.sort(function(a,b){return b.r-a.r||Math.random()-.5});
+    var NS='http://www.w3.org/2000/svg';
+    items.forEach(function(it,i){
+      var t=it.t,fs=8+12*Math.pow(t,1.2),op=.18+.8*Math.pow(t,1.6),txt=it.im.dataset.n;
+      var tw=txt.length*fs*.36,th=fs*.9,top=-it.lift-it.h; // image top in row coords
+      var x,y,rot,lead=0;
+      if(LBL=='a'){x=it.x+it.w*(.42+Math.random()*.12);y=top+it.h*(.6+Math.random()*.08);rot=-(3+Math.random()*7)}
+      else{x=it.x+it.w*.5-tw/2+(Math.random()-.5)*it.w*.2;y=top+it.h*.04-th-(Math.random()*it.h*.06);rot=(Math.random()-.5)*4;lead=t>.45&&Math.random()<.4}
+      if(W<700&&t<.5)return;
+      var gx=x,gy=it.base+y,box=[gx-2,gy-2,gx+tw+2,gy+th+2];
+      var hit=boxes.some(function(b){return !(box[2]<b[0]||box[0]>b[2]||box[3]<b[1]||box[1]>b[3])});
+      if(gx<0||gx+tw>W||gy<4)return;
+      if(hit){if(t<.75)return;op*=.45}
+      boxes.push(box);
+      var l=document.createElement('span');l.className='lbl';l.textContent=txt;
+      l.style.cssText='left:'+x+'px;top:'+y+'px;font-size:'+fs.toFixed(1)+'px;opacity:'+op.toFixed(2)+';transform:rotate('+rot.toFixed(1)+'deg)';
+      it.row.appendChild(l);it.im._lbl=l;l._op=op;
+      if(lead){var sv=document.createElementNS(NS,'svg'),L=it.h*.1+th*.3;sv.setAttribute('class','lead');
+        sv.style.cssText='left:'+(x+tw*.5-6)+'px;top:'+(y+th*.95)+'px;width:14px;height:'+L+'px;opacity:'+op.toFixed(2);
+        var p=document.createElementNS(NS,'path');p.setAttribute('d','M7 0 C 4 '+(L*.35)+', 10 '+(L*.6)+', 6 '+(L-1));sv.appendChild(p);it.row.appendChild(sv)}
+    });
   }
   var mq=matchMedia('(max-width: 700px)');
   function openDesk(){var ov=document.getElementById('help-overlay');if(!ov)return;
