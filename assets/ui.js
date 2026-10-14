@@ -154,6 +154,7 @@ var st=document.createElement('style');st.textContent=
 '.lw-fz path{fill:none;stroke:currentColor;stroke-width:6.26;stroke-linecap:round;stroke-linejoin:round}'+
 '.lw-fz .hint{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font:300 12px/1 Helvetica,Arial,sans-serif;letter-spacing:.04em;opacity:.55}'+
 'html.lw-fzing #town,html.lw-fzing .map-layer,html.lw-fzing .map-raster,html.lw-fzing .map-backdrop,html.lw-fzon #town,html.lw-fzon .map-layer,html.lw-fzon .map-raster,html.lw-fzon .map-backdrop{transition:none!important}'+
+/* bugfix-oct14: keep the map layers composited for the whole session so zooming back in never waits on a re-raster (the black flash) */'#town,.map-layer,.map-raster,.map-backdrop{will-change:transform,scale,opacity}'+
 'html.lw-fz-anim #town,html.lw-fz-anim .map-layer,html.lw-fz-anim .map-raster,html.lw-fz-anim .map-backdrop{transition:transform 600ms cubic-bezier(.2,.7,.2,1),opacity 600ms ease!important}';
 document.head.appendChild(st);
 var w=document.createElement('div');w.className='lw-fz';w.setAttribute('aria-hidden','true');
@@ -162,7 +163,7 @@ var P=w.querySelector('path'),H=w.querySelector('.hint'),L=P.getTotalLength?P.ge
 var z=0,anim=null,els=null;function E(){if(!els||!els.length||!els[0].isConnected)els=[].slice.call(document.querySelectorAll('#town,.map-layer,.map-raster,.map-backdrop,.lw-search,.lw-mp'))}
 var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function hint(){H.textContent=document.documentElement.lang==='it'?'tocca per tornare alla mappa':'tap to return to the map'}hint();
-function apply(){E();document.documentElement.classList.toggle('lw-fzon',z>0.001);var s=1-0.45*z,o=Math.max(0,1-z*1.6);for(var i=0;i<els.length;i++){var e=els[i];if(e.classList.contains('lw-search')||e.classList.contains('lw-mp')){e.style.setProperty('opacity',String(o<0.05?0:o),'important');e.style.pointerEvents=z>0.2?'none':''}else{e.style.scale=s;e.style.setProperty('opacity',String(o),'important')}}
+function apply(){E();document.documentElement.classList.toggle('lw-fzon',z>0.001);var s=1-0.45*z,o=Math.max(0,1-z*1.6);for(var i=0;i<els.length;i++){var e=els[i];if(e.classList.contains('lw-search')||e.classList.contains('lw-mp')){e.style.setProperty('opacity',String(o<0.05?0:o),'important');e.style.pointerEvents=z>0.2?'none':''}else{e.style.scale=s;e.style.setProperty('opacity',String(Math.max(o,0.002)),'important')}}
 var d=Math.min(1,Math.max(0,(z-0.22)/0.74));P.style.strokeDashoffset=L*(1-d);w.style.opacity=Math.min(1,z*2.5);H.style.opacity=z>0.95?.55:0;w.classList.toggle('on',z>0.95)}
 function to(t,ms){cancelAnimationFrame(anim);els=null;var a=z,T0=performance.now();ms=rm?1:ms;(function f(T){var k=Math.min(1,(T-T0)/ms);k=t===1?0.5-0.5*Math.cos(Math.PI*k):1-Math.pow(1-k,3);z=a+(t-a)*k;apply();if(k<1)anim=requestAnimationFrame(f);else{document.documentElement.classList.remove('lw-fzing');if(t===0){E();els.forEach(function(e){e.style.scale='';e.style.removeProperty('opacity');e.style.pointerEvents=''})}}})(T0)}
 function busy(){var h=document.getElementById('lw-hero');return (h&&!h.hidden)||document.querySelector('[id$="-overlay"].is-open,.overlay-layer.is-open')}
