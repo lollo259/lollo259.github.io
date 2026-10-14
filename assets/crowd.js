@@ -2,11 +2,11 @@
    phone: crowd as an image inside the info panel; tap opens full screen. shuffled on every load. */
 (function(){
   var V=(new URLSearchParams(location.search).get('crowd')||'b').toLowerCase();
-  if('abc'.indexOf(V)<0)V='b';
-  var CFG={a:{rows:9,bw:1,minS:.38,overlap:.42},b:{rows:7,bw:0,minS:.42,overlap:.34},c:{rows:6,bw:0,minS:.5,overlap:.22,tiers:1}}[V];
+  var LINES=V=='l1'||V=='l2';if(['a','b','c','l1','l2'].indexOf(V)<0)V='b';
+  var CFG={a:{rows:9,bw:1,minS:.38,overlap:.42},b:{rows:7,bw:0,minS:.42,overlap:.34},c:{rows:6,bw:0,minS:.5,overlap:.22,tiers:1},l1:{rows:8,bw:0,minS:.36,overlap:.38},l2:{rows:6,bw:0,minS:.48,overlap:.25,tiers:1}}[V];
   var people=null,built={};
   function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.random()*(i+1)|0,t=a[i];a[i]=a[j];a[j]=t}return a}
-  function load(cb){if(people)return cb();fetch('inspirations/people.json?v=20261014b').then(function(r){return r.json()}).then(function(d){people=shuffle(d);cb()})}
+  function load(cb){if(people)return cb();fetch('inspirations/'+(LINES?'lines/':'')+'people.json?v=20261014c').then(function(r){return r.json()}).then(function(d){if(LINES){var r=[];for(var i=0;i<7;i++)r=r.concat(d);d=r}people=shuffle(d);cb()})}
   function css(){if(document.getElementById('crowd-css'))return;var s=document.createElement('style');s.id='crowd-css';s.textContent=
   '.crowd{position:absolute;inset:0;overflow:hidden;background:#fff;pointer-events:auto;opacity:0;transform:translateY(6%);transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.2,1)}'+
   '.crowd.up{opacity:1;transform:none}.crowd .row{position:absolute;left:0;right:0;bottom:0;height:0}'+
@@ -54,10 +54,11 @@
       row.style.top=base+'px';row.style.zIndex=r+1;
       var step=(W+w*.4)/Math.max(n,1);
       var f=CFG.bw?'grayscale(1) ':'';
-      if(d>.05)f+='blur('+(d*d*2.2).toFixed(2)+'px) brightness('+(1+d*.22).toFixed(2)+') contrast('+(1-d*.3).toFixed(2)+') saturate('+(1-d*.55).toFixed(2)+')';
+      if(LINES)f=d>.05?'brightness('+(1+d*1.1).toFixed(2)+')':'contrast(1.3)';
+      else if(d>.05)f+='blur('+(d*d*2.2).toFixed(2)+'px) brightness('+(1+d*.22).toFixed(2)+') contrast('+(1-d*.3).toFixed(2)+') saturate('+(1-d*.55).toFixed(2)+')';
       for(var j=0;j<n;j++){
         var p=ps[j],im=new Image();im.decoding='async';im.loading=opts.eager?'eager':'lazy';im.alt='';im.dataset.n=p.n;
-        im.src='inspirations/'+p.f;
+        im.src='inspirations/'+(LINES?'lines/':'')+p.f;
         var x=-w*.2+j*step+(Math.random()-.5)*step*.3;
         var lift=(Math.random()-.5)*h*.05-((p.q||0)<.4?h*.12:0); // weird cuts sit lower, behind the next row
         im.style.cssText='height:'+h+'px;width:'+w+'px;left:'+x+'px;bottom:'+lift+'px;z-index:'+(j%2)+(f?';filter:'+f:'');
