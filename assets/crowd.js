@@ -85,7 +85,7 @@
         tag.style.left=Math.max(4,Math.min(cb.width-tag.offsetWidth-4,b.left-cb.left+b.width/2-tag.offsetWidth/2))+'px';
         tag.style.top=Math.max(4,b.top-cb.top-22)+'px';tag.classList.add('on')}
       var pc=document.createElement('div');pc.className='pcard';c.appendChild(pc);var hideT;
-      pc.addEventListener('mouseenter',function(){clearTimeout(hideT)});pc.addEventListener('mouseleave',function(e){if(!pc.contains(e.relatedTarget))on(null)});
+      pc.addEventListener('mouseenter',function(){clearTimeout(hideT)});pc.addEventListener('pointerleave',function(e){if(e.pointerType=='mouse'&&!pc.contains(e.relatedTarget))on(null)});
       pc.addEventListener('click',function(e){e.stopPropagation()});
       function esc(t){return String(t||'').replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]})}
       function hideCard(){clearTimeout(hideT);hideT=setTimeout(function(){pc.classList.remove('on')},180)}
@@ -96,9 +96,9 @@
         var x=b.left-cb.left+b.width/2-cw/2;x=Math.max(8,Math.min(cb.width-cw-8,x));
         pc.classList.add('on');var ch=pc.offsetHeight,y=b.top-cb.top-ch-6;if(y<8)y=Math.min(cb.height-ch-8,b.top-cb.top+b.height*.45);
         pc.style.left=x+'px';pc.style.top=y+'px'}
-      c.addEventListener('mouseover',function(e){if(e.target.tagName=='IMG'&&e.target.closest('.row'))on(e.target)});
-      c.addEventListener('mouseleave',function(e){if(!pc.contains(e.relatedTarget))on(null)});
-      c.addEventListener('click',function(e){e.stopPropagation();on(e.target.tagName=='IMG'&&e.target.closest('.row')&&e.target!==cur?e.target:null)});
+      c.addEventListener('pointerover',function(e){if(e.pointerType=='mouse'&&e.target.tagName=='IMG'&&e.target.closest('.row'))on(e.target)});
+      c.addEventListener('pointerleave',function(e){if(e.pointerType=='mouse'&&!pc.contains(e.relatedTarget))on(null)});
+      c.addEventListener('click',function(e){e.stopPropagation();on(e.target.tagName=='IMG'&&e.target.closest('.row')?e.target:null)});
     }
     host.appendChild(c);if(!opts.hidden)requestAnimationFrame(function(){requestAnimationFrame(function(){c.classList.add('up')})});
     return c;
