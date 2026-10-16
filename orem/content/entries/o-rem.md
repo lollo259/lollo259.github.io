@@ -142,6 +142,18 @@ From the author's notes, "new idea about BLACKBOXXX" [REM-999](#/rem-999): The O
 
 How? At death, the dead person's genetic material is copied and pasted into a new, identical body, grown by TTF "Astral" [REM-307](#/rem-307) and TTF "Farmers". So, ethically, the Orem forces no one, although that is just an excuse, since they could clone everyone or make them live as long as possible. The author: "I'm very proud of the name The Orem."
 
+## Author's notes: the river people (16 Oct 2026)
+<!-- type: note | source: Author's chat notes (16 Oct 2026) -->
+River sector of the Pastures in the Sky [REM-242](#/rem-242). The design of November VII [REM-170](#/rem-170) is like an octopus: tentacles come out of his chest and belly.
+
+The Fisherman fishes and hunts shikigami [REM-271](#/rem-271) (or shinigami: undecided), then becomes a shikigami himself. Still open: whether this is the Fisherman [REM-141](#/rem-141) or someone else.
+
+The river people also hunt octopuses with the traditional Japanese octopus pot (takotsubo). They do not kill the octopus.
+
+Water recycling: devices that spin 24/7 and turn dirty water and sewer water back into clean water. The water is souls; outside the Geraas Walls [REM-120](#/rem-120) it becomes blood. The dirt they remove goes down into the sewers.
+
+The river people farm the way rice is grown together with fish (rice–fish farming, carp raised in the paddies): here the fish are shinigami.
+
 ## Source note
 <!-- type: note -->
 The compendium describes the Orem as an organization; the afterlife definition comes from the author's notes on BLACKBOXXX (above). The code O-REM was chosen by the author.
