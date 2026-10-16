@@ -144,9 +144,9 @@ How? At death, the dead person's genetic material is copied and pasted into a ne
 
 ## Author's notes: the sectors of the Pastures and the river people (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-The sectors exist only in the present day; in the future there are no more sectors and everything gets weird. Canon (prairies-elements notes): four sectors of the Pastures in the Sky [REM-242](#/rem-242), each commanded by a Horseman. Geraas Walls [REM-120](#/rem-120): the Morningstar family and Innominandum [REM-168](#/rem-168). River of Souls: November VII [REM-170](#/rem-170) (Lovecraft face, tentacles from the abdomen), the Fisherman [REM-141](#/rem-141), the Man with the Wooden Arm, the Old Oak, the Green Knight, the Firefighter. Skies: Phasis [REM-155](#/rem-155), the Old Monk with a tesseract face, the Sniper. Prairies: Planetes [REM-169](#/rem-169) as commander. On 16 Oct the author placed Phasis on the mountains and Planetes in the skies; this conflicts with the list above and is still to resolve. The river people may be the same as the prairie people or a subgroup (water).
+The sectors exist only in the present day; in the future there are no more sectors and everything gets weird. Canon (prairies-elements notes): four sectors of the Pastures in the Sky [REM-242](#/rem-242), each commanded by a Horseman. Geraas Walls [REM-120](#/rem-120): the Morningstar family and Innominandum [REM-168](#/rem-168). River of Souls: November VII [REM-170](#/rem-170) (Lovecraft face, tentacles from the abdomen), the Fisherman [REM-141](#/rem-141), the Man with the Wooden Arm, the Old Oak, the Green Knight, the Firefighter. Skies: Phasis [REM-155](#/rem-155), the Old Monk with a tesseract face, the Sniper. Prairies: Planetes [REM-169](#/rem-169) as commander. Resolved 16 Oct: the mountains count as part of the Skies, so Phasis is in the Skies (on ice-crystal clouds), and Planetes is in the Prairies. The river people may be the same as the prairie people or a subgroup (water).
 
-Shinigami are completely free and cannot be tamed in any way, like Namygal [REM-146](#/rem-146). Shikigami [REM-271](#/rem-271) are the controlled ones; they are not only eels but the animals there, such as the Fisherman's pseudo-cormorant.
+Shinigami are the ones that remain untamed, like Namygal [REM-146](#/rem-146), though they can be tamed. Shikigami [REM-271](#/rem-271) are the tamed ones; they are not only eels but the animals there, such as the Fisherman's pseudo-cormorant.
 
 The river people hunt octopuses with the traditional Japanese octopus pot (takotsubo). They do not kill the octopus: it is freed after giving its ink.
 
@@ -156,11 +156,15 @@ The river people farm the way rice is grown together with fish (rice–fish farm
 
 ## Author's notes: the bookbinders (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-The prairie and river people bind pages into books for the ever-expanding Library [REM-126](#/rem-126), the ring in the giant hole in the ground of the Prairies. They cut trees for the pages. The ink is the souls (the water) mixed with octopus ink; it is what they write with. They write in Assamic script, the language of Orpheus [REM-000](#/rem-000). They sew the pages with needles. The covers are wood bark. How they are pressed is still open. The stories are told to them by the sky people, the most transcendent, nearest to the Church of Light [REM-123](#/rem-123).
+The prairie and river people bind pages into books for the ever-expanding Library [REM-126](#/rem-126). Its location is uncertain: the author recalled a ring in a giant hole in the Prairies; the Prairies map places the Library below the dam, near the Forest of the Dead. They cut trees for the pages. The ink is the souls (the water) mixed with octopus ink; it is what they write with. They write in Assamic script, the language of Orpheus [REM-000](#/rem-000). They sew the pages with needles. The covers are wood bark. How they are pressed is still open. The stories are told to them by the sky people, the most transcendent, nearest to the Church of Light [REM-123](#/rem-123).
 
 ## Author's notes: a third way of creation (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
 Beside the Orem's revival of the dead (see Azrael [REM-333](#/rem-333)) and the gods having sex with each other, a third way of creation: beings assembled from parts united by threads, with a braiding method, as robots are built today. Who makes them, and for what, is still open (perhaps a god, perhaps engineers somewhere).
+
+## Author's notes: bone-threaded gods and the afterlife of the gods (16 Oct 2026)
+<!-- type: note | source: Author's chat notes (16 Oct 2026) -->
+Crossing the Geraas Walls [REM-120](#/rem-120) is the afterlife of the gods: whoever goes there is forgotten. The wall people of Innominandum [REM-168](#/rem-168) go outside and bring back bones and other remains. Someone then threads them together, with a braiding method, to create new gods. Who does the threading, and what they create, is still open; the author pictures a god doing it.
 
 ## Source note
 <!-- type: note -->
