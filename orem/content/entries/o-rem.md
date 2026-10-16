@@ -166,6 +166,10 @@ Beside the Orem's revival of the dead (see Azrael [REM-333](#/rem-333)) and the 
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
 Crossing the Geraas Walls [REM-120](#/rem-120) is the afterlife of the gods: whoever goes there is forgotten. The Watchers outside the Walls (the Engineers) are technically the wall people of Innominandum [REM-168](#/rem-168). They go outside, find pieces (bones and other remains) and stitch or knot them together with threads, creating new gods: new Watchers, new Engineers. They never wander too far, or they would reach the full desert and encounter Falari [REM-108](#/rem-108). They do not know what would happen to them there; they would be completely forgotten.
 
+## Author's notes: the micro-sculptor (16 Oct 2026)
+<!-- type: note | source: Author's chat notes (16 Oct 2026) -->
+A sculptor who makes microscopic sculptures, small enough to fit in a needle (real-life example: Willard Wigan). When something that small is sent down to the sewers, it is normal size there. Still open: whether he is a god, a member of the Orem, or a god who builds things for the Orem.
+
 ## Source note
 <!-- type: note -->
 The compendium describes the Orem as an organization; the afterlife definition comes from the author's notes on BLACKBOXXX (above). The code O-REM was chosen by the author.
