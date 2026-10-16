@@ -156,7 +156,7 @@ The river people farm the way rice is grown together with fish (rice–fish farm
 
 ## Author's notes: the bookbinders (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-The prairie and river people bind pages into books for the ever-expanding Library [REM-126](#/rem-126). Its location is uncertain: the author recalled a ring in a giant hole in the Prairies; the Prairies map places the Library below the dam, near the Forest of the Dead. They cut trees for the pages. The ink is the souls (the water) mixed with octopus ink; it is what they write with. They write in Assamic script, the language of Orpheus [REM-000](#/rem-000). They sew the pages with needles. The covers are wood bark. How they are pressed is still open. The stories are told to them by the sky people, the most transcendent, nearest to the Church of Light [REM-123](#/rem-123).
+The prairie and river people bind pages into books for the ever-expanding Library [REM-126](#/rem-126). The Prairies map places the Library under the desert of Falari [REM-108](#/rem-108), below the dam. They cut trees for the pages. The ink is the souls (the water) mixed with octopus ink; it is what they write with. They write in Assamic script, the language of Orpheus [REM-000](#/rem-000). They sew the pages with needles. The covers are wood bark. How they are pressed is still open. The stories are told to them by the sky people, the most transcendent, nearest to the Church of Light [REM-123](#/rem-123).
 
 ## Author's notes: a third way of creation (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
@@ -164,7 +164,7 @@ Beside the Orem's revival of the dead (see Azrael [REM-333](#/rem-333)) and the 
 
 ## Author's notes: bone-threaded gods and the afterlife of the gods (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-Crossing the Geraas Walls [REM-120](#/rem-120) is the afterlife of the gods: whoever goes there is forgotten. The wall people of Innominandum [REM-168](#/rem-168) go outside and bring back bones and other remains. Someone then threads them together, with a braiding method, to create new gods. Who does the threading, and what they create, is still open; the author pictures a god doing it.
+Crossing the Geraas Walls [REM-120](#/rem-120) is the afterlife of the gods: whoever goes there is forgotten. The Watchers outside the Walls (the Engineers) are technically the wall people of Innominandum [REM-168](#/rem-168). They go outside, find pieces (bones and other remains) and stitch or knot them together with threads, creating new gods: new Watchers, new Engineers. They never wander too far, or they would reach the full desert and encounter Falari [REM-108](#/rem-108). They do not know what would happen to them there; they would be completely forgotten.
 
 ## Source note
 <!-- type: note -->
