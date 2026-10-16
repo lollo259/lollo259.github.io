@@ -174,7 +174,7 @@ Wigan (name provisional): a new character, clearly based on the real-life micro-
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
 A new character on the mountains (part of the Skies sector): a lookout. Not yet named.
 
-On the mountains there is a huge cave where Abaddon [REM-512](#/rem-512) lives; she wanders in the forest in front of it. The cave goes deep, down to the sewers, to a huge chamber that burns and burns (compare the furnace cave of Hephaestus [REM-114](#/rem-114), where Abaddon was born and raised). The cave sits at the base of a huge dormant volcano. What the volcano is remains open.
+On the mountains there is a huge cave where Abbaddon [REM-113](#/rem-113) lives; she wanders in the forest in front of it. The cave goes deep, down to the sewers, to a huge chamber that burns and burns (compare the furnace cave of Hephaestus [REM-114](#/rem-114), where Abaddon was born and raised). The cave sits at the base of a huge dormant volcano. What the volcano is remains open.
 
 ## Source note
 <!-- type: note -->
