@@ -168,7 +168,7 @@ Crossing the Geraas Walls [REM-120](#/rem-120) is the afterlife of the gods: who
 
 ## Author's notes: the micro-sculptor (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-A sculptor who makes microscopic sculptures, small enough to fit in a needle (real-life example: Willard Wigan). When something that small is sent down to the sewers, it is normal size there. Still open: whether he is a god, a member of the Orem, or a god who builds things for the Orem.
+The micro-sculptor is Maelstrøm [REM-135](#/rem-135), the inventor, with his microscopes, telescopes and machines. Elias Yensid [REM-133](#/rem-133) makes the drawings (the blueprints) of the sculptures, and Maelstrøm builds them, microscopic, small enough to fit in a needle. He then drops them to the sewers, where they are normal size; perhaps as a way of taunting them. Real-life inspiration: Willard Wigan, micro-sculptor.
 
 ## Source note
 <!-- type: note -->
