@@ -144,21 +144,23 @@ How? At death, the dead person's genetic material is copied and pasted into a ne
 
 ## Author's notes: the sectors of the Pastures and the river people (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-Sectors of the Pastures in the Sky [REM-242](#/rem-242), each with its people. Wall people, guided by Innominandum [REM-168](#/rem-168). Mountain people, guided by Phasis [REM-155](#/rem-155). Sky people, probably guided by Planetes [REM-169](#/rem-169) (not confirmed). Prairie people, with the river people as the same people or a subgroup of them (water). The Fisherman [REM-141](#/rem-141) is in the river sector.
+The sectors exist only in the present day; in the future there are no more sectors and everything gets weird. Canon (prairies-elements notes): four sectors of the Pastures in the Sky [REM-242](#/rem-242), each commanded by a Horseman. Geraas Walls [REM-120](#/rem-120): the Morningstar family and Innominandum [REM-168](#/rem-168). River of Souls: November VII [REM-170](#/rem-170) (Lovecraft face, tentacles from the abdomen), the Fisherman [REM-141](#/rem-141), the Man with the Wooden Arm, the Old Oak, the Green Knight, the Firefighter. Skies: Phasis [REM-155](#/rem-155), the Old Monk with a tesseract face, the Sniper. Prairies: Planetes [REM-169](#/rem-169) as commander. On 16 Oct the author placed Phasis on the mountains and Planetes in the skies; this conflicts with the list above and is still to resolve. The river people may be the same as the prairie people or a subgroup (water).
 
-Shikigami [REM-271](#/rem-271) are the controlled spirits; shinigami are the free ones, like Namygal [REM-146](#/rem-146). Shikigami are not only eels: they are the animals there, such as the Fisherman's cormorant-like bird.
+Shinigami are completely free and cannot be tamed in any way, like Namygal [REM-146](#/rem-146). Shikigami [REM-271](#/rem-271) are the controlled ones; they are not only eels but the animals there, such as the Fisherman's pseudo-cormorant.
 
-The design of November VII [REM-170](#/rem-170) is like an octopus: tentacles come out of his chest and belly.
+The river people hunt octopuses with the traditional Japanese octopus pot (takotsubo). They do not kill the octopus: it is freed after giving its ink.
 
-The river people hunt octopuses with the traditional Japanese octopus pot (takotsubo). They do not kill the octopus. The Fisherman (or someone else, still open) fishes and hunts shikigami or shinigami, then becomes a shikigami.
+Water recycling: filters that spin 24/7. They receive the sewer water, and a slowly rotating arm spreads it over a filter bed (as in a trickling filter). The water is souls; outside the Geraas Walls it becomes blood. The dirt goes down into the sewers, into the lower dimension.
 
-Water recycling: rotating filters that spin 24/7. They receive the water from the sewers, and a slowly rotating arm spreads it over a filter (as in a trickling filter). The water is souls; outside the Geraas Walls [REM-120](#/rem-120) it becomes blood. The dirt goes down into the sewers, into the lower dimension.
-
-The river people farm the way rice is grown together with fish (rice–fish farming, carp raised in the paddies); here the fish are shinigami.
+The river people farm the way rice is grown together with fish (rice–fish farming, carp in the paddies); here the fish are shinigami.
 
 ## Author's notes: the bookbinders (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-The prairie and river people bind pages into books for the ever-expanding Library [REM-126](#/rem-126). They cut trees from the Pastures for the pages. The ink is made from the souls (the water) mixed with the ink of the octopus shinigami; shinigami ink is what they write with. They write in asemic script, the language of Orpheus [REM-000](#/rem-000). They bind the pages with needles. The covers may be layers of octopus skin, built up until solid; how they are pressed is still open. The stories are told to them by the sky people, the most transcendent, nearest to the Church of Light [REM-123](#/rem-123).
+The prairie and river people bind pages into books for the ever-expanding Library [REM-126](#/rem-126), the ring in the giant hole in the ground of the Prairies. They cut trees for the pages. The ink is the souls (the water) mixed with octopus ink; it is what they write with. They write in Assamic script, the language of Orpheus [REM-000](#/rem-000). They sew the pages with needles. The covers are wood bark. How they are pressed is still open. The stories are told to them by the sky people, the most transcendent, nearest to the Church of Light [REM-123](#/rem-123).
+
+## Author's notes: a third way of creation (16 Oct 2026)
+<!-- type: note | source: Author's chat notes (16 Oct 2026) -->
+Beside the Orem's revival of the dead (see Azrael [REM-333](#/rem-333)) and the gods having sex with each other, a third way of creation: beings assembled from parts united by threads, with a braiding method, as robots are built today. Who makes them, and for what, is still open (perhaps a god, perhaps engineers somewhere).
 
 ## Source note
 <!-- type: note -->
