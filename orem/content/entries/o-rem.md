@@ -168,7 +168,13 @@ Crossing the Geraas Walls [REM-120](#/rem-120) is the afterlife of the gods: who
 
 ## Author's notes: the micro-sculptor (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-A new character, not yet named, clearly based on the real-life micro-sculptor Willard Wigan. He lives somewhere in the Skies. He makes microscopic sculptures, small enough to fit in a needle, and drops them to the sewers, where they are normal size; perhaps as a way of taunting them. (Not Maelstrøm [REM-135](#/rem-135): the author rejected that.)
+Wigan (name provisional): a new character, clearly based on the real-life micro-sculptor Willard Wigan. He lives somewhere in the Skies. Elias Yensid [REM-133](#/rem-133) draws the blueprints, as he does for Maelstrøm [REM-135](#/rem-135). Wigan makes microscopic sculptures, small enough to fit in a needle, and drops them to the sewers, where they are normal size; perhaps as a way of taunting them.
+
+## Author's notes: the lookout and Abaddon's cave (16 Oct 2026)
+<!-- type: note | source: Author's chat notes (16 Oct 2026) -->
+A new character on the mountains (part of the Skies sector): a lookout. Not yet named.
+
+On the mountains there is a huge cave where Abaddon [REM-512](#/rem-512) lives; she wanders in the forest in front of it. The cave goes deep, down to the sewers, to a huge chamber that burns and burns (compare the furnace cave of Hephaestus [REM-114](#/rem-114), where Abaddon was born and raised). The cave sits at the base of a huge dormant volcano. What the volcano is remains open.
 
 ## Source note
 <!-- type: note -->
