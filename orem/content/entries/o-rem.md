@@ -142,17 +142,23 @@ From the author's notes, "new idea about BLACKBOXXX" [REM-999](#/rem-999): The O
 
 How? At death, the dead person's genetic material is copied and pasted into a new, identical body, grown by TTF "Astral" [REM-307](#/rem-307) and TTF "Farmers". So, ethically, the Orem forces no one, although that is just an excuse, since they could clone everyone or make them live as long as possible. The author: "I'm very proud of the name The Orem."
 
-## Author's notes: the river people (16 Oct 2026)
+## Author's notes: the sectors of the Pastures and the river people (16 Oct 2026)
 <!-- type: note | source: Author's chat notes (16 Oct 2026) -->
-River sector of the Pastures in the Sky [REM-242](#/rem-242). The design of November VII [REM-170](#/rem-170) is like an octopus: tentacles come out of his chest and belly.
+Sectors of the Pastures in the Sky [REM-242](#/rem-242), each with its people. Wall people, guided by Innominandum [REM-168](#/rem-168). Mountain people, guided by Phasis [REM-155](#/rem-155). Sky people, probably guided by Planetes [REM-169](#/rem-169) (not confirmed). Prairie people, with the river people as the same people or a subgroup of them (water). The Fisherman [REM-141](#/rem-141) is in the river sector.
 
-The Fisherman fishes and hunts shikigami [REM-271](#/rem-271) (or shinigami: undecided), then becomes a shikigami himself. Still open: whether this is the Fisherman [REM-141](#/rem-141) or someone else.
+Shikigami [REM-271](#/rem-271) are the controlled spirits; shinigami are the free ones, like Namygal [REM-146](#/rem-146). Shikigami are not only eels: they are the animals there, such as the Fisherman's cormorant-like bird.
 
-The river people also hunt octopuses with the traditional Japanese octopus pot (takotsubo). They do not kill the octopus.
+The design of November VII [REM-170](#/rem-170) is like an octopus: tentacles come out of his chest and belly.
 
-Water recycling: devices that spin 24/7 and turn dirty water and sewer water back into clean water. The water is souls; outside the Geraas Walls [REM-120](#/rem-120) it becomes blood. The dirt they remove goes down into the sewers.
+The river people hunt octopuses with the traditional Japanese octopus pot (takotsubo). They do not kill the octopus. The Fisherman (or someone else, still open) fishes and hunts shikigami or shinigami, then becomes a shikigami.
 
-The river people farm the way rice is grown together with fish (rice–fish farming, carp raised in the paddies): here the fish are shinigami.
+Water recycling: rotating filters that spin 24/7. They receive the water from the sewers, and a slowly rotating arm spreads it over a filter (as in a trickling filter). The water is souls; outside the Geraas Walls [REM-120](#/rem-120) it becomes blood. The dirt goes down into the sewers, into the lower dimension.
+
+The river people farm the way rice is grown together with fish (rice–fish farming, carp raised in the paddies); here the fish are shinigami.
+
+## Author's notes: the bookbinders (16 Oct 2026)
+<!-- type: note | source: Author's chat notes (16 Oct 2026) -->
+The prairie and river people bind pages into books for the ever-expanding Library [REM-126](#/rem-126). They cut trees from the Pastures for the pages. The ink is made from the souls (the water) mixed with the ink of the octopus shinigami; shinigami ink is what they write with. They write in asemic script, the language of Orpheus [REM-000](#/rem-000). They bind the pages with needles. The covers may be layers of octopus skin, built up until solid; how they are pressed is still open. The stories are told to them by the sky people, the most transcendent, nearest to the Church of Light [REM-123](#/rem-123).
 
 ## Source note
 <!-- type: note -->
