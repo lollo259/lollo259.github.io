@@ -34,6 +34,7 @@
     padding: 8px 0; background: var(--desk); border-bottom: 1px solid #d6d3cf; margin: 0 -16px 24px; }
   .ed-tools button { font: 13px Jost, sans-serif; color: var(--ui); background: #fff; border: 1px solid #c9c5c0; border-radius: 6px; padding: 5px 10px; cursor: pointer; min-width: 34px; }
   .ed-tools button:hover { border-color: #8f8a85; }
+  .ed-tools .hint { width: 100%; text-align: center; font-size: 11.5px; color: #8a857f; letter-spacing: .02em; }
   .ed-tools .sep { width: 1px; background: #c9c5c0; margin: 2px 4px; }
   .ed-col { max-width: 700px; margin: 0 auto; }
   .ed-part { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.08); margin: 0 0 4px; position: relative; }
@@ -97,7 +98,7 @@
       if (n.nodeType === 3) { s += n.data.replace(/ /g, ' ').replace(/([*_\\`])/g, '\\$1').replace(/\s+/g, ' '); continue; }
       if (n.nodeType !== 1) continue;
       const t = n.tagName, inner = () => mdInline(n);
-      if (t === 'BR') s += '\\\n';
+      if (t === 'BR') { if (!trailingBr(n)) s += '\\\n'; }
       else if (t === 'STRONG' || t === 'B') { const x = inner(); s += x.trim() ? wrap(x, '**') : x; }
       else if (t === 'EM' || t === 'I') { const x = inner(); s += x.trim() ? wrap(x, '*') : x; }
       else if (t === 'A') s += `[${inner()}](${n.getAttribute('href') || ''})`;
@@ -107,6 +108,13 @@
       else s += inner();
     }
     return s;
+  }
+  // a <br> with nothing after it in its paragraph is only the browser's placeholder for an empty line
+  function trailingBr(n) {
+    for (let x = n; x && !(x.nodeType === 1 && /^(P|DIV|H[1-6]|LI|BLOCKQUOTE|SECTION)$/.test(x.tagName)); x = x.parentNode) {
+      for (let y = x.nextSibling; y; y = y.nextSibling) if ((y.nodeType === 3 && y.data.trim()) || (y.nodeType === 1 && (y.textContent.trim() || y.querySelector && (y.tagName === 'IMG' || y.querySelector('img'))))) return false;
+    }
+    return true;
   }
   function wrap(x, m) {                         // keep spaces outside the markers: "*a b* c", not "*a b *c"
     const a = x.match(/^\s*/)[0], b = x.match(/\s*$/)[0];
@@ -199,9 +207,25 @@
     b.innerHTML = Q.markdown(p.body || '') || '<p><br></p>';
     b.querySelectorAll('p').forEach((x, i, all) => { const n = x.nextElementSibling; if (/^<em>[^<]+<\/em>$/.test(x.innerHTML.trim()) && n && n.tagName === 'H2') x.classList.add('epi'); });
     b.addEventListener('input', () => dirty(p, b));
-    b.addEventListener('keydown', e => {                       // a new paragraph starts plain, not in the style of the last word
-      if (e.key !== 'Enter' || e.shiftKey) return;
-      setTimeout(() => {
+    b.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' || e.isComposing) return;
+      // like a typewriter: Enter = a capo (new line, no space); Enter on the empty new line = new paragraph
+      const sel = getSelection();
+      if (!e.shiftKey && sel.rangeCount) {
+        let blk = sel.anchorNode; while (blk && blk.parentNode !== b) blk = blk.parentNode;
+        const inList = sel.anchorNode && (sel.anchorNode.nodeType === 1 ? sel.anchorNode : sel.anchorNode.parentElement).closest('li');
+        if (blk && blk.nodeType === 1 && /^(P|DIV|BLOCKQUOTE)$/.test(blk.tagName) && !inList) {
+          e.preventDefault();
+          const r = sel.getRangeAt(0).cloneRange(); r.setStart(blk, 0);
+          const before = r.cloneContents();
+          let last = before.lastChild; while (last && last.nodeType === 1 && last.tagName !== 'BR' && last.lastChild) last = last.lastChild;
+          while (last && last.nodeType === 3 && !last.data.length) last = last.previousSibling;
+          if (last && last.nodeName === 'BR' && blk.textContent.trim()) { document.execCommand('delete'); document.execCommand('insertParagraph'); }
+          else if (!blk.textContent.trim()) document.execCommand('insertParagraph');
+          else { document.execCommand('insertLineBreak'); dirty(p, b); return; }
+        }
+      }
+      setTimeout(() => {                                        // a new paragraph starts plain, not in the style of the last word
         const sel = getSelection(); if (!sel.rangeCount) return;
         let blk = sel.anchorNode; while (blk && blk.parentNode !== b) blk = blk.parentNode;
         if (blk && blk.nodeType === 1 && /^(P|DIV|H[1-6])$/.test(blk.tagName) && !blk.textContent.trim() && blk.querySelector('em,i,strong,b,span')) {
@@ -342,7 +366,7 @@
       <button data-c="p" title="Testo normale">Testo</button><button data-c="h2" title="Titolo">Titolo</button><button data-c="h3" title="Sottotitolo">Sottotitolo</button>
       <span class="sep"></span><button data-c="bold" title="Grassetto"><b>G</b></button><button data-c="italic" title="Corsivo"><i>C</i></button>
       <span class="sep"></span><button data-c="ul" title="Elenco">• Elenco</button><button data-c="blockquote" title="Citazione rientrata">Citazione</button>
-      <button data-c="img" title="Inserisci un’immagine nel testo">Immagine</button><span class="sep"></span><button data-c="undo" title="Annulla">↶</button><button data-c="redo" title="Ripeti">↷</button>
+      <button data-c="img" title="Inserisci un’immagine nel testo">Immagine</button><span class="sep"></span><button data-c="undo" title="Annulla">↶</button><button data-c="redo" title="Ripeti">↷</button><span class="hint">Invio: a capo · Invio due volte: nuovo paragrafo</span>
       </div><div class="ed-col"></div>`;
     const col = $('.ed-col', ed);
     const add = i => { const d = document.createElement('div'); d.className = 'ed-add'; d.innerHTML = `<button type="button" data-at="${i}">+ Aggiungi qui</button>`; return d; };
