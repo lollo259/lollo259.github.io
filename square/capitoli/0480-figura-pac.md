@@ -5,4 +5,6 @@ tipo: "figura"
 immagine: "/square/media/fig-pac.png"
 capitolo: "Il quadrante delle emozioni"
 pagina_intera: true
+num_x: 14.49
+num_y: 9.79
 ---

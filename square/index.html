@@ -104,6 +104,7 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
 .page.neg.figura img, .page.neg.disegno img, .page.neg.figpiena img, .page.neg img.fondo { filter: invert(1); }
 .page.apertura.bianco { background: #fff; color: var(--ink); }
 .page img.fondo { position: absolute; left: 0; width: 100%; }
+.page .fignum { position: absolute; color: #8a8a8a; line-height: 1; white-space: nowrap; }
 .page.figpiena img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 
 /* contents: general on the left page, the four chapters on the right, each quarter the colour of its opening */
@@ -332,7 +333,7 @@ function blank(cap) { const p = newPage('vuota', cap, { area: false, folio: fals
 function toRight() { if (pages.length % 2 === 1) blank(); }    // next page will be odd
 function toLeft() { if (pages.length % 2 === 0) blank(); }     // next page will be even
 
-let figN = 0, idxEntries = [], idxSpec = '';
+let numN = 0, figN = 0, idxEntries = [], idxSpec = '';
 function place(x, tipo, cap, html) {
     if (tipo === 'apertura') {
       // chapter n is 4^(n-1) and sits in quarter n: 1 top left, 2 top right, 3 bottom left, 4 bottom right
@@ -387,13 +388,17 @@ function place(x, tipo, cap, html) {
     if (tipo === 'figura' && x.pagina_intera === true) {
       const quiet = x.senza_testata === true;
       const p = newPage('figpiena', cap, { area: false, folio: !quiet, head: !quiet });
-      p.el.innerHTML = `<img src="${x.immagine}" alt="${esc(x.titolo || '')}">`;
+      // size: the figure shrinks around the centre of the page, so its place never changes
+      const k = Math.min(100, Math.max(20, +x.scala || 100)), o = (100 - k) / 2;
+      p.el.innerHTML = `<img src="${x.immagine}" alt="${esc(x.titolo || '')}" style="left:${o}%;top:${o}%;width:${k}%;height:${k}%">`;
+      if (x._num) p.el.insertAdjacentHTML('beforeend', `<div class="fignum" style="left:${o + (+x.num_x) * k / 100}%;top:${o + (+x.num_y) * k / 100}%;font-size:${9.5 * k / 100}px">fig. ${x._num}</div>`);
       p.idxTitle = x.titolo; return true;
     }
     if (tipo === 'figura' || tipo === 'disegno') {
       const p = newPage(tipo, cap);
-      if (tipo === 'figura') { p.area.innerHTML = `<div class="fig">fig. ${x._fig}</div><img src="${x.immagine}" alt="${esc(x.titolo || '')}">`; }
-      else p.area.innerHTML = `<img src="${x.immagine}" alt="${esc(x.titolo || '')}">`;
+      const k = Math.min(100, Math.max(20, +x.scala || 100));
+      if (tipo === 'figura') { p.area.innerHTML = `<div class="fig">fig. ${x._fig}</div><img src="${x.immagine}" alt="${esc(x.titolo || '')}" style="max-width:${k}%;max-height:${k}%">`; }
+      else p.area.innerHTML = `<img src="${x.immagine}" alt="${esc(x.titolo || '')}" style="max-width:${k}%;max-height:${k}%">`;
       if (html) { const d = document.createElement('div'); d.innerHTML = html; p.area.appendChild(d); }
       return true;
     }
@@ -410,7 +415,7 @@ function render(parti) {
   avvisi = [];
   parti = parti.map(x => (/^(foto|doppia|figura|disegno|doppia-figura)$/.test(x.tipo) && !x.immagine) ? { ...x, immagine: NOIMG } : x);
   pageOf = {}; Q.pageOf = pageOf;
-  pages = []; misura.innerHTML = ''; figN = 0; idxEntries = []; pending = []; idxSpec = '';
+  pages = []; misura.innerHTML = ''; figN = 0; numN = 0; idxEntries = []; pending = []; idxSpec = '';
   const floating = x => (x.tipo === 'foto' || x.tipo === 'figura' || x.tipo === 'doppia' || x.tipo === 'disegno') && x.fluttua !== false;
   for (const x of parti) {
     const tipo = x.tipo || 'testo', cap = x.capitolo || '';
@@ -418,12 +423,14 @@ function render(parti) {
     const prev = pages[pages.length - 1];
     if (floating(x) && prev && prev.flow && !x.lato) {    // wait for the text page to fill
       if (tipo === 'figura') x._fig = ++figN;
+      if (x.num_x != null) x._num = ++numN;
       pending.push({ left: tipo === 'doppia', make: () => { const n = pages.length; place(x, tipo, cap, html); mark(x, n); negate(x, n); } });
       continue;
     }
     if (tipo !== 'testo' || x.nuova_pagina === true) flushPending(true);
     if (x.lato === 'destra') toRight(); else if (x.lato === 'sinistra') toLeft();
     if (tipo === 'figura') x._fig = ++figN;
+    if (x.num_x != null) x._num = ++numN;
     { const n = pages.length; if (place(x, tipo, cap, html)) { mark(x, n); negate(x, n); continue; } }
     // text
     const cls = [cap === 'La parola dell’artista' ? 'parola' : '', /Glossario|Note/.test(cap) ? 'fine' : '', /Note/.test(cap) ? 'note' : '', x.negativo === true ? 'neg' : ''].join(' ').trim();
@@ -551,6 +558,6 @@ async function avvia() {
 }
 avvia();
 </script>
-<script src="editor.js?v=7"></script>
+<script src="editor.js?v=8"></script>
 </body>
 </html>

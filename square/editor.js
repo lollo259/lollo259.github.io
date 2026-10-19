@@ -15,7 +15,7 @@
   };
   const IMMAGINE = new Set(['foto', 'doppia', 'figura', 'disegno', 'doppia-figura']);
   const FM_ORDER = ['ordine', 'titolo', 'tipo', 'capitolo', 'numero', 'immagine', 'immagine_destra', 'lato', 'nuova_pagina',
-    'splash', 'bianco', 'negativo', 'originale', 'crop', 'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
+    'splash', 'bianco', 'negativo', 'scala', 'num_x', 'num_y', 'originale', 'crop', 'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
 
   let parts = [], removed = [], editing = false, nextId = 1, saving = false;
 
@@ -222,6 +222,12 @@
       const d = document.createElement('div'); d.className = 'ed-img';
       const pic = (src, key) => `<div><img src="${esc(shown[src] || src || '')}" alt="" ${src ? '' : 'hidden'}><br><button data-img="${key}">${src ? 'Cambia immagine' : 'Scegli immagine'}</button></div>`;
       d.innerHTML = tipo === 'doppia-figura' ? `<div class="due">${pic(p.immagine, 'immagine')}${pic(p.immagine_destra, 'immagine_destra')}</div>` : pic(p.immagine, 'immagine');
+      if ((tipo === 'figura' || tipo === 'disegno') && p.immagine) {   // size: always centred, same place on the page
+        const k = +p.scala || 100;
+        d.insertAdjacentHTML('beforeend', `<label class="ed-zoom" style="width:100%;margin:0">Dimensione <input type="range" min="40" max="100" step="1" value="${k}" data-k="scala"><span class="v">${k}%</span></label>`);
+        const r = d.querySelector('input[data-k=scala]');
+        r.addEventListener('input', () => { p.scala = +r.value; r.nextElementSibling.textContent = r.value + '%'; dirty(p); });
+      }
       if ((tipo === 'foto' || tipo === 'doppia') && p.immagine) {      // a photo: one page or a splash across two, and its crop
         d.insertAdjacentHTML('beforeend', `<div class="ed-aprow"><button data-crop="1">Ritaglia</button></div>
           <div class="ed-aprow ed-lay" role="radiogroup" aria-label="Impaginazione della foto">
