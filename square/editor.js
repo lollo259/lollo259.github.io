@@ -15,7 +15,7 @@
   };
   const IMMAGINE = new Set(['foto', 'doppia', 'figura', 'disegno', 'doppia-figura']);
   const FM_ORDER = ['ordine', 'titolo', 'tipo', 'capitolo', 'numero', 'immagine', 'immagine_destra', 'lato', 'nuova_pagina',
-    'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
+    'splash', 'bianco', 'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
 
   let parts = [], removed = [], editing = false, nextId = 1, saving = false;
 
@@ -32,7 +32,7 @@
   @media (max-width: 999.98px) { body.editing #libro { display: none; } }
   .ed-tools { position: sticky; top: var(--barh, 49px); z-index: 4; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
     padding: 8px 0; background: var(--desk); border-bottom: 1px solid #d6d3cf; margin: 0 -16px 24px; }
-  .ed-tools button { font: 13px Jost, sans-serif; color: var(--ui); background: #fff; border: 1px solid #c9c5c0; border-radius: 6px; padding: 5px 10px; cursor: pointer; min-width: 34px; }
+  .ed-tools button { font: 13px Inter, sans-serif; color: var(--ui); background: #fff; border: 1px solid #c9c5c0; border-radius: 6px; padding: 5px 10px; cursor: pointer; min-width: 34px; }
   .ed-tools button:hover { border-color: #8f8a85; }
   .ed-tools .hint { width: 100%; text-align: center; font-size: 11.5px; color: #8a857f; letter-spacing: .02em; }
   .ed-tools .sep { width: 1px; background: #c9c5c0; margin: 2px 4px; }
@@ -41,7 +41,7 @@
   .ed-part.bozza { opacity: .55; }
   .ed-head { display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-bottom: 1px solid #efedea; font-size: 12px; color: #77726d; letter-spacing: .03em; }
   .ed-head .tt { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .ed-head button { font: 12px Jost, sans-serif; background: none; border: 1px solid transparent; border-radius: 5px; padding: 2px 7px; cursor: pointer; color: #55514c; }
+  .ed-head button { font: 12px Inter, sans-serif; background: none; border: 1px solid transparent; border-radius: 5px; padding: 2px 7px; cursor: pointer; color: #55514c; }
   .ed-head button:hover { border-color: #c9c5c0; background: #faf9f8; }
   .ed-dirty .ed-head .tt::after { content: " · modificato"; color: #1f5fae; }
   .ed-body { padding: 26px 46px 30px; font-size: 15.5px; line-height: 1.55; outline: none; min-height: 60px; }
@@ -52,21 +52,21 @@
   .ed-body img { max-width: 100%; display: block; margin: .6em 0; }
   .ed-body .epi, .ed-body p:has(> em:only-child) { color: #555; }
   .ed-ap { padding: 30px 46px 36px; display: flex; flex-direction: column; gap: 10px; }
-  .ed-ap input { font: 300 40px Jost, sans-serif; border: 0; border-bottom: 1px dashed #ccc; width: 120px; padding: 2px 0; }
+  .ed-ap input { font: 200 40px Inter, sans-serif; border: 0; border-bottom: 1px dashed #ccc; width: 120px; padding: 2px 0; }
   .ed-ap input.t { font-size: 26px; font-weight: 400; width: 100%; }
   .ed-img { padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .ed-img img { max-width: 100%; max-height: 420px; display: block; box-shadow: 0 0 0 1px #eee; }
   .ed-img .due { display: flex; gap: 8px; width: 100%; } .ed-img .due > div { flex: 1; text-align: center; } .ed-img .due img { max-height: 260px; }
-  .ed-img button, .ed-set button { font: 13px Jost, sans-serif; background: #fff; border: 1px solid #c9c5c0; border-radius: 6px; padding: 5px 12px; cursor: pointer; }
+  .ed-img button, .ed-set button { font: 13px Inter, sans-serif; background: #fff; border: 1px solid #c9c5c0; border-radius: 6px; padding: 5px 12px; cursor: pointer; }
   .ed-set { padding: 12px 16px; background: #faf9f8; border-bottom: 1px solid #efedea; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; font-size: 13px; }
   .ed-set label { display: flex; flex-direction: column; gap: 3px; color: #55514c; }
   .ed-set label.chk { flex-direction: row; align-items: center; gap: 6px; }
-  .ed-set input[type=text], .ed-set input[type=number], .ed-set select { font: 14px Jost, sans-serif; padding: 5px 7px; border: 1px solid #c9c5c0; border-radius: 5px; background: #fff; }
+  .ed-set input[type=text], .ed-set input[type=number], .ed-set select { font: 14px Inter, sans-serif; padding: 5px 7px; border: 1px solid #c9c5c0; border-radius: 5px; background: #fff; }
   .ed-add { display: flex; justify-content: center; padding: 6px 0 10px; position: relative; }
-  .ed-add > button { font: 12px Jost, sans-serif; color: #77726d; background: none; border: 1px dashed #c9c5c0; border-radius: 999px; padding: 3px 12px; cursor: pointer; opacity: .55; }
+  .ed-add > button { font: 12px Inter, sans-serif; color: #77726d; background: none; border: 1px dashed #c9c5c0; border-radius: 999px; padding: 3px 12px; cursor: pointer; opacity: .55; }
   .ed-add > button:hover, .ed-add > button:focus { opacity: 1; background: #fff; }
   .ed-menu { position: absolute; top: 34px; z-index: 6; background: #fff; box-shadow: 0 6px 24px rgba(0,0,0,.18); border-radius: 8px; padding: 6px; display: flex; flex-direction: column; min-width: 220px; }
-  .ed-menu button { text-align: left; font: 14px Jost, sans-serif; background: none; border: 0; padding: 7px 10px; border-radius: 5px; cursor: pointer; }
+  .ed-menu button { text-align: left; font: 14px Inter, sans-serif; background: none; border: 0; padding: 7px 10px; border-radius: 5px; cursor: pointer; }
   .ed-menu button:hover { background: #f1efec; }
   .ed-modal { position: fixed; inset: 0; z-index: 20; background: rgba(20,20,20,.45); display: flex; align-items: center; justify-content: center; padding: 16px; }
   .ed-modal .box { background: #fff; max-width: 520px; width: 100%; border-radius: 10px; padding: 22px 24px; font-size: 14.5px; line-height: 1.5; }
@@ -74,7 +74,7 @@
   .ed-modal ol { padding-left: 1.2em; margin: 8px 0 14px; } .ed-modal li { margin: 0 0 6px; }
   .ed-modal input { width: 100%; font: 14px monospace; padding: 8px; border: 1px solid #c9c5c0; border-radius: 6px; margin: 4px 0 12px; }
   .ed-modal .row { display: flex; gap: 8px; justify-content: flex-end; }
-  .ed-modal button { font: 14px Jost, sans-serif; border: 1px solid #c9c5c0; background: #fff; border-radius: 999px; padding: 6px 16px; cursor: pointer; }
+  .ed-modal button { font: 14px Inter, sans-serif; border: 1px solid #c9c5c0; background: #fff; border-radius: 999px; padding: 6px 16px; cursor: pointer; }
   .ed-modal button.primary { background: #1b1b1b; color: #fff; border-color: #1b1b1b; }
   .ed-modal .err { color: #a3261b; min-height: 1.2em; font-size: 13px; }
   #salva { display: none; } body.editing #salva { display: inline-block; } body.editing #vista, body.editing #pdf { display: none; }
@@ -187,8 +187,9 @@
     const tipo = p.tipo || 'testo';
     if (tipo === 'apertura') {
       const d = document.createElement('div'); d.className = 'ed-ap';
-      d.innerHTML = `<input aria-label="Numero del capitolo" class="n" value="${esc(p.numero || '')}"><input aria-label="Titolo del capitolo" class="t" value="${esc(p.titolo || '')}">`;
-      d.addEventListener('input', () => { p.numero = $('.n', d).value; p.titolo = $('.t', d).value; if (!p.capitolo || p.capitolo === p._capPrev) p.capitolo = p.titolo; p._capPrev = p.titolo; dirty(p); });
+      d.innerHTML = `<input aria-label="Numero del capitolo (1 = 4⁰, 2 = 4¹, 3 = 4², 4 = 4³)" title="1 = 4⁰, 2 = 4¹, 3 = 4², 4 = 4³" class="n" value="${esc(p.numero || '')}"><input aria-label="Titolo del capitolo" class="t" value="${esc(p.titolo || '')}">
+        <div class="ed-img" style="padding:6px 0 0;align-items:flex-start"><img src="${esc(shown[p.immagine] || p.immagine || '')}" alt="" ${p.immagine ? '' : 'hidden'} style="max-height:180px"><button data-img="immagine">${p.immagine ? 'Cambia l’immagine d’apertura' : 'Aggiungi un’immagine d’apertura'}</button></div>`;
+      d.addEventListener('input', e => { if (!e.target.matches('input.n, input.t')) return; p.numero = $('.n', d).value; p.titolo = $('.t', d).value; if (!p.capitolo || p.capitolo === p._capPrev) p.capitolo = p.titolo; p._capPrev = p.titolo; dirty(p); });
       p._capPrev = p.capitolo;
       sec.appendChild(d);
     } else if (IMMAGINE.has(tipo)) {
@@ -289,7 +290,7 @@
       `<label>Tipo<select data-k="tipo">${Object.entries(TIPI).map(([k, v]) => `<option value="${k}" ${k === tipo ? 'selected' : ''}>${v}</option>`).join('')}</select></label>` +
       f('capitolo', 'Titolo corrente in alto sulle pagine') +
       `<label>Lato<select data-k="lato"><option value="">Qualsiasi</option><option value="destra" ${p.lato === 'destra' ? 'selected' : ''}>Pagina destra</option><option value="sinistra" ${p.lato === 'sinistra' ? 'selected' : ''}>Pagina sinistra</option></select></label>`;
-    if (tipo === 'apertura') h += f('numero', 'Numero del capitolo');
+    if (tipo === 'apertura') h += f('numero', 'Numero del capitolo (1 = 4⁰ … 4 = 4³)') + c('splash', 'L’immagine occupa tutte e due le pagine') + c('bianco', 'Quadrato bianco invece che nero (solo con l’immagine su due pagine)');
     if (tipo === 'testo') h += c('nuova_pagina', 'Comincia su una pagina nuova');
     if (tipo === 'figura') h += c('pagina_intera', 'L’immagine è già una pagina intera') + c('senza_testata', 'Senza titolo corrente e numero di pagina');
     h += c('bozza', 'Nascondi dal libro (bozza)');

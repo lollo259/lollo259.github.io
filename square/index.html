@@ -8,22 +8,22 @@
 <title>Il Quadrante delle Emozioni</title>
 <link rel="icon" href="/favicon.svg">
 <style>
-/* the book: 8.5 × 8.5 in pages, Jost, black and white */
-@font-face { font-family: Jost; src: url(font/Jost.ttf); font-weight: 100 900; font-style: normal; }
-@font-face { font-family: Jost; src: url(font/Jost-Italic.ttf); font-weight: 100 900; font-style: italic; }
+/* the book: 8.5 × 8.5 in pages, Inter, black and white */
+@font-face { font-family: Inter; src: url(font/Inter.ttf); font-weight: 100 900; font-style: normal; }
+@font-face { font-family: Inter; src: url(font/Inter-Italic.ttf); font-weight: 100 900; font-style: italic; }
 :root {
-  --ink: #161616; --grey: #8a8a8a; --rule: #cfcfcf; --paper: #fff; --desk: #e8e6e3; --ui: #1b1b1b;
+  --ink: #141414; --grey: #8a8a8a; --rule: #cfcfcf; --paper: #fff; --desk: #e8e6e3; --ui: #1b1b1b;
   --pw: 816px; --ph: 816px;            /* 8.5 in at 96 px per inch */
-  --top: 77px; --bottom: 77px; --inner: 103px; --outer: 55px;
+  --top: 96px; --bottom: 96px; --inner: 48px; --outer: 56px;   /* inner ≥ 0.375 in for KDP binding */
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--desk); color: var(--ink); font-family: Jost, "Helvetica Neue", Arial, sans-serif; }
+body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
 
 /* ---------- interface */
 .barra { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
-  padding: 10px max(16px, env(safe-area-inset-left)); background: var(--desk); border-bottom: 1px solid #d6d3cf; font-size: 13px; letter-spacing: .04em; }
-.barra .t { font-size: 13px; letter-spacing: .28em; text-transform: uppercase; margin-right: auto; }
+  padding: 10px max(16px, env(safe-area-inset-left)); background: var(--desk); border-bottom: 1px solid #d6d3cf; font-size: 13px; letter-spacing: .02em; }
+.barra .t { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; margin-right: auto; }
 .barra button, .barra a { font: inherit; color: var(--ui); background: none; border: 1px solid #bdb9b4; border-radius: 999px; padding: 6px 14px; cursor: pointer; text-decoration: none; }
 .barra button:hover, .barra a:hover { background: #fff; }
 .barra .info { color: #6b6762; }
@@ -42,59 +42,77 @@ body { background: var(--desk); color: var(--ink); font-family: Jost, "Helvetica
 .page .area { position: absolute; top: var(--top); bottom: var(--bottom); overflow: hidden; }
 .page.dx .area { left: var(--inner); right: var(--outer); }
 .page.sx .area { left: var(--outer); right: var(--inner); }
-.page .testata { position: absolute; top: 41px; font-size: 10.7px; font-style: italic; color: var(--grey); }
-.page.sx .testata { left: 67px; } .page.dx .testata { right: 67px; }
-.page .folio { position: absolute; bottom: 36px; width: 100%; text-align: center; font-size: 11.3px; }
-.page.sx .folio { left: -14px; } .page.dx .folio { left: 14px; }
+.page .testata { position: absolute; top: 44px; font-size: 10px; color: var(--grey); }
+.page.sx .testata { left: var(--outer); } .page.dx .testata { right: var(--outer); }
+.page .folio { position: absolute; bottom: 42px; font-size: 10px; font-weight: 500; }
+.page.sx .folio { left: var(--outer); } .page.dx .folio { right: var(--outer); }
 
-/* text */
-.area { font-size: 13.33px; line-height: 1.38; hyphens: manual; }
-.area p { margin: 0 0 .55em; }
-.area h1 { font-weight: 400; font-size: 29px; margin: 0 0 .9em; }
-.area h2 { font-weight: 400; font-size: 16.7px; margin: 1.1em 0 .45em; break-after: avoid; }
-.area h3 { font-weight: 400; font-size: 14.7px; margin: 1.4em 0 .45em; break-after: avoid; }
-.area h4 { font-weight: 400; font-size: 14.7px; margin: 1.3em 0 .4em; }
+/* text: two columns on every text page */
+.area { font-size: 11.6px; line-height: 1.56; hyphens: manual; }
+.page.testo .area { column-count: 2; column-gap: 48px; column-fill: auto; }
+.area p { margin: 0 0 .75em; orphans: 2; widows: 2; }
+.area h1 { font-weight: 300; font-size: 25px; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 .9em; }
+.area h2 { font-weight: 300; font-size: 25px; line-height: 1.15; letter-spacing: -.01em; margin: 1.3em 0 .7em; break-after: avoid; }
+.area h3 { font-weight: 600; font-size: 11.6px; line-height: 1.56; margin: 1.6em 0 .2em; break-after: avoid; }
+.area h3 + h3 { margin-top: 0; font-weight: 400; color: #777; }
+.area h4 { font-weight: 500; font-size: 11.6px; margin: 1.2em 0 .3em; }
 .area > :first-child { margin-top: 0; }
-.area ul, .area ol { margin: 0 0 .55em; padding-left: 1.4em; }
+.area ul, .area ol { margin: 0 0 .75em; padding-left: 1.3em; }
 .area li { margin: 0 0 .2em; }
 .area ul ul { margin-top: .2em; font-size: .94em; }
-.area blockquote { margin: 0 0 .7em 1.2em; font-size: .94em; }
+.area blockquote { margin: 0 0 .8em 1.1em; font-size: .94em; }
 .area blockquote p { margin: 0 0 .4em; }
 .area hr { border: 0; margin: .6em 0; text-align: center; }
 .area hr::after { content: "·"; }
 .area img { max-width: 100%; }
 .area a { color: inherit; }
-.area .epi { font-style: italic; font-size: 11.3px; margin: 0 0 .1em; }
-.parola h2 { font-size: 22.7px; margin: 0 0 1em; }
-.fine h1 { font-size: 29px; }
-.fine p, .fine li { font-size: 12.5px; }
-.note h3 { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 13.33px; margin: 1.2em 0 .3em; }
+.area .epi { font-style: italic; font-size: 10.5px; color: #555; margin: 0 0 .1em; }
+.parola h2 { margin-top: 0; }
+.fine p, .fine li { font-size: 11px; }
+.note h3 { font-weight: 500; font-size: 11.6px; margin: 1.2em 0 .3em; }
 
-/* special pages */
-.page.apertura .numero { position: absolute; left: 91px; top: 96px; font-size: 72px; font-weight: 400; line-height: 1; }
-.page.apertura .titolo { position: absolute; left: 91px; top: 344px; font-size: 29.3px; font-weight: 400; line-height: 1.16; max-width: 360px; }
+/* chapter openings: 4⁰ 4¹ 4² 4³, each in its own quarter of the page */
+.page.apertura { background: #000; color: #fff; }
+.page .qq, .page .sq { position: absolute; width: 50%; height: 50%; }
+.page .qq { padding: 56px; }
+.page .sq { padding: 44px; background: #000; color: #fff; }
+.page .sq.bianco { background: #fff; color: var(--ink); }
+.page .num { font-weight: 200; font-size: 110px; line-height: 1; letter-spacing: -.03em; }
+.page .num sup { font-size: .42em; vertical-align: .95em; margin-left: .04em; }
+.page .qq .t, .page .sq .t { font-weight: 300; font-size: 27px; line-height: 1.18; max-width: 290px; margin-top: 22px; }
+.page.splash img, .page.doppia img { position: absolute; top: 0; height: 100%; width: 200%; object-fit: cover; }
+.page.splash.sx img, .page.doppia.sx img { left: 0; } .page.splash.dx img, .page.doppia.dx img { left: -100%; }
+
+/* other pages */
 .page.frontespizio .area, .page.dedica .area, .page.colophon .area { display: flex; flex-direction: column; justify-content: center; }
-.page.frontespizio h1 { font-weight: 300; font-size: 32px; line-height: 1.2; margin: 0 0 .5em; }
-.page.dedica .area { display: block !important; padding-top: 275px; font-size: 14px; }
-.page.dedica h1 { font-weight: 400; font-size: 29px; margin: 0 0 .25em; }
-.page.dedica h1 + p:has(> em:only-child) { color: var(--grey); font-size: 13.33px; margin: 0 0 2.6em; }   /* a grey subtitle only when the line is all italic */
+.page.frontespizio h1 { font-weight: 200; font-size: 34px; line-height: 1.15; letter-spacing: -.01em; margin: 0 0 .4em; }
+.page.frontespizio p { font-size: 13px; }
+.page.dedica .area { display: block !important; padding-top: 275px; font-size: 13px; }
+.page.dedica h1 { font-weight: 300; font-size: 27px; margin: 0 0 .5em; }
+.page.dedica h1 + p:has(> em:only-child) { color: var(--grey); font-size: 12px; margin: 0 0 2.6em; }   /* a grey subtitle only when the line is all italic */
 .page.dedica p { margin: 0 0 .1em; }
-.page.colophon .area { justify-content: flex-end; font-size: 10.7px; }
+.page.colophon .area { justify-content: flex-end; font-size: 9.5px; }
 .page.colophon .area p { margin: 0 0 .35em; }
-.page.foto img, .page.doppia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.page.doppia.sx img { width: 200%; left: 0; } .page.doppia.dx img { width: 200%; left: -100%; }
+.page.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .page.figura .area, .page.disegno .area { display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .page.figura img, .page.disegno img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
-.page.figura .fig { align-self: flex-start; font-size: 10.7px; color: var(--grey); margin: 0 0 4px; }
+.page.figura .fig { align-self: flex-start; font-size: 10px; color: var(--grey); margin: 0 0 4px; }
 .page.figpiena img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-.indice h1 { font-weight: 400; font-size: 16.7px; margin: 0 0 1.4em; }
-.indice .r { display: flex; font-size: 14.7px; margin: 0 0 .55em; }
-.indice .r .n { width: 33px; } .indice .r .t { flex: 1; } .indice .r .p { width: 30px; text-align: right; }
-.indice .r.c { margin-top: 1em; }
-.indice .r.s, .indice .r.s2 { font-size: 12.7px; color: #4a4a4a; }
-.indice .r.s2 .t { padding-left: 18px; } .indice .r.s2 { font-size: 12px; color: #6a6a6a; }
-.indice .r.b { margin-top: 1em; }
-.indice a { color: inherit; text-decoration: none; }
+
+/* contents: general on the left page, the four chapters on the right, each quarter the colour of its opening */
+.page.indice h1 { position: absolute; left: var(--outer); top: 56px; font-weight: 300; font-size: 25px; margin: 0; }
+.page.indice .gen { position: absolute; left: var(--outer); bottom: 56px; width: 300px; font-size: 12.5px; }
+.page.indice .q { position: absolute; width: 50%; height: 50%; background: #000; color: #fff; padding: 48px; }
+.page.indice .q.bianco { background: #fff; color: var(--ink); }
+.page.indice .q .num { font-size: 58px; margin: 0 0 12px; }
+.page.indice .r { display: flex; align-items: baseline; gap: 12px; }
+.page.indice .r .p { margin-left: auto; font-variant-numeric: tabular-nums; }
+.page.indice .gen .r { margin: 0 0 8px; }
+.page.indice .q .c { font-size: 15px; margin: 0 0 10px; }
+.page.indice .q .s { font-size: 11.5px; margin: 0 0 4px; color: #c4c4c4; }
+.page.indice .q .s2 { font-size: 11px; margin: 0 0 4px; padding-left: 16px; color: #a8a8a8; }
+.page.indice .q.bianco .s { color: #666; } .page.indice .q.bianco .s2 { color: #8a8a8a; }
+.page.indice a { color: inherit; text-decoration: none; }
 
 /* measuring box */
 #misura { position: absolute; left: -10000px; top: 0; }
@@ -200,7 +218,7 @@ function side(p) {                     // page 1 is a right-hand page
   const n = pages.indexOf(p) + 1;
   p.el.classList.toggle('dx', n % 2 === 1); p.el.classList.toggle('sx', n % 2 === 0);
 }
-const overflows = a => a.scrollHeight > a.clientHeight + 0.5;
+const overflows = a => a.scrollHeight > a.clientHeight + 0.5 || a.scrollWidth > a.clientWidth + 0.5;   // columns overflow sideways
 
 // split an element so that its first part fits in the area; returns the remainder (or null)
 function splitToFit(el, area) {
@@ -287,15 +305,35 @@ function toLeft() { if (pages.length % 2 === 0) blank(); }     // next page will
 let figN = 0, idxEntries = [], idxSpec = '';
 function place(x, tipo, cap, html) {
     if (tipo === 'apertura') {
-      toRight();
-      const p = newPage('apertura', cap, { folio: false, head: false, area: false });
-      p.el.innerHTML = `<div class="numero">${esc(String(x.numero || ''))}</div><div class="titolo">${esc(x.titolo || '')}</div>`;
-      p.capStart = true; idxEntries.push({ lv: 'c', n: x.numero, t: x.titolo, page: p }); return true;
+      // chapter n is 4^(n-1) and sits in quarter n: 1 top left, 2 top right, 3 bottom left, 4 bottom right
+      const n = parseInt(x.numero, 10), q = isNaN(n) ? 0 : (n - 1) % 4;
+      const num = isNaN(n) ? esc(String(x.numero || '')) : `4<sup>${n - 1}</sup>`;
+      const pos = `left:${(q % 2) * 50}%;top:${Math.floor(q / 2) * 50}%`;
+      const block = `<div class="num">${num}</div><div class="t">${esc(x.titolo || '')}</div>`;
+      let p;
+      if (x.immagine && x.splash === true) {          // one image across the spread, a square on it
+        toLeft();
+        const a = newPage('splash', cap, { folio: false, head: false, area: false }); a.el.innerHTML = `<img src="${x.immagine}" alt="">`;
+        p = newPage('splash', cap, { folio: false, head: false, area: false });
+        p.el.innerHTML = `<img src="${x.immagine}" alt=""><div class="sq${x.bianco === true ? ' bianco' : ''}" style="${pos}">${block}</div>`;
+      } else {
+        if (x.immagine) { toLeft(); const a = newPage('foto', cap, { folio: false, head: false, area: false }); a.el.innerHTML = `<img src="${x.immagine}" alt="">`; }
+        else toRight();
+        p = newPage('apertura', cap, { folio: false, head: false, area: false });
+        p.el.innerHTML = `<div class="qq" style="${pos}">${block}</div>`;
+      }
+      p.capStart = true; p.apTitle = x.titolo || ''; p.apNum = isNaN(n) ? x.numero : n; p.apQuarter = q; p.apWhite = x.bianco === true && x.splash === true;
+      return true;
     }
     if (tipo === 'frontespizio' || tipo === 'dedica' || tipo === 'colophon') {
       const p = newPage(tipo, '', { folio: false, head: false }); p.area.innerHTML = html; return true;
     }
-    if (tipo === 'indice') { const p = newPage('indice', '', { folio: false, head: false, cls: 'indice' }); p.isIndex = true; idxSpec = x.body || ''; return true; }
+    if (tipo === 'indice') {                          // a spread: general on the left, the chapters on the right
+      toLeft();
+      const a = newPage('indice', '', { folio: false, head: false, area: false }); a.isIndex = true;
+      const b = newPage('indice', '', { folio: false, head: false, area: false }); b.isIndexQ = true;
+      idxSpec = x.body || ''; return true;
+    }
     if (tipo === 'foto') {
       const p = newPage('foto', cap, { area: false, folio: false, head: false });
       p.el.innerHTML = `<img src="${x.immagine}" alt="">`; return true;
@@ -351,6 +389,7 @@ function render(parti) {
     // an italic first paragraph followed by a heading is an epithet (il Nomade, il Monaco…)
     const kids = [...holder.children];
     kids.forEach((k, i) => { if (k.tagName === 'P' && /^<em>[^<]+<\/em>$|^\[<em>[^<]+<\/em>\]$/.test(k.innerHTML.trim()) && kids[i + 1] && kids[i + 1].tagName === 'H2') k.classList.add('epi'); });
+    kids.forEach(k => { if (/^H[1-4]$/.test(k.tagName) && k.textContent.length > 2 && k.textContent === k.textContent.toUpperCase() && /[A-Z]/.test(k.textContent)) { const t = k.textContent.toLowerCase(); k.textContent = t[0].toUpperCase() + t.slice(1); } });
     kids.forEach(k => { if (/^H1$/.test(k.tagName) || (x.nell_indice !== false && /^H[23]$/.test(k.tagName))) k.dataset.idx = k.tagName; });
     const startNew = x.nuova_pagina === true;
     flowText(kids, 'testo', cap, cls, startNew);
@@ -380,7 +419,7 @@ function render(parti) {
     const norm = s => s.toLowerCase().replace(/[’']/g, "'").replace(/[*_]/g, '').replace(/\s+/g, ' ').trim();
     const cand = [];
     pages.forEach(p => {
-      if (p.kind === 'apertura') cand.push({ t: p.el.querySelector('.titolo').textContent, page: p, n: p.el.querySelector('.numero').textContent });
+      if (p.apTitle !== undefined) cand.push({ t: p.apTitle, page: p, n: p.apNum, q: p.apQuarter, white: p.apWhite });
       if (p.area) p.area.querySelectorAll('h1,h2,h3,h4').forEach(h => { if (!h.classList.contains('segue')) cand.push({ t: h.textContent, page: p }); });
     });
     let k = 0; const found = [];
@@ -388,14 +427,26 @@ function render(parti) {
       let j = cand.findIndex((c, i) => i >= k && norm(c.t) === norm(v.t));
       if (j < 0) j = cand.findIndex(c => norm(c.t) === norm(v.t));
       const c = j >= 0 ? cand[j] : null; if (j >= 0) k = j + 1;
-      found.push({ lv: v.lv === 0 ? (c && c.n ? 'c' : 'b') : v.lv === 1 ? 's' : 's2', n: c && c.n, t: v.t, page: c ? c.page : { n: '' } });
+      found.push({ lv: v.lv === 0 ? (c && c.n ? 'c' : 'b') : v.lv === 1 ? 's' : 's2', n: c && c.n, q: c && c.q, white: c && c.white, t: v.t, page: c ? c.page : { n: '' } });
     }
     idxEntries = found;
   }
-  const ix = pages.find(p => p.isIndex);
-  if (ix) {
-    ix.area.innerHTML = '<h1>Indice</h1>' + idxEntries.map(e =>
-      `<div class="r ${e.lv}"><span class="n">${e.lv === 'c' ? esc(String(e.n || '')) : ''}</span><span class="t">${esc(e.t)}</span><span class="p">${e.page.n ?? ''}</span></div>`).join('');
+  const ix = pages.find(p => p.isIndex), iq = pages.find(p => p.isIndexQ);
+  if (ix && iq) {
+    const gen = [], chaps = []; let cur = null;
+    for (const e of idxEntries) {
+      if (e.lv === 'c') { cur = { e, subs: [] }; chaps.push(cur); }
+      else if (e.lv === 'b') { cur = null; gen.push(e); }
+      else if (cur) cur.subs.push(e); else gen.push(e);
+    }
+    const row = (cls, t, p) => `<div class="r ${cls}"><span>${esc(t)}</span><span class="p">${p ?? ''}</span></div>`;
+    ix.el.innerHTML = '<h1>Indice</h1><div class="gen">' + gen.map(e => row('', e.t, e.page.n)).join('') + '</div>';
+    iq.el.innerHTML = chaps.map(({ e, subs }) => {
+      const q = e.q ?? 0, n = parseInt(e.n, 10);
+      return `<div class="q${e.white ? ' bianco' : ''}" style="left:${(q % 2) * 50}%;top:${Math.floor(q / 2) * 50}%">` +
+        `<div class="num">${isNaN(n) ? esc(String(e.n)) : `4<sup>${n - 1}</sup>`}</div>` + row('c', e.t, e.page.n) +
+        subs.map(s => row(s.lv, s.t, s.page.n)).join('') + '</div>';
+    }).join('');
   }
   return pages;
 }
@@ -444,7 +495,7 @@ async function avvia() {
     if (!r.ok) throw new Error('libro.json: ' + r.status);
     const libro = await r.json();
     Q.libro = libro;
-    await document.fonts.load('13px Jost'); await document.fonts.load('italic 13px Jost');
+    await document.fonts.load('12px Inter'); await document.fonts.load('italic 12px Inter'); await document.fonts.load('200 12px Inter');
     await impagina(libro.parti, libro.generato);
     stato.remove();
     document.body.dataset.pronto = '1';
@@ -455,6 +506,6 @@ async function avvia() {
 }
 avvia();
 </script>
-<script src="editor.js?v=2"></script>
+<script src="editor.js?v=3"></script>
 </body>
 </html>

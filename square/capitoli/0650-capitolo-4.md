@@ -4,4 +4,5 @@ titolo: "Gli artisti"
 tipo: "apertura"
 numero: "4"
 capitolo: "Gli artisti"
+immagine: "/square/media/ap-okada.jpg"
 ---
