@@ -1,9 +1,8 @@
 ---
-ordine: 640
+ordine: 716
 titolo: "Da artista"
 tipo: "testo"
 capitolo: "La parola dell’artista"
-nuova_pagina: true
 ---
 
 ### Da artista

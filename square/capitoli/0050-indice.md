@@ -19,7 +19,12 @@ Ogni riga è una voce: il sito cerca il titolo nel libro e scrive da solo il num
     - The Colour of Armament
     - The Art of War
     - The Solitude of the Conqueror
-  - La parola dell’artista
-- Gli artisti
+- La parola dell’artista
+  - Simone Pinna
+  - Diego Allegri
+  - Mike Quackenbush
+  - Jimmy Jacobs
+  - Michael Eric Stankowski
+  - Laurence Who
 - Glossario
 - Note e riferimenti

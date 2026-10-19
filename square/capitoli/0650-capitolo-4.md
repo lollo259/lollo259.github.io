@@ -1,9 +1,9 @@
 ---
 ordine: 650
-titolo: "Gli artisti"
+titolo: "La parola dell’artista"
 tipo: "apertura"
 numero: "4"
-capitolo: "Gli artisti"
+capitolo: "La parola dell’artista"
 immagine: "/square/media/ap-okada.jpg"
 originale: "/square/media/ap-okada-originale.jpg"
 ---

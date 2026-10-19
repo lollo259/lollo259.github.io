@@ -1,5 +1,5 @@
 ---
-ordine: 630
+ordine: 715
 titolo: "Laurence Who"
 tipo: "testo"
 capitolo: "La parola dell’artista"
