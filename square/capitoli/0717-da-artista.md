@@ -4,7 +4,7 @@ titolo: "Da artista"
 tipo: "testo"
 capitolo: "La parola dell’artista"
 immagine_fondo: "/square/media/fiume.png"
-fondo_da: 471
+fondo_da: 471.53
 ---
 
 ### Da artista
