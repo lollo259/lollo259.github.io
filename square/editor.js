@@ -214,6 +214,13 @@
       const d = document.createElement('div'); d.className = 'ed-img';
       const pic = (src, key) => `<div><img src="${esc(shown[src] || src || '')}" alt="" ${src ? '' : 'hidden'}><br><button data-img="${key}">${src ? 'Cambia immagine' : 'Scegli immagine'}</button></div>`;
       d.innerHTML = tipo === 'doppia-figura' ? `<div class="due">${pic(p.immagine, 'immagine')}${pic(p.immagine_destra, 'immagine_destra')}</div>` : pic(p.immagine, 'immagine');
+      if ((tipo === 'foto' || tipo === 'doppia') && p.immagine) {      // a photo: one page or a splash across two, and its crop
+        d.insertAdjacentHTML('beforeend', `<div class="ed-aprow"><button data-crop="1">Ritaglia</button></div>
+          <div class="ed-aprow ed-lay" role="radiogroup" aria-label="Impaginazione della foto">
+          <label><input type="radio" name="fl${p._id}" value="doppia" ${tipo === 'doppia' ? 'checked' : ''}> Su due pagine</label>
+          <label><input type="radio" name="fl${p._id}" value="foto" ${tipo === 'foto' ? 'checked' : ''}> Una pagina</label></div>`);
+        d.addEventListener('change', e => { if (e.target.type === 'radio' && e.target.value !== p.tipo) { p.tipo = e.target.value; cropImage(p); } });
+      }
       sec.appendChild(d);
       if (tipo === 'disegno' || (tipo === 'figura' && p.body)) sec.appendChild(bodyEl(p));
     } else {
@@ -355,7 +362,7 @@
     const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
     inp.onchange = async () => {
       const f = inp.files[0]; if (!f) return;
-      if (p.tipo === 'apertura' && key === 'immagine') { p.originale = await prepare(f, 5400); return cropImage(p); }
+      if ((p.tipo === 'apertura' || p.tipo === 'foto' || p.tipo === 'doppia') && key === 'immagine') { p.originale = await prepare(f, 5400); return cropImage(p); }
       const data = await prepare(f);
       if (insertInto) { insertInto.focus(); document.execCommand('insertHTML', false, `<img src="${data}" alt="">`); dirty(p, insertInto); return; }
       p[key] = data; p._dirty = true; redraw(p); dirty(p);
@@ -384,7 +391,7 @@
   function cropImage(p) {
     const src = shown[p.originale] || p.originale || shown[p.immagine] || p.immagine;
     if (!src) return;
-    const ratio = p.splash === true ? 2 : 1;
+    const ratio = (p.tipo === 'apertura' ? p.splash === true : p.tipo === 'doppia') ? 2 : 1;
     const m = modal(`<h3>Ritaglia l’immagine</h3><p style="margin:0 0 10px;color:#666">${ratio === 2 ? 'Due pagine affiancate: la linea al centro è la piega del libro.' : 'Una pagina quadrata.'} Trascina l’immagine, usa il cursore per ingrandire.</p>
       <div class="ed-crop"><img alt="" draggable="false"><i class="fold" ${ratio === 2 ? '' : 'hidden'}></i><i class="qq"></i></div>
       <label class="ed-zoom">Ingrandimento <input type="range" min="1" max="4" step="0.01" value="1"></label>
@@ -395,7 +402,7 @@
     box.style.width = W + 'px'; box.style.height = H + 'px';
     // where the black square will sit: the chapter's quarter of the right-hand page
     const n = parseInt(p.numero, 10), q = isNaN(n) ? 0 : (n - 1) % 4;
-    if (ratio === 2) Object.assign(qq.style, { left: (W / 2 + (q % 2) * W / 4) + 'px', top: (Math.floor(q / 2) * H / 2) + 'px', width: W / 4 + 'px', height: H / 2 + 'px', background: p.bianco === true ? 'rgba(255,255,255,.85)' : 'rgba(0,0,0,.8)' });
+    if (ratio === 2 && p.tipo === 'apertura') Object.assign(qq.style, { left: (W / 2 + (q % 2) * W / 4) + 'px', top: (Math.floor(q / 2) * H / 2) + 'px', width: W / 4 + 'px', height: H / 2 + 'px', background: p.bianco === true ? 'rgba(255,255,255,.85)' : 'rgba(0,0,0,.8)' });
     else qq.hidden = true;
     let iw, ih, base, z = 1, x = 0, y = 0;
     const cp = String(p.crop || '').split(',').map(Number), c0 = cp.length === 4 && cp[0] === ratio ? { z: cp[1], x: cp[2], y: cp[3] } : null;
@@ -414,7 +421,7 @@
     box.addEventListener('pointermove', e => { if (!drag) return; x = drag.x + e.clientX - drag.sx; y = drag.y + e.clientY - drag.sy; draw(); });
     box.addEventListener('pointerup', () => { drag = null; });
     m.addEventListener('click', e => {
-      if (e.target.dataset.x !== undefined) { m.remove(); redraw(p); return; }
+      if (e.target.dataset.x !== undefined) { m.remove(); redraw(p); dirty(p); return; }
       if (e.target.dataset.ok === undefined) return;
       // render the crop at print resolution (8.5 in at 300 dpi per page), never larger than the source allows
       const s = base * z, sx = -x / s, sy = -y / s, sw = W / s, sh = H / s;

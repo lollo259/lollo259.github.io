@@ -27,6 +27,7 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
 .barra button, .barra a { font: inherit; color: var(--ui); background: none; border: 1px solid #bdb9b4; border-radius: 999px; padding: 6px 14px; cursor: pointer; text-decoration: none; }
 .barra button:hover, .barra a:hover { background: #fff; }
 .barra .info { color: #6b6762; }
+.barra .avviso { display: block; color: #a3261b; font-weight: 500; }
 .barra select { font: inherit; padding: 5px 8px; border-radius: 6px; border: 1px solid #bdb9b4; background: #fff; }
 #stato { padding: 40px 16px; text-align: center; color: #6b6762; font-size: 14px; }
 .libro { padding: 24px 16px 80px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
@@ -334,6 +335,14 @@ function place(x, tipo, cap, html) {
       const num = isNaN(n) ? esc(String(x.numero || '')) : `4<sup>${n - 1}</sup>`;
       const pos = `left:${(q % 2) * 50}%;top:${Math.floor(q / 2) * 50}%`;
       const block = `<div class="num">${num}</div><div class="t">${esc(x.titolo || '')}</div>`;
+      // fixed starts: chapter n opens on the spread whose left page is 4^(n-1) (4, 16, 64); chapter 1 on page 1
+      const s0 = pages.findIndex(q => q.capStart);
+      if (!isNaN(n) && n >= 2 && s0 >= 0) {
+        const L = s0 + Math.pow(4, n - 1) - 1;                   // index of the left page of the opening spread
+        const SUP = ['⁰', '¹', '²', '³', '⁴'], over = pages.length - L;
+        if (over > 0) avvisi.push(`4${SUP[n - 2]} ha ${over} ${over === 1 ? 'pagina' : 'pagine'} di troppo: 4${SUP[n - 1]} dovrebbe aprirsi a pagina ${Math.pow(4, n - 1)}`);
+        while (pages.length < L) blank(cap);
+      }
       let p;
       if (x.immagine && x.splash === true) {          // one image across the spread, a square on it
         toLeft();
@@ -389,7 +398,9 @@ function place(x, tipo, cap, html) {
 let pageOf = {};                       // part (editor id) -> index of its first page
 function mark(x, n) { if (x._pid !== undefined) pageOf[x._pid] = Math.min(n, pages.length - 1); }
 const NOIMG = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#eeeeee"/><text x="200" y="205" font-family="sans-serif" font-size="16" fill="#999" text-anchor="middle">immagine da scegliere</text></svg>');
+let avvisi = [];
 function render(parti) {
+  avvisi = [];
   parti = parti.map(x => (/^(foto|doppia|figura|disegno|doppia-figura)$/.test(x.tipo) && !x.immagine) ? { ...x, immagine: NOIMG } : x);
   pageOf = {}; Q.pageOf = pageOf;
   pages = []; misura.innerHTML = ''; figN = 0; idxEntries = []; pending = []; idxSpec = '';
@@ -510,7 +521,9 @@ async function impagina(parti, generato) {
   render(parti);
   await Promise.all([...misura.querySelectorAll('img')].map(i => i.complete ? 0 : new Promise(ok => { i.onload = i.onerror = ok; })));
   show();
-  document.getElementById('info').textContent = `${pages.length} pagine` + (generato ? ` · aggiornato ${new Date(generato).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' })}` : '');
+  const info = document.getElementById('info');
+  info.textContent = `${pages.length} pagine` + (generato ? ` · aggiornato ${new Date(generato).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' })}` : '');
+  if (avvisi.length) info.insertAdjacentHTML('beforeend', avvisi.map(a => `<span class="avviso">${esc(a)}</span>`).join(''));
 }
 window.Q = { markdown, impagina, esc, show, fit, pages: () => pages };
 async function avvia() {
@@ -531,6 +544,6 @@ async function avvia() {
 }
 avvia();
 </script>
-<script src="editor.js?v=4"></script>
+<script src="editor.js?v=5"></script>
 </body>
 </html>

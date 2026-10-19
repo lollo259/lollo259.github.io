@@ -3,8 +3,6 @@ ordine: 716
 titolo: "Da fan"
 tipo: "testo"
 capitolo: "La parola dell’artista"
-immagine_fondo: "/square/media/fiume.png"
-fondo_da: 471
 ---
 
 ### Da fan
