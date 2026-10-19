@@ -97,6 +97,7 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
 .page.figura .area, .page.disegno .area { display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .page.figura img, .page.disegno img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
 .page.figura .fig { align-self: flex-start; font-size: 10px; color: var(--grey); margin: 0 0 4px; }
+.page img.fondo { position: absolute; left: 0; width: 100%; }
 .page.figpiena img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 
 /* contents: general on the left page, the four chapters on the right, each quarter the colour of its opening */
@@ -264,6 +265,29 @@ function splitToFit(el, area) {
   return rest;
 }
 
+// a part that ends on a left-hand page with an image under its last lines (the river under the last answers)
+function trimTo(area) {                 // take out what does not fit, keeping the order
+  const rest = [];
+  while (overflows(area) && area.lastElementChild) { rest.unshift(area.lastElementChild); area.lastElementChild.remove(); }
+  if (rest.length) { const b = rest.shift(); area.appendChild(b); const r = splitToFit(b, area); if (r === b) rest.unshift(b); else if (r) rest.unshift(r); }
+  return rest;
+}
+function closeOnLeft(x, cap, cls) {
+  // the last lines of the part sit on a left-hand page, the image under them; if they do not fit above it,
+  // the image takes the next left-hand page on its own (the text can be adjusted in the editor)
+  const top = +x.fondo_da || 471;
+  const place = p => { p.flow = false; p.folio = false; p.fondo = true;
+    p.el.insertAdjacentHTML('beforeend', `<img class="fondo" src="${x.immagine_fondo}" alt="" style="top:${top}px">`); };
+  let p = pages[pages.length - 1];
+  if (pages.length % 2 === 0 && p.flow) {
+    p.area.style.bottom = (816 - top + 12) + 'px';
+    if (!overflows(p.area)) return place(p);
+    p.area.style.bottom = '';
+  }
+  if (pages.length % 2 === 0) blank(cap);
+  p = newPage('testo', cap, { cls }); p.area.style.bottom = (816 - top + 12) + 'px'; place(p);
+}
+
 let pending = [];                      // image pages waiting for the current text page to fill
 function flushPending(hard) {
   const keep = [];
@@ -393,6 +417,7 @@ function render(parti) {
     kids.forEach(k => { if (/^H1$/.test(k.tagName) || (x.nell_indice !== false && /^H[23]$/.test(k.tagName))) k.dataset.idx = k.tagName; });
     const startNew = x.nuova_pagina === true;
     flowText(kids, 'testo', cap, cls, startNew);
+    if (x.immagine_fondo) closeOnLeft(x, cap, cls);
     if (x._pid !== undefined) { const pe = kids[0] && kids[0].closest('.page'); pageOf[x._pid] = pe ? pages.findIndex(q => q.el === pe) : pages.length - 1; }
   }
   flushPending(true);
