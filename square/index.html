@@ -98,6 +98,11 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
 .page.figura .area, .page.disegno .area { display: flex; flex-direction: column; justify-content: center; align-items: center; }
 .page.figura img, .page.disegno img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
 .page.figura .fig { align-self: flex-start; font-size: 10px; color: var(--grey); margin: 0 0 4px; }
+.page.neg { background: #000; color: #fff; }
+.page.neg .testata { color: #9a9a9a; }
+.page.neg .area .epi, .page.neg .area h3 + h3 { color: #bdbdbd; }
+.page.neg.figura img, .page.neg.disegno img, .page.neg.figpiena img, .page.neg img.fondo { filter: invert(1); }
+.page.apertura.bianco { background: #fff; color: var(--ink); }
 .page img.fondo { position: absolute; left: 0; width: 100%; }
 .page.figpiena img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 
@@ -210,7 +215,7 @@ const misura = document.getElementById('misura');
 let pages = [];                        // {el, kind, cap, folio:boolean, head:boolean}
 function newPage(kind, cap, opts = {}) {
   const el = document.createElement('div');
-  el.className = 'page ' + kind;
+  el.className = 'page ' + kind + (/(^| )neg( |$)/.test(opts.cls || '') ? ' neg' : '');
   const p = { el, kind, cap: cap || '', folio: opts.folio !== false, head: opts.head !== false, cls: opts.cls || '' };
   if (opts.area !== false) { const a = document.createElement('div'); a.className = 'area ' + p.cls; el.appendChild(a); p.area = a; }
   pages.push(p); misura.appendChild(el); side(p);
@@ -353,9 +358,9 @@ function place(x, tipo, cap, html) {
         if (x.immagine) { toLeft(); const a = newPage('foto', cap, { folio: false, head: false, area: false }); a.el.innerHTML = `<img src="${x.immagine}" alt="">`; }
         else toRight();
         p = newPage('apertura', cap, { folio: false, head: false, area: false });
-        p.el.innerHTML = `<div class="qq" style="${pos}">${block}</div>`;
+        p.el.innerHTML = `<div class="qq" style="${pos}">${block}</div>`; if (x.bianco === true) p.el.classList.add('bianco');
       }
-      p.capStart = true; p.apTitle = x.titolo || ''; p.apNum = isNaN(n) ? x.numero : n; p.apQuarter = q; p.apWhite = x.bianco === true && x.splash === true;
+      p.capStart = true; p.apTitle = x.titolo || ''; p.apNum = isNaN(n) ? x.numero : n; p.apQuarter = q; p.apWhite = x.bianco === true;
       return true;
     }
     if (tipo === 'frontespizio' || tipo === 'dedica' || tipo === 'colophon') {
@@ -399,6 +404,8 @@ let pageOf = {};                       // part (editor id) -> index of its first
 function mark(x, n) { if (x._pid !== undefined) pageOf[x._pid] = Math.min(n, pages.length - 1); }
 const NOIMG = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#eeeeee"/><text x="200" y="205" font-family="sans-serif" font-size="16" fill="#999" text-anchor="middle">immagine da scegliere</text></svg>');
 let avvisi = [];
+// "negativo": white on black (figures are inverted, photos stay as they are)
+function negate(x, n) { if (x.negativo === true) pages.slice(n).forEach(q => { if (!/foto|doppia|splash|apertura/.test(q.kind)) q.el.classList.add('neg'); }); }
 function render(parti) {
   avvisi = [];
   parti = parti.map(x => (/^(foto|doppia|figura|disegno|doppia-figura)$/.test(x.tipo) && !x.immagine) ? { ...x, immagine: NOIMG } : x);
@@ -411,15 +418,15 @@ function render(parti) {
     const prev = pages[pages.length - 1];
     if (floating(x) && prev && prev.flow && !x.lato) {    // wait for the text page to fill
       if (tipo === 'figura') x._fig = ++figN;
-      pending.push({ left: tipo === 'doppia', make: () => { const n = pages.length; place(x, tipo, cap, html); mark(x, n); } });
+      pending.push({ left: tipo === 'doppia', make: () => { const n = pages.length; place(x, tipo, cap, html); mark(x, n); negate(x, n); } });
       continue;
     }
     if (tipo !== 'testo' || x.nuova_pagina === true) flushPending(true);
     if (x.lato === 'destra') toRight(); else if (x.lato === 'sinistra') toLeft();
     if (tipo === 'figura') x._fig = ++figN;
-    { const n = pages.length; if (place(x, tipo, cap, html)) { mark(x, n); continue; } }
+    { const n = pages.length; if (place(x, tipo, cap, html)) { mark(x, n); negate(x, n); continue; } }
     // text
-    const cls = [cap === 'La parola dell’artista' ? 'parola' : '', /Glossario|Note/.test(cap) ? 'fine' : '', /Note/.test(cap) ? 'note' : ''].join(' ').trim();
+    const cls = [cap === 'La parola dell’artista' ? 'parola' : '', /Glossario|Note/.test(cap) ? 'fine' : '', /Note/.test(cap) ? 'note' : '', x.negativo === true ? 'neg' : ''].join(' ').trim();
     const holder = document.createElement('div'); holder.innerHTML = html;
     // an italic first paragraph followed by a heading is an epithet (il Nomade, il Monaco…)
     const kids = [...holder.children];
@@ -544,6 +551,6 @@ async function avvia() {
 }
 avvia();
 </script>
-<script src="editor.js?v=5"></script>
+<script src="editor.js?v=7"></script>
 </body>
 </html>

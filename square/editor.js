@@ -15,7 +15,7 @@
   };
   const IMMAGINE = new Set(['foto', 'doppia', 'figura', 'disegno', 'doppia-figura']);
   const FM_ORDER = ['ordine', 'titolo', 'tipo', 'capitolo', 'numero', 'immagine', 'immagine_destra', 'lato', 'nuova_pagina',
-    'splash', 'bianco', 'originale', 'crop', 'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
+    'splash', 'bianco', 'negativo', 'originale', 'crop', 'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
 
   let parts = [], removed = [], editing = false, nextId = 1, saving = false;
 
@@ -40,6 +40,11 @@
   .ed-part { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.08); margin: 0 0 4px; position: relative; }
   .ed-part.bozza { opacity: .55; }
   .ed-head { display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-bottom: 1px solid #efedea; font-size: 12px; color: #77726d; letter-spacing: .03em; }
+  .ed-head .grip { cursor: grab; touch-action: none; font-size: 15px; color: #9a958f; padding: 0 4px; user-select: none; }
+  .ed-head button[aria-pressed="true"] { background: #1b1b1b; color: #fff; }
+  .ed-part.dragging { opacity: .4; }
+  .ed-part.drop-before { box-shadow: 0 -3px 0 #1f5fae, 0 2px 10px rgba(0,0,0,.08); }
+  .ed-part.drop-after { box-shadow: 0 3px 0 #1f5fae, 0 2px 10px rgba(0,0,0,.08); }
   .ed-head .tt { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .ed-head button { font: 12px Inter, sans-serif; background: none; border: 1px solid transparent; border-radius: 5px; padding: 2px 7px; cursor: pointer; color: #55514c; }
   .ed-head button:hover { border-color: #c9c5c0; background: #faf9f8; }
@@ -189,7 +194,10 @@
   function partEl(p) {
     const sec = document.createElement('section'); sec.className = 'ed-part' + (p.bozza ? ' bozza' : ''); sec.dataset.id = p._id;
     const label = `${TIPI[p.tipo || 'testo'] || p.tipo}${p.titolo ? ' · ' + p.titolo : ''}`;
-    sec.innerHTML = `<div class="ed-head"><span class="tt">${esc(label)}</span>
+    const negOn = (p.tipo === 'apertura' ? p.bianco === true : p.negativo === true);
+    const negOk = !/^(foto|doppia|indice)$/.test(p.tipo || 'testo');
+    sec.innerHTML = `<div class="ed-head"><span class="grip" title="Trascina per spostare la parte" aria-label="Trascina per spostare">⠿</span><span class="tt">${esc(label)}</span>
+      ${negOk ? `<button data-a="neg" aria-pressed="${negOn}" title="${p.tipo === 'apertura' ? 'Pagina bianca invece che nera' : 'Negativo: pagina nera, testo bianco'}">◐ ${p.tipo === 'apertura' ? (negOn ? 'Bianca' : 'Nera') : (negOn ? 'Negativo' : 'Positivo')}</button>` : ''}
       <button data-a="su" title="Sposta su" aria-label="Sposta su">↑</button><button data-a="giu" title="Sposta giù" aria-label="Sposta giù">↓</button>
       <button data-a="imp" title="Impostazioni della parte">Impostazioni</button><button data-a="del" title="Elimina la parte">Elimina</button></div>
       <div class="ed-set" hidden></div>`;
@@ -449,6 +457,33 @@
     col.appendChild(add(0));
     parts.forEach((p, i) => { const s = partEl(p); if (p._dirty) s.classList.add('ed-dirty'); col.appendChild(s); col.appendChild(add(i + 1)); });
     let lastBody = null;
+    // drag a part by its handle (mouse or finger); a blue line shows where it will land
+    let drag = null;
+    const clearMarks = () => col.querySelectorAll('.drop-before,.drop-after,.dragging').forEach(x => x.classList.remove('drop-before', 'drop-after', 'dragging'));
+    col.addEventListener('pointerdown', ev => {
+      const g = ev.target.closest && ev.target.closest('.grip'); if (!g) return;
+      ev.preventDefault(); const sec = g.closest('.ed-part');
+      drag = { id: +sec.dataset.id, target: null, after: false, pid: ev.pointerId }; sec.classList.add('dragging'); g.setPointerCapture(ev.pointerId);
+    });
+    col.addEventListener('pointermove', ev => {
+      if (!drag) return;
+      if (ev.clientY < 90) scrollBy(0, -14); else if (ev.clientY > innerHeight - 50) scrollBy(0, 14);
+      const el = document.elementFromPoint(Math.min(ev.clientX, col.getBoundingClientRect().right - 10), ev.clientY);
+      const sec = el && el.closest && el.closest('.ed-part'); if (!sec || !col.contains(sec)) return;
+      const r = sec.getBoundingClientRect(), after = ev.clientY > r.top + r.height / 2;
+      col.querySelectorAll('.drop-before,.drop-after').forEach(x => x.classList.remove('drop-before', 'drop-after'));
+      if (+sec.dataset.id !== drag.id) { sec.classList.add(after ? 'drop-after' : 'drop-before'); drag.target = +sec.dataset.id; drag.after = after; } else drag.target = null;
+    });
+    const endDrag = () => {
+      if (!drag) return; const d = drag; drag = null; clearMarks();
+      if (d.target == null) return;
+      syncBodies();
+      const from = parts.findIndex(x => x._id === d.id), moving = parts.splice(from, 1)[0];
+      let to = parts.findIndex(x => x._id === d.target); if (d.after) to++;
+      parts.splice(to, 0, moving); parts._moved = true;
+      build(); focusPart(moving); salva.classList.add('pending'); say('Modifiche non salvate');
+    };
+    col.addEventListener('pointerup', endDrag); col.addEventListener('pointercancel', () => { drag = null; clearMarks(); });
     col.addEventListener('focusin', e => {
       if (e.target.classList && e.target.classList.contains('ed-body')) lastBody = e.target;
       const sec = e.target.closest && e.target.closest('.ed-part'); if (sec) { focusId = +sec.dataset.id; follow(focusId); }
@@ -476,6 +511,7 @@
       if (btn.dataset.img) return pickImage(p, btn.dataset.img);
       const a = btn.dataset.a;
       if (a === 'imp') { const box = $('.ed-set', sec); if (!box.innerHTML) settings(p, box); box.hidden = !box.hidden; }
+      if (a === 'neg') { if (p.tipo === 'apertura') p.bianco = !(p.bianco === true); else p.negativo = !(p.negativo === true); syncBodies(); redraw(p); dirty(p); return; }
       if (a === 'su' && i > 0) { syncBodies(); [parts[i - 1], parts[i]] = [parts[i], parts[i - 1]]; parts._moved = true; build(); focusPart(p); salva.classList.add('pending'); say('Modifiche non salvate'); }
       if (a === 'giu' && i < parts.length - 1) { syncBodies(); [parts[i + 1], parts[i]] = [parts[i], parts[i + 1]]; parts._moved = true; build(); focusPart(p); salva.classList.add('pending'); say('Modifiche non salvate'); }
       if (a === 'del') confirmBox('Eliminare questa parte?', `«${esc(p.titolo || TIPI[p.tipo] || '')}» sparirà dal libro quando salvi.`, 'Elimina', () => {
