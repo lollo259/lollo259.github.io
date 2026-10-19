@@ -3,7 +3,7 @@ ordine: 717
 titolo: "Da artista"
 tipo: "testo"
 capitolo: "La parola dell’artista"
-immagine_fondo: "/square/media/fiume.png"
+immagine_fondo: "/square/media/fiume-2.png"
 fondo_da: 471.53
 ---
 
