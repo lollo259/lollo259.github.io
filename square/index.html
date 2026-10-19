@@ -30,10 +30,12 @@ body { background: var(--desk); color: var(--ink); font-family: Jost, "Helvetica
 .barra select { font: inherit; padding: 5px 8px; border-radius: 6px; border: 1px solid #bdb9b4; background: #fff; }
 #stato { padding: 40px 16px; text-align: center; color: #6b6762; font-size: 14px; }
 .libro { padding: 24px 16px 80px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
-.spread { display: flex; justify-content: center; zoom: var(--z, 1); }
+/* pages are laid out at full size and then scaled like a picture, so the screen always matches the print */
+.spread { flex: none; width: calc(var(--n, 2) * var(--pw) * var(--z, 1)); height: calc(var(--ph) * var(--z, 1)); }
+.spread .fogli { display: flex; width: max-content; transform: scale(var(--z, 1)); transform-origin: 0 0; }
 .spread .page { box-shadow: 0 6px 24px rgba(0,0,0,.14); }
 .spread .vuoto { width: var(--pw); height: var(--ph); }
-.libro.singole .spread { flex-direction: column; gap: 20px; }
+.libro.singole .spread { --n: 1; }
 
 /* ---------- the page */
 .page { position: relative; width: var(--pw); height: var(--ph); background: var(--paper); overflow: hidden; flex: none; }
@@ -102,7 +104,8 @@ body { background: var(--desk); color: var(--ink); font-family: Jost, "Helvetica
   body { background: #fff; }
   .barra, #stato { display: none !important; }
   .libro { padding: 0; gap: 0; display: block; }
-  .spread { display: block; zoom: 1 !important; }
+  .spread { display: block; width: auto; height: auto; }
+  .spread .fogli { display: block; transform: none; }
   .spread .vuoto { display: none; }
   .spread .page { box-shadow: none; break-after: page; }
   .spread .page.ultima { break-after: auto; }
@@ -118,11 +121,12 @@ body { background: var(--desk); color: var(--ink); font-family: Jost, "Helvetica
     <option value="singole">Una pagina alla volta</option>
   </select>
   <button id="pdf" type="button">Scarica PDF</button>
-  <a id="modifica" href="https://app.pagescms.org/" target="_blank" rel="noopener">Modifica</a>
+  <button id="modifica" type="button">Modifica</button>
 </div>
 <div id="stato">Impagino il libro…</div>
 <div class="libro" id="libro"></div>
 <div id="misura"></div>
+<div id="editor" hidden></div>
 
 <script>
 'use strict';
@@ -320,7 +324,12 @@ function place(x, tipo, cap, html) {
     return false;
 }
 
+let pageOf = {};                       // part (editor id) -> index of its first page
+function mark(x, n) { if (x._pid !== undefined) pageOf[x._pid] = Math.min(n, pages.length - 1); }
+const NOIMG = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#eeeeee"/><text x="200" y="205" font-family="sans-serif" font-size="16" fill="#999" text-anchor="middle">immagine da scegliere</text></svg>');
 function render(parti) {
+  parti = parti.map(x => (/^(foto|doppia|figura|disegno|doppia-figura)$/.test(x.tipo) && !x.immagine) ? { ...x, immagine: NOIMG } : x);
+  pageOf = {}; Q.pageOf = pageOf;
   pages = []; misura.innerHTML = ''; figN = 0; idxEntries = []; pending = []; idxSpec = '';
   const floating = x => (x.tipo === 'foto' || x.tipo === 'figura' || x.tipo === 'doppia' || x.tipo === 'disegno') && x.fluttua !== false;
   for (const x of parti) {
@@ -329,13 +338,13 @@ function render(parti) {
     const prev = pages[pages.length - 1];
     if (floating(x) && prev && prev.flow && !x.lato) {    // wait for the text page to fill
       if (tipo === 'figura') x._fig = ++figN;
-      pending.push({ left: tipo === 'doppia', make: () => place(x, tipo, cap, html) });
+      pending.push({ left: tipo === 'doppia', make: () => { const n = pages.length; place(x, tipo, cap, html); mark(x, n); } });
       continue;
     }
     if (tipo !== 'testo' || x.nuova_pagina === true) flushPending(true);
     if (x.lato === 'destra') toRight(); else if (x.lato === 'sinistra') toLeft();
     if (tipo === 'figura') x._fig = ++figN;
-    if (place(x, tipo, cap, html)) continue;
+    { const n = pages.length; if (place(x, tipo, cap, html)) { mark(x, n); continue; } }
     // text
     const cls = [cap === 'La parola dell’artista' ? 'parola' : '', /Glossario|Note/.test(cap) ? 'fine' : '', /Note/.test(cap) ? 'note' : ''].join(' ').trim();
     const holder = document.createElement('div'); holder.innerHTML = html;
@@ -345,6 +354,7 @@ function render(parti) {
     kids.forEach(k => { if (/^H1$/.test(k.tagName) || (x.nell_indice !== false && /^H[23]$/.test(k.tagName))) k.dataset.idx = k.tagName; });
     const startNew = x.nuova_pagina === true;
     flowText(kids, 'testo', cap, cls, startNew);
+    if (x._pid !== undefined) { const pe = kids[0] && kids[0].closest('.page'); pageOf[x._pid] = pe ? pages.findIndex(q => q.el === pe) : pages.length - 1; }
   }
   flushPending(true);
   // heads, folios, index
@@ -402,14 +412,16 @@ function show() {
   else { rows.push([null, els[0]]); for (let i = 1; i < els.length; i += 2) rows.push([els[i], els[i + 1] || null]); }
   for (const r of rows) {
     const s = document.createElement('div'); s.className = 'spread';
-    r.forEach(e => { if (e) s.appendChild(e); else { const v = document.createElement('div'); v.className = 'vuoto'; s.appendChild(v); } });
+    const f = document.createElement('div'); f.className = 'fogli'; s.appendChild(f);
+    r.forEach(e => { if (e) f.appendChild(e); else { const v = document.createElement('div'); v.className = 'vuoto'; f.appendChild(v); } });
     libro.appendChild(s);
   }
   fit();
 }
 function fit() {
   const singole = document.getElementById('vista').value === 'singole';
-  const w = Math.min(window.innerWidth - 32, singole ? 900 : 1700);
+  const box = document.body.classList.contains('editing') ? document.getElementById('libro').clientWidth : window.innerWidth;
+  const w = Math.min(box - 32, singole ? 900 : 1700);
   const z = Math.min(1, w / ((singole ? 1 : 2) * 816));
   document.documentElement.style.setProperty('--z', z.toFixed(3));
 }
@@ -417,18 +429,23 @@ addEventListener('resize', fit);
 document.getElementById('vista').addEventListener('change', show);
 document.getElementById('pdf').addEventListener('click', () => window.print());
 
+async function impagina(parti, generato) {
+  Q.pageOf = {};
+  render(parti);
+  await Promise.all([...misura.querySelectorAll('img')].map(i => i.complete ? 0 : new Promise(ok => { i.onload = i.onerror = ok; })));
+  show();
+  document.getElementById('info').textContent = `${pages.length} pagine` + (generato ? ` · aggiornato ${new Date(generato).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' })}` : '');
+}
+window.Q = { markdown, impagina, esc, show, fit, pages: () => pages };
 async function avvia() {
   const stato = document.getElementById('stato');
   try {
     const r = await fetch('libro.json?v=' + Date.now(), { cache: 'no-store' });
     if (!r.ok) throw new Error('libro.json: ' + r.status);
     const libro = await r.json();
+    Q.libro = libro;
     await document.fonts.load('13px Jost'); await document.fonts.load('italic 13px Jost');
-    render(libro.parti);
-    await Promise.all([...misura.querySelectorAll('img')].map(i => i.complete ? 0 : new Promise(ok => { i.onload = i.onerror = ok; })));
-    show();
-    const ultima = pages.filter(p => p.n).pop();
-    document.getElementById('info').textContent = `${pages.length} pagine · aggiornato ${new Date(libro.generato).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' })}`;
+    await impagina(libro.parti, libro.generato);
     stato.remove();
     document.body.dataset.pronto = '1';
   } catch (e) {
@@ -438,5 +455,6 @@ async function avvia() {
 }
 avvia();
 </script>
+<script src="editor.js?v=1"></script>
 </body>
 </html>
