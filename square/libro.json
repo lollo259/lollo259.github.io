@@ -1,5 +1,5 @@
 {
- "generato": "2026-10-19T09:11:29.542Z",
+ "generato": "2026-10-19T09:59:48.982Z",
  "parti": [
   {
    "file": "0010-frontespizio.md",
@@ -20,7 +20,7 @@
    "ordine": 30,
    "titolo": "Love Tear Us Apart",
    "tipo": "dedica",
-   "body": "\n# Love Tear Us Apart\n\n*una lettera*\n\n*a tutti*\n\n*A chi mi rende felice. A coloro che vivono in eterno, da qualche*\n\n*parte nel mio cuore. Questo mondo è per voi.*\n"
+   "body": "# Love Tear Us Apart\n\n> A chi mi rende felice.\n\n> A coloro che vivono in eterno, da qualche parte nel mio cuore.\n\n> Questo mondo è per voi."
   },
   {
    "file": "0040-credo-in-cio-che-non-vedo-ma.md",

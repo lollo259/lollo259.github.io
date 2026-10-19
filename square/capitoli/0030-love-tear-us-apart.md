@@ -6,10 +6,8 @@ tipo: "dedica"
 
 # Love Tear Us Apart
 
-*una lettera*
+> A chi mi rende felice.
 
-*a tutti*
+> A coloro che vivono in eterno, da qualche parte nel mio cuore.
 
-*A chi mi rende felice. A coloro che vivono in eterno, da qualche*
-
-*parte nel mio cuore. Questo mondo è per voi.*
+> Questo mondo è per voi.
