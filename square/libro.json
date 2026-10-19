@@ -1,5 +1,5 @@
 {
- "generato": "2026-10-19T20:19:54.196Z",
+ "generato": "2026-10-19T20:27:13.065Z",
  "parti": [
   {
    "file": "0010-frontespizio.md",
@@ -45,6 +45,7 @@
    "numero": "1",
    "capitolo": "L’architettura delle emozioni",
    "immagine": "/square/media/ap-caranoir.jpg",
+   "originale": "/square/media/ap-caranoir-originale.jpg",
    "splash": true,
    "body": ""
   },
@@ -64,6 +65,7 @@
    "numero": "2",
    "capitolo": "La topologia",
    "immagine": "/square/media/ap-mistico.jpg",
+   "originale": "/square/media/ap-mistico-originale.jpg",
    "splash": true,
    "bianco": true,
    "body": ""
@@ -168,6 +170,7 @@
    "numero": "3",
    "capitolo": "Il quadrante delle emozioni",
    "immagine": "/square/media/ap-sammartino.jpg",
+   "originale": "/square/media/ap-sammartino-originale.jpg",
    "body": ""
   },
   {
@@ -560,6 +563,7 @@
    "numero": "4",
    "capitolo": "Gli artisti",
    "immagine": "/square/media/ap-okada.jpg",
+   "originale": "/square/media/ap-okada-originale.jpg",
    "body": ""
   },
   {

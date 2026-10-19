@@ -15,7 +15,7 @@
   };
   const IMMAGINE = new Set(['foto', 'doppia', 'figura', 'disegno', 'doppia-figura']);
   const FM_ORDER = ['ordine', 'titolo', 'tipo', 'capitolo', 'numero', 'immagine', 'immagine_destra', 'lato', 'nuova_pagina',
-    'splash', 'bianco', 'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
+    'splash', 'bianco', 'originale', 'crop', 'pagina_intera', 'senza_testata', 'nell_indice', 'bozza'];
 
   let parts = [], removed = [], editing = false, nextId = 1, saving = false;
 
@@ -76,6 +76,15 @@
   .ed-modal .row { display: flex; gap: 8px; justify-content: flex-end; }
   .ed-modal button { font: 14px Inter, sans-serif; border: 1px solid #c9c5c0; background: #fff; border-radius: 999px; padding: 6px 16px; cursor: pointer; }
   .ed-modal button.primary { background: #1b1b1b; color: #fff; border-color: #1b1b1b; }
+  .ed-apimg { padding: 6px 0 0; align-items: flex-start; } .ed-apimg > img { max-height: 200px; }
+  .ed-aprow { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: 14px; }
+  .ed-lay label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .ed-crop { position: relative; overflow: hidden; background: #000; cursor: grab; touch-action: none; margin: 0 auto 12px; user-select: none; }
+  .ed-crop:active { cursor: grabbing; }
+  .ed-crop img { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; pointer-events: none; }
+  .ed-crop .fold { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,.7); }
+  .ed-crop .qq { position: absolute; pointer-events: none; }
+  .ed-zoom { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #555; margin: 0 0 14px; } .ed-zoom input { flex: 1; }
   .ed-modal .err { color: #a3261b; min-height: 1.2em; font-size: 13px; }
   #salva { display: none; } body.editing #salva { display: inline-block; } body.editing #vista, body.editing #pdf { display: none; }
   #salva.pending { background: #1b1b1b; color: #fff; border-color: #1b1b1b; }
@@ -188,7 +197,16 @@
     if (tipo === 'apertura') {
       const d = document.createElement('div'); d.className = 'ed-ap';
       d.innerHTML = `<input aria-label="Numero del capitolo (1 = 4⁰, 2 = 4¹, 3 = 4², 4 = 4³)" title="1 = 4⁰, 2 = 4¹, 3 = 4², 4 = 4³" class="n" value="${esc(p.numero || '')}"><input aria-label="Titolo del capitolo" class="t" value="${esc(p.titolo || '')}">
-        <div class="ed-img" style="padding:6px 0 0;align-items:flex-start"><img src="${esc(shown[p.immagine] || p.immagine || '')}" alt="" ${p.immagine ? '' : 'hidden'} style="max-height:180px"><button data-img="immagine">${p.immagine ? 'Cambia l’immagine d’apertura' : 'Aggiungi un’immagine d’apertura'}</button></div>`;
+        <div class="ed-img ed-apimg"><img src="${esc(shown[p.immagine] || p.immagine || '')}" alt="" ${p.immagine ? '' : 'hidden'}>
+          <div class="ed-aprow"><button data-img="immagine">${p.immagine ? 'Cambia immagine' : 'Aggiungi un’immagine'}</button>${p.immagine ? '<button data-crop="1">Ritaglia</button>' : ''}</div>
+          ${p.immagine ? `<div class="ed-aprow ed-lay" role="radiogroup" aria-label="Impaginazione dell’apertura">
+            <label><input type="radio" name="lay${p._id}" value="splash" ${p.splash === true ? 'checked' : ''}> Su due pagine</label>
+            <label><input type="radio" name="lay${p._id}" value="pagina" ${p.splash === true ? '' : 'checked'}> Una pagina, l’altra nera</label>
+            <label class="wq" ${p.splash === true ? '' : 'hidden'}><input type="checkbox" class="bianco" ${p.bianco === true ? 'checked' : ''}> Quadrato bianco</label></div>` : ''}</div>`;
+      d.addEventListener('change', e => {
+        if (e.target.type === 'radio') { const sp = e.target.value === 'splash'; if (sp !== (p.splash === true)) { p.splash = sp; if (!sp) p.bianco = false; cropImage(p); } }
+        if (e.target.classList.contains('bianco')) { p.bianco = e.target.checked; dirty(p); }
+      });
       d.addEventListener('input', e => { if (!e.target.matches('input.n, input.t')) return; p.numero = $('.n', d).value; p.titolo = $('.t', d).value; if (!p.capitolo || p.capitolo === p._capPrev) p.capitolo = p.titolo; p._capPrev = p.titolo; dirty(p); });
       p._capPrev = p.capitolo;
       sec.appendChild(d);
@@ -337,19 +355,20 @@
     const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
     inp.onchange = async () => {
       const f = inp.files[0]; if (!f) return;
+      if (p.tipo === 'apertura' && key === 'immagine') { p.originale = await prepare(f, 5400); return cropImage(p); }
       const data = await prepare(f);
       if (insertInto) { insertInto.focus(); document.execCommand('insertHTML', false, `<img src="${data}" alt="">`); dirty(p, insertInto); return; }
       p[key] = data; p._dirty = true; redraw(p); dirty(p);
     };
     inp.click();
   }
-  function prepare(file) {
+  function prepare(file, max = 2800) {
     return new Promise((ok, ko) => {
       const r = new FileReader();
       r.onload = () => {
         const im = new Image();
         im.onload = () => {
-          const max = 2800, k = Math.min(1, max / Math.max(im.width, im.height));
+          const k = Math.min(1, max / Math.max(im.width, im.height));
           if (k === 1 && file.size < 4e6 && /png|jpe?g|webp/.test(file.type)) return ok(r.result);
           const c = document.createElement('canvas'); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
           c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); ok(c.toDataURL('image/jpeg', 0.9));
@@ -357,6 +376,55 @@
         im.onerror = ko; im.src = r.result;
       };
       r.onerror = ko; r.readAsDataURL(file);
+    });
+  }
+
+  // ------------------------------------------------------------------ cropping a chapter image
+  // A square for one page, 2:1 for both pages. Drag the image, zoom with the slider; the frame is the page.
+  function cropImage(p) {
+    const src = shown[p.originale] || p.originale || shown[p.immagine] || p.immagine;
+    if (!src) return;
+    const ratio = p.splash === true ? 2 : 1;
+    const m = modal(`<h3>Ritaglia l’immagine</h3><p style="margin:0 0 10px;color:#666">${ratio === 2 ? 'Due pagine affiancate: la linea al centro è la piega del libro.' : 'Una pagina quadrata.'} Trascina l’immagine, usa il cursore per ingrandire.</p>
+      <div class="ed-crop"><img alt="" draggable="false"><i class="fold" ${ratio === 2 ? '' : 'hidden'}></i><i class="qq"></i></div>
+      <label class="ed-zoom">Ingrandimento <input type="range" min="1" max="4" step="0.01" value="1"></label>
+      <div class="row"><button data-x>Annulla</button><button class="primary" data-ok>Usa questo ritaglio</button></div>`);
+    m.querySelector('.box').style.maxWidth = ratio === 2 ? '900px' : '620px';
+    const box = $('.ed-crop', m), img = $('img', box), zoom = $('input[type=range]', m), qq = $('.qq', box);
+    const W = Math.min(ratio === 2 ? 840 : 560, innerWidth - 80), H = W / ratio;
+    box.style.width = W + 'px'; box.style.height = H + 'px';
+    // where the black square will sit: the chapter's quarter of the right-hand page
+    const n = parseInt(p.numero, 10), q = isNaN(n) ? 0 : (n - 1) % 4;
+    if (ratio === 2) Object.assign(qq.style, { left: (W / 2 + (q % 2) * W / 4) + 'px', top: (Math.floor(q / 2) * H / 2) + 'px', width: W / 4 + 'px', height: H / 2 + 'px', background: p.bianco === true ? 'rgba(255,255,255,.85)' : 'rgba(0,0,0,.8)' });
+    else qq.hidden = true;
+    let iw, ih, base, z = 1, x = 0, y = 0;
+    const cp = String(p.crop || '').split(',').map(Number), c0 = cp.length === 4 && cp[0] === ratio ? { z: cp[1], x: cp[2], y: cp[3] } : null;
+    const clamp = () => { const w = iw * base * z, h = ih * base * z; x = Math.min(0, Math.max(W - w, x)); y = Math.min(0, Math.max(H - h, y)); };
+    const draw = () => { clamp(); img.style.width = iw * base * z + 'px'; img.style.transform = `translate(${x}px,${y}px)`; };
+    img.onload = () => {
+      iw = img.naturalWidth; ih = img.naturalHeight; base = Math.max(W / iw, H / ih);
+      if (c0) { z = c0.z; zoom.value = z; x = c0.x * W; y = c0.y * H; } else { x = (W - iw * base) / 2; y = (H - ih * base) / 2; }
+      draw();
+    };
+    img.src = src;
+    zoom.oninput = () => { const cx = (W / 2 - x) / z, cy = (H / 2 - y) / z; z = +zoom.value; x = W / 2 - cx * z; y = H / 2 - cy * z; draw(); };
+    box.addEventListener('wheel', e => { e.preventDefault(); zoom.value = Math.min(4, Math.max(1, z * (e.deltaY < 0 ? 1.06 : 1 / 1.06))); zoom.oninput(); }, { passive: false });
+    let drag = null;
+    box.addEventListener('pointerdown', e => { drag = { sx: e.clientX, sy: e.clientY, x, y }; box.setPointerCapture(e.pointerId); });
+    box.addEventListener('pointermove', e => { if (!drag) return; x = drag.x + e.clientX - drag.sx; y = drag.y + e.clientY - drag.sy; draw(); });
+    box.addEventListener('pointerup', () => { drag = null; });
+    m.addEventListener('click', e => {
+      if (e.target.dataset.x !== undefined) { m.remove(); redraw(p); return; }
+      if (e.target.dataset.ok === undefined) return;
+      // render the crop at print resolution (8.5 in at 300 dpi per page), never larger than the source allows
+      const s = base * z, sx = -x / s, sy = -y / s, sw = W / s, sh = H / s;
+      const outW = ratio * 2625, outH = 2625;
+      const c = document.createElement('canvas'); c.width = outW; c.height = outH;
+      const g = c.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(img, sx, sy, sw, sh, 0, 0, outW, outH);
+      if (!p.originale) p.originale = p.immagine;
+      p.immagine = c.toDataURL('image/jpeg', 0.9);
+      p.crop = [ratio, z, x / W, y / H].map(v => +(+v).toFixed(4)).join(',');
+      m.remove(); redraw(p); dirty(p);
     });
   }
 
@@ -397,6 +465,7 @@
       if (btn.dataset.at !== undefined) return addMenu(+btn.dataset.at, btn);
       const sec = btn.closest('.ed-part'); if (!sec) return;
       const p = parts.find(x => x._id === +sec.dataset.id), i = parts.indexOf(p);
+      if (btn.dataset.crop) return cropImage(p);
       if (btn.dataset.img) return pickImage(p, btn.dataset.img);
       const a = btn.dataset.a;
       if (a === 'imp') { const box = $('.ed-set', sec); if (!box.innerHTML) settings(p, box); box.hidden = !box.hidden; }
@@ -494,7 +563,7 @@
         return '/' + path;
       };
       for (const p of parts.filter(p => p._dirty || p._new)) {
-        for (const k of ['immagine', 'immagine_destra']) if (p[k] && p[k].startsWith('data:')) p[k] = await upload(p[k], p.titolo || k);
+        for (const k of ['immagine', 'immagine_destra', 'originale']) if (p[k] && p[k].startsWith('data:')) p[k] = await upload(p[k], p.titolo || k);
         if (p.body && p.body.includes('data:image')) {
           const found = [...p.body.matchAll(/\]\((data:image\/[^)]+)\)/g)];
           for (const f of found) p.body = p.body.replace(f[1], await upload(f[1], (p.titolo || 'immagine') + '-testo'));
