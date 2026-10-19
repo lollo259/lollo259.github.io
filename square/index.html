@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Il Quadrante delle Emozioni</title>
+<link rel="icon" href="/favicon.svg">
+<style>
+/* the book: 8.5 × 8.5 in pages, Jost, black and white */
+@font-face { font-family: Jost; src: url(font/Jost.ttf); font-weight: 100 900; font-style: normal; }
+@font-face { font-family: Jost; src: url(font/Jost-Italic.ttf); font-weight: 100 900; font-style: italic; }
+:root {
+  --ink: #161616; --grey: #8a8a8a; --rule: #cfcfcf; --paper: #fff; --desk: #e8e6e3; --ui: #1b1b1b;
+  --pw: 816px; --ph: 816px;            /* 8.5 in at 96 px per inch */
+  --top: 77px; --bottom: 77px; --inner: 103px; --outer: 55px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--desk); color: var(--ink); font-family: Jost, "Helvetica Neue", Arial, sans-serif; }
+
+/* ---------- interface */
+.barra { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+  padding: 10px max(16px, env(safe-area-inset-left)); background: var(--desk); border-bottom: 1px solid #d6d3cf; font-size: 13px; letter-spacing: .04em; }
+.barra .t { font-size: 13px; letter-spacing: .28em; text-transform: uppercase; margin-right: auto; }
+.barra button, .barra a { font: inherit; color: var(--ui); background: none; border: 1px solid #bdb9b4; border-radius: 999px; padding: 6px 14px; cursor: pointer; text-decoration: none; }
+.barra button:hover, .barra a:hover { background: #fff; }
+.barra .info { color: #6b6762; }
+.barra select { font: inherit; padding: 5px 8px; border-radius: 6px; border: 1px solid #bdb9b4; background: #fff; }
+#stato { padding: 40px 16px; text-align: center; color: #6b6762; font-size: 14px; }
+.libro { padding: 24px 16px 80px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.spread { display: flex; justify-content: center; zoom: var(--z, 1); }
+.spread .page { box-shadow: 0 6px 24px rgba(0,0,0,.14); }
+.spread .vuoto { width: var(--pw); height: var(--ph); }
+.libro.singole .spread { flex-direction: column; gap: 20px; }
+
+/* ---------- the page */
+.page { position: relative; width: var(--pw); height: var(--ph); background: var(--paper); overflow: hidden; flex: none; }
+.page .area { position: absolute; top: var(--top); bottom: var(--bottom); overflow: hidden; }
+.page.dx .area { left: var(--inner); right: var(--outer); }
+.page.sx .area { left: var(--outer); right: var(--inner); }
+.page .testata { position: absolute; top: 41px; font-size: 10.7px; font-style: italic; color: var(--grey); }
+.page.sx .testata { left: 67px; } .page.dx .testata { right: 67px; }
+.page .folio { position: absolute; bottom: 36px; width: 100%; text-align: center; font-size: 11.3px; }
+.page.sx .folio { left: -14px; } .page.dx .folio { left: 14px; }
+
+/* text */
+.area { font-size: 13.33px; line-height: 1.38; hyphens: manual; }
+.area p { margin: 0 0 .55em; }
+.area h1 { font-weight: 400; font-size: 29px; margin: 0 0 .9em; }
+.area h2 { font-weight: 400; font-size: 16.7px; margin: 1.1em 0 .45em; break-after: avoid; }
+.area h3 { font-weight: 400; font-size: 14.7px; margin: 1.4em 0 .45em; break-after: avoid; }
+.area h4 { font-weight: 400; font-size: 14.7px; margin: 1.3em 0 .4em; }
+.area > :first-child { margin-top: 0; }
+.area ul, .area ol { margin: 0 0 .55em; padding-left: 1.4em; }
+.area li { margin: 0 0 .2em; }
+.area ul ul { margin-top: .2em; font-size: .94em; }
+.area blockquote { margin: 0 0 .7em 1.2em; font-size: .94em; }
+.area blockquote p { margin: 0 0 .4em; }
+.area hr { border: 0; margin: .6em 0; text-align: center; }
+.area hr::after { content: "·"; }
+.area img { max-width: 100%; }
+.area a { color: inherit; }
+.area .epi { font-style: italic; font-size: 11.3px; margin: 0 0 .1em; }
+.parola h2 { font-size: 22.7px; margin: 0 0 1em; }
+.fine h1 { font-size: 29px; }
+.fine p, .fine li { font-size: 12.5px; }
+.note h3 { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 13.33px; margin: 1.2em 0 .3em; }
+
+/* special pages */
+.page.apertura .numero { position: absolute; left: 91px; top: 96px; font-size: 72px; font-weight: 400; line-height: 1; }
+.page.apertura .titolo { position: absolute; left: 91px; top: 344px; font-size: 29.3px; font-weight: 400; line-height: 1.16; max-width: 360px; }
+.page.frontespizio .area, .page.dedica .area, .page.colophon .area { display: flex; flex-direction: column; justify-content: center; }
+.page.frontespizio h1 { font-weight: 300; font-size: 32px; line-height: 1.2; margin: 0 0 .5em; }
+.page.dedica .area { display: block !important; padding-top: 275px; font-size: 14px; }
+.page.dedica h1 { font-weight: 400; font-size: 29px; margin: 0 0 .25em; }
+.page.dedica h1 + p { color: var(--grey); font-size: 13.33px; margin: 0 0 2.6em; }
+.page.dedica p { margin: 0 0 .1em; }
+.page.colophon .area { justify-content: flex-end; font-size: 10.7px; }
+.page.colophon .area p { margin: 0 0 .35em; }
+.page.foto img, .page.doppia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.page.doppia.sx img { width: 200%; left: 0; } .page.doppia.dx img { width: 200%; left: -100%; }
+.page.figura .area, .page.disegno .area { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.page.figura img, .page.disegno img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.page.figura .fig { align-self: flex-start; font-size: 10.7px; color: var(--grey); margin: 0 0 4px; }
+.page.figpiena img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.indice h1 { font-weight: 400; font-size: 16.7px; margin: 0 0 1.4em; }
+.indice .r { display: flex; font-size: 14.7px; margin: 0 0 .55em; }
+.indice .r .n { width: 33px; } .indice .r .t { flex: 1; } .indice .r .p { width: 30px; text-align: right; }
+.indice .r.c { margin-top: 1em; }
+.indice .r.s, .indice .r.s2 { font-size: 12.7px; color: #4a4a4a; }
+.indice .r.s2 .t { padding-left: 18px; } .indice .r.s2 { font-size: 12px; color: #6a6a6a; }
+.indice .r.b { margin-top: 1em; }
+.indice a { color: inherit; text-decoration: none; }
+
+/* measuring box */
+#misura { position: absolute; left: -10000px; top: 0; }
+
+@media print {
+  @page { size: 8.5in 8.5in; margin: 0; }
+  body { background: #fff; }
+  .barra, #stato { display: none !important; }
+  .libro { padding: 0; gap: 0; display: block; }
+  .spread { display: block; zoom: 1 !important; }
+  .spread .vuoto { display: none; }
+  .spread .page { box-shadow: none; break-after: page; }
+  .spread .page.ultima { break-after: auto; }
+}
+</style>
+</head>
+<body>
+<div class="barra">
+  <span class="t">Il Quadrante delle Emozioni</span>
+  <span class="info" id="info"></span>
+  <select id="vista" aria-label="Vista">
+    <option value="doppie">Pagine affiancate</option>
+    <option value="singole">Una pagina alla volta</option>
+  </select>
+  <button id="pdf" type="button">Scarica PDF</button>
+  <a id="modifica" href="https://app.pagescms.org/" target="_blank" rel="noopener">Modifica</a>
+</div>
+<div id="stato">Impagino il libro…</div>
+<div class="libro" id="libro"></div>
+<div id="misura"></div>
+
+<script>
+'use strict';
+// ------------------------------------------------------------------ a small Markdown renderer (the subset Pages CMS writes)
+function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function inline(s) {
+  // keep raw inline HTML that the editor may write (<em>, <strong>, <br>, <span …>)
+  const keep = []; s = s.replace(/<\/?(em|strong|i|b|br|span|sup|sub|u|s)( [^>]*)?\/?>/gi, m => (keep.push(m), `\u0000${keep.length - 1}\u0000`));
+  s = esc(s);
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (m, a, u) => `<img src="${u}" alt="${a}">`);
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (m, t, u) => `<a href="${u}">${t}</a>`);
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+  s = s.replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>').replace(/__([^_]+?)__/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[^*\w])\*(?!\s)([^*]+?)\*(?!\w)/g, '$1<em>$2</em>').replace(/(^|[^_\w])_(?!\s)([^_]+?)_(?!\w)/g, '$1<em>$2</em>');
+  s = s.replace(/\\\n/g, '<br>').replace(/ {2,}\n/g, '<br>').replace(/\\([\\`*_{}\[\]()#+\-.!>])/g, '$1');
+  return s.replace(/\u0000(\d+)\u0000/g, (m, i) => keep[i]);
+}
+function markdown(src) {
+  const lines = src.replace(/\r/g, '').split('\n');
+  let out = '', i = 0;
+  const isBlank = l => !l.trim();
+  while (i < lines.length) {
+    let l = lines[i];
+    if (isBlank(l)) { i++; continue; }
+    let m;
+    if ((m = l.match(/^(#{1,6})\s+(.*)$/))) { const n = m[1].length; out += `<h${n}>${inline(m[2].trim())}</h${n}>`; i++; continue; }
+    if (/^\s*([*_-])(\s*\1){2,}\s*$/.test(l)) { out += '<hr>'; i++; continue; }
+    if (/^\s*<(p|div|figure|table|blockquote|ul|ol|h\d)[\s>]/i.test(l)) {      // raw HTML block
+      let b = ''; while (i < lines.length && !isBlank(lines[i])) b += lines[i++] + '\n'; out += b; continue;
+    }
+    if (/^\s*>/.test(l)) {
+      let b = []; while (i < lines.length && /^\s*>/.test(lines[i])) b.push(lines[i++].replace(/^\s*>\s?/, ''));
+      out += `<blockquote>${markdown(b.join('\n'))}</blockquote>`; continue;
+    }
+    if (/^\s*([-*+]|\d+[.)])\s+/.test(l)) {
+      const items = []; let cur = null;
+      while (i < lines.length && !isBlank(lines[i])) {
+        const x = lines[i], mm = x.match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
+        if (mm && mm[1].length < 2) { cur = { t: mm[3], sub: [], ord: /\d/.test(mm[2]) }; items.push(cur); }
+        else if (cur && mm) cur.sub.push(x.replace(/^\s{2,4}/, ''));
+        else if (cur) cur.t += '\n' + x.trim();
+        i++;
+        if (i < lines.length && isBlank(lines[i]) && i + 1 < lines.length && /^\s*([-*+]|\d+[.)])\s+/.test(lines[i + 1])) i++;
+      }
+      const tag = items[0].ord ? 'ol' : 'ul';
+      out += `<${tag}>` + items.map(it => `<li>${inline(it.t)}${it.sub.length ? markdown(it.sub.join('\n')) : ''}</li>`).join('') + `</${tag}>`;
+      continue;
+    }
+    let p = []; while (i < lines.length && !isBlank(lines[i]) && !/^(#{1,6}\s|\s*>|\s*([-*+]|\d+[.)])\s)/.test(lines[i])) p.push(lines[i++]);
+    if (!p.length) { p.push(lines[i++]); }
+    const txt = p.join('\n');
+    if (/^!\[[^\]]*\]\([^)]+\)$/.test(txt.trim())) out += `<figure>${inline(txt.trim())}</figure>`;
+    else out += `<p>${inline(txt)}</p>`;
+  }
+  return out;
+}
+
+// ------------------------------------------------------------------ pagination
+const BOOK = 'Il quadrante delle emozioni';
+const misura = document.getElementById('misura');
+let pages = [];                        // {el, kind, cap, folio:boolean, head:boolean}
+function newPage(kind, cap, opts = {}) {
+  const el = document.createElement('div');
+  el.className = 'page ' + kind;
+  const p = { el, kind, cap: cap || '', folio: opts.folio !== false, head: opts.head !== false, cls: opts.cls || '' };
+  if (opts.area !== false) { const a = document.createElement('div'); a.className = 'area ' + p.cls; el.appendChild(a); p.area = a; }
+  pages.push(p); misura.appendChild(el); side(p);
+  return p;
+}
+function side(p) {                     // page 1 is a right-hand page
+  const n = pages.indexOf(p) + 1;
+  p.el.classList.toggle('dx', n % 2 === 1); p.el.classList.toggle('sx', n % 2 === 0);
+}
+const overflows = a => a.scrollHeight > a.clientHeight + 0.5;
+
+// split an element so that its first part fits in the area; returns the remainder (or null)
+function splitToFit(el, area) {
+  if (!overflows(area)) return null;
+  const tag = el.tagName;
+  if (tag === 'UL' || tag === 'OL' || tag === 'BLOCKQUOTE') {
+    const rest = el.cloneNode(false);
+    while (overflows(area) && el.lastElementChild) rest.insertBefore(el.lastElementChild, rest.firstChild);
+    if (!el.firstElementChild) { el.remove(); return rest; }                  // nothing fits
+    // try to put part of the first moved child back
+    const first = rest.firstElementChild;
+    if (first && /^(LI|P)$/.test(first.tagName)) {
+      el.appendChild(first);
+      const r2 = splitToFit(first, area);
+      if (r2 === first) { rest.insertBefore(first, rest.firstChild); }
+      else if (r2) { rest.insertBefore(r2, rest.firstChild); }
+    }
+    if (tag === 'OL') rest.setAttribute('start', (+(el.getAttribute('start') || 1)) + el.children.length);
+    return rest.childNodes.length ? rest : null;
+  }
+  if (!/^(P|LI)$/.test(tag)) { el.remove(); return el; }                       // headings, figures: move whole
+  // the whitespace positions of the element, in document order (recomputed after every trial)
+  const count = () => { const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); const ps = []; let x;
+    while ((x = w.nextNode())) { const re = /\s+/g; let m; while ((m = re.exec(x.data))) ps.push([x, m.index]); } return ps; };
+  const fits = k => {                  // does the text before whitespace k fit?
+    const ps = count(); const r = document.createRange(); r.setStart(ps[k][0], ps[k][1]); r.setEndAfter(el.lastChild);
+    const frag = r.extractContents(); const ok = !overflows(area); el.appendChild(frag); el.normalize();
+    return ok;
+  };
+  const N = count().length;
+  if (!N) { el.remove(); return el; }
+  let lo = -1, hi = N - 1;
+  while (lo < hi) { const mid = Math.ceil((lo + hi) / 2); if (fits(mid)) lo = mid; else hi = mid - 1; }
+  const ps = count();
+  if (lo < 1) { el.remove(); return el; }                                      // fewer than two words fit: move it
+  // keep at least two lines on each side (simple widow/orphan control by words)
+  const r = document.createRange(); r.setStart(ps[lo][0], ps[lo][1]); r.setEndAfter(el.lastChild);
+  const frag = r.extractContents();
+  const rest = el.cloneNode(false); rest.appendChild(frag); rest.classList.add('segue');
+  // trim the leading space of the remainder
+  const fw = document.createTreeWalker(rest, NodeFilter.SHOW_TEXT).nextNode(); if (fw) fw.data = fw.data.replace(/^\s+/, '');
+  if (tag === 'LI') rest.style.listStyle = 'none';
+  return rest;
+}
+
+let pending = [];                      // image pages waiting for the current text page to fill
+function flushPending(hard) {
+  const keep = [];
+  for (const job of pending) {
+    if (job.left && pages.length % 2 === 0) {                 // a spread must start on a left-hand page
+      if (hard) { blank(); job.make(); } else keep.push(job);
+    } else job.make();
+  }
+  pending = keep;
+}
+function lastFlow(cls) { const q = pages[pages.length - 1]; return q && q.flow && q.cls === cls ? q : null; }
+function flowText(blocks, kind, cap, cls, startNew) {
+  if (startNew) flushPending(true);
+  let p = startNew ? null : lastFlow(cls);
+  if (!p) { flushPending(true); p = newPage('testo', cap, { cls }); p.flow = true; }
+  const queue = [...blocks];
+  while (queue.length) {
+    const b = queue.shift();
+    p.area.appendChild(b);
+    if (!overflows(p.area)) { if (b.tagName && /^H[2-6]$/.test(b.tagName)) b.dataset.cap = cap; continue; }
+    // a heading at the bottom moves with the next block
+    const rest = splitToFit(b, p.area);
+    const last = p.area.lastElementChild;
+    const carry = [];
+    if (last && /^H[1-6]$/.test(last.tagName)) carry.push(last);
+    carry.forEach(x => x.remove());
+    flushPending(false);
+    p = newPage('testo', cap, { cls }); p.flow = true;
+    carry.forEach(x => p.area.appendChild(x));
+    if (rest) queue.unshift(rest);
+  }
+  return p;
+}
+
+function blank(cap) { const p = newPage('vuota', cap, { area: false, folio: false, head: false }); return p; }
+function toRight() { if (pages.length % 2 === 1) blank(); }    // next page will be odd
+function toLeft() { if (pages.length % 2 === 0) blank(); }     // next page will be even
+
+let figN = 0, idxEntries = [], idxSpec = '';
+function place(x, tipo, cap, html) {
+    if (tipo === 'apertura') {
+      toRight();
+      const p = newPage('apertura', cap, { folio: false, head: false, area: false });
+      p.el.innerHTML = `<div class="numero">${esc(String(x.numero || ''))}</div><div class="titolo">${esc(x.titolo || '')}</div>`;
+      p.capStart = true; idxEntries.push({ lv: 'c', n: x.numero, t: x.titolo, page: p }); return true;
+    }
+    if (tipo === 'frontespizio' || tipo === 'dedica' || tipo === 'colophon') {
+      const p = newPage(tipo, '', { folio: false, head: false }); p.area.innerHTML = html; return true;
+    }
+    if (tipo === 'indice') { const p = newPage('indice', '', { folio: false, head: false, cls: 'indice' }); p.isIndex = true; idxSpec = x.body || ''; return true; }
+    if (tipo === 'foto') {
+      const p = newPage('foto', cap, { area: false, folio: false, head: false });
+      p.el.innerHTML = `<img src="${x.immagine}" alt="">`; return true;
+    }
+    if (tipo === 'doppia' || tipo === 'doppia-figura') {
+      toLeft();
+      const a = newPage(tipo === 'doppia' ? 'doppia' : 'figpiena', cap, { area: false, folio: false, head: false });
+      const b = newPage(tipo === 'doppia' ? 'doppia' : 'figpiena', cap, { area: false, folio: false, head: false });
+      if (tipo === 'doppia') { a.el.innerHTML = b.el.innerHTML = `<img src="${x.immagine}" alt="">`; }
+      else { a.el.innerHTML = `<img src="${x.immagine}" alt="">`; b.el.innerHTML = `<img src="${x.immagine_destra || x.immagine}" alt="">`; }
+      return true;
+    }
+    if (tipo === 'figura' && x.pagina_intera === true) {
+      const quiet = x.senza_testata === true;
+      const p = newPage('figpiena', cap, { area: false, folio: !quiet, head: !quiet });
+      p.el.innerHTML = `<img src="${x.immagine}" alt="${esc(x.titolo || '')}">`;
+      p.idxTitle = x.titolo; return true;
+    }
+    if (tipo === 'figura' || tipo === 'disegno') {
+      const p = newPage(tipo, cap);
+      if (tipo === 'figura') { p.area.innerHTML = `<div class="fig">fig. ${x._fig}</div><img src="${x.immagine}" alt="${esc(x.titolo || '')}">`; }
+      else p.area.innerHTML = `<img src="${x.immagine}" alt="${esc(x.titolo || '')}">`;
+      if (html) { const d = document.createElement('div'); d.innerHTML = html; p.area.appendChild(d); }
+      return true;
+    }
+    return false;
+}
+
+function render(parti) {
+  pages = []; misura.innerHTML = ''; figN = 0; idxEntries = []; pending = []; idxSpec = '';
+  const floating = x => (x.tipo === 'foto' || x.tipo === 'figura' || x.tipo === 'doppia' || x.tipo === 'disegno') && x.fluttua !== false;
+  for (const x of parti) {
+    const tipo = x.tipo || 'testo', cap = x.capitolo || '';
+    const html = markdown(x.body || '');
+    const prev = pages[pages.length - 1];
+    if (floating(x) && prev && prev.flow && !x.lato) {    // wait for the text page to fill
+      if (tipo === 'figura') x._fig = ++figN;
+      pending.push({ left: tipo === 'doppia', make: () => place(x, tipo, cap, html) });
+      continue;
+    }
+    if (tipo !== 'testo' || x.nuova_pagina === true) flushPending(true);
+    if (x.lato === 'destra') toRight(); else if (x.lato === 'sinistra') toLeft();
+    if (tipo === 'figura') x._fig = ++figN;
+    if (place(x, tipo, cap, html)) continue;
+    // text
+    const cls = [cap === 'La parola dell’artista' ? 'parola' : '', /Glossario|Note/.test(cap) ? 'fine' : '', /Note/.test(cap) ? 'note' : ''].join(' ').trim();
+    const holder = document.createElement('div'); holder.innerHTML = html;
+    // an italic first paragraph followed by a heading is an epithet (il Nomade, il Monaco…)
+    const kids = [...holder.children];
+    kids.forEach((k, i) => { if (k.tagName === 'P' && /^<em>[^<]+<\/em>$|^\[<em>[^<]+<\/em>\]$/.test(k.innerHTML.trim()) && kids[i + 1] && kids[i + 1].tagName === 'H2') k.classList.add('epi'); });
+    kids.forEach(k => { if (/^H1$/.test(k.tagName) || (x.nell_indice !== false && /^H[23]$/.test(k.tagName))) k.dataset.idx = k.tagName; });
+    const startNew = x.nuova_pagina === true;
+    flowText(kids, 'testo', cap, cls, startNew);
+  }
+  flushPending(true);
+  // heads, folios, index
+  const start = pages.findIndex(p => p.capStart);
+  pages.forEach((p, i) => {
+    side(p);
+    const n = i + 1, f = start >= 0 && i >= start ? i - start + 1 : null; p.n = f;
+    if (p.head && f && p.kind !== 'vuota') {
+      const t = document.createElement('div'); t.className = 'testata';
+      t.textContent = n % 2 === 0 ? BOOK : (p.cap || BOOK); p.el.appendChild(t);
+    }
+    if (p.folio && f && p.kind !== 'vuota') { const d = document.createElement('div'); d.className = 'folio'; d.textContent = f; p.el.appendChild(d); }
+  });
+  // index entries from headings
+  pages.forEach(p => p.area && p.area.querySelectorAll('[data-idx]').forEach(h => {
+    if (h.classList.contains('segue')) return;
+    const lv = h.dataset.idx === 'H1' ? 'b' : h.dataset.idx === 'H2' ? 's' : 's2';
+    idxEntries.push({ lv, t: h.textContent, page: p });
+  }));
+  idxEntries.sort((a, b) => pages.indexOf(a.page) - pages.indexOf(b.page));
+  const voci = (idxSpec.match(/^\s*[-*]\s+.+$/gm) || []).map(l => ({ lv: (l.match(/^\s*/)[0].length >> 1), t: l.replace(/^\s*[-*]\s+/, '').trim() }));
+  if (voci.length) {
+    const norm = s => s.toLowerCase().replace(/[’']/g, "'").replace(/[*_]/g, '').replace(/\s+/g, ' ').trim();
+    const cand = [];
+    pages.forEach(p => {
+      if (p.kind === 'apertura') cand.push({ t: p.el.querySelector('.titolo').textContent, page: p, n: p.el.querySelector('.numero').textContent });
+      if (p.area) p.area.querySelectorAll('h1,h2,h3,h4').forEach(h => { if (!h.classList.contains('segue')) cand.push({ t: h.textContent, page: p }); });
+    });
+    let k = 0; const found = [];
+    for (const v of voci) {
+      let j = cand.findIndex((c, i) => i >= k && norm(c.t) === norm(v.t));
+      if (j < 0) j = cand.findIndex(c => norm(c.t) === norm(v.t));
+      const c = j >= 0 ? cand[j] : null; if (j >= 0) k = j + 1;
+      found.push({ lv: v.lv === 0 ? (c && c.n ? 'c' : 'b') : v.lv === 1 ? 's' : 's2', n: c && c.n, t: v.t, page: c ? c.page : { n: '' } });
+    }
+    idxEntries = found;
+  }
+  const ix = pages.find(p => p.isIndex);
+  if (ix) {
+    ix.area.innerHTML = '<h1>Indice</h1>' + idxEntries.map(e =>
+      `<div class="r ${e.lv}"><span class="n">${e.lv === 'c' ? esc(String(e.n || '')) : ''}</span><span class="t">${esc(e.t)}</span><span class="p">${e.page.n ?? ''}</span></div>`).join('');
+  }
+  return pages;
+}
+
+// ------------------------------------------------------------------ show
+function show() {
+  const libro = document.getElementById('libro'); libro.innerHTML = '';
+  const singole = document.getElementById('vista').value === 'singole';
+  libro.classList.toggle('singole', singole);
+  const els = pages.map(p => p.el);
+  els.forEach((e, i) => e.classList.toggle('ultima', i === els.length - 1));
+  const rows = [];
+  if (singole) els.forEach(e => rows.push([e]));
+  else { rows.push([null, els[0]]); for (let i = 1; i < els.length; i += 2) rows.push([els[i], els[i + 1] || null]); }
+  for (const r of rows) {
+    const s = document.createElement('div'); s.className = 'spread';
+    r.forEach(e => { if (e) s.appendChild(e); else { const v = document.createElement('div'); v.className = 'vuoto'; s.appendChild(v); } });
+    libro.appendChild(s);
+  }
+  fit();
+}
+function fit() {
+  const singole = document.getElementById('vista').value === 'singole';
+  const w = Math.min(window.innerWidth - 32, singole ? 900 : 1700);
+  const z = Math.min(1, w / ((singole ? 1 : 2) * 816));
+  document.documentElement.style.setProperty('--z', z.toFixed(3));
+}
+addEventListener('resize', fit);
+document.getElementById('vista').addEventListener('change', show);
+document.getElementById('pdf').addEventListener('click', () => window.print());
+
+async function avvia() {
+  const stato = document.getElementById('stato');
+  try {
+    const r = await fetch('libro.json?v=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('libro.json: ' + r.status);
+    const libro = await r.json();
+    await document.fonts.load('13px Jost'); await document.fonts.load('italic 13px Jost');
+    render(libro.parti);
+    await Promise.all([...misura.querySelectorAll('img')].map(i => i.complete ? 0 : new Promise(ok => { i.onload = i.onerror = ok; })));
+    show();
+    const ultima = pages.filter(p => p.n).pop();
+    document.getElementById('info').textContent = `${pages.length} pagine · aggiornato ${new Date(libro.generato).toLocaleString('it-IT', { dateStyle: 'short', timeStyle: 'short' })}`;
+    stato.remove();
+    document.body.dataset.pronto = '1';
+  } catch (e) {
+    stato.textContent = 'Non riesco a caricare il libro: ' + e.message;
+    console.error(e);
+  }
+}
+avvia();
+</script>
+</body>
+</html>

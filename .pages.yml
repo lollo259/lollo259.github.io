@@ -1,0 +1,87 @@
+# Pages CMS (app.pagescms.org): edits the book in /square. The rest of the site is not touched.
+media:
+  input: square/media
+  output: /square/media
+  extensions: [jpg, jpeg, png, webp, gif, svg]
+  categories: [image]
+
+content:
+  - name: libro
+    label: "Il Quadrante delle Emozioni · parti del libro"
+    type: collection
+    path: square/capitoli
+    format: yaml-frontmatter
+    filename: "{fields.ordine}-{primary}.md"
+    view:
+      primary: titolo
+      fields: [ordine, titolo, tipo, capitolo]
+      sort: [ordine, titolo]
+      default:
+        sort: ordine
+        order: asc
+    fields:
+      - name: ordine
+        label: "Ordine (le parti sono messe in fila da questo numero: per inserire una parte tra 150 e 160 usa 155)"
+        type: number
+        required: true
+      - name: titolo
+        label: "Titolo (serve a riconoscere la parte; per aperture, figure e foto è anche il nome mostrato)"
+        type: string
+        required: true
+      - name: tipo
+        label: Tipo
+        type: select
+        required: true
+        options:
+          values:
+            - { name: testo, label: "Testo (scorre di pagina in pagina)" }
+            - { name: apertura, label: "Apertura di capitolo (sempre su una pagina destra)" }
+            - { name: figura, label: "Figura (una pagina, numerata da sola: fig. 1, 2…)" }
+            - { name: foto, label: "Foto a pagina intera" }
+            - { name: doppia, label: "Foto su due pagine (splash)" }
+            - { name: doppia-figura, label: "Due immagini affiancate su due pagine" }
+            - { name: disegno, label: "Disegno su una pagina, con i margini" }
+            - { name: frontespizio, label: "Frontespizio" }
+            - { name: dedica, label: "Dedica" }
+            - { name: colophon, label: "Colophon" }
+            - { name: indice, label: "Indice (scrivi le voci come elenco: i numeri di pagina si mettono da soli)" }
+      - name: capitolo
+        label: "Capitolo (il titolo corrente in alto sulle pagine destre)"
+        type: string
+      - name: numero
+        label: "Numero del capitolo (solo per le aperture)"
+        type: string
+      - name: immagine
+        label: "Immagine (figure, foto, splash, disegni)"
+        type: image
+      - name: immagine_destra
+        label: "Immagine della pagina destra (solo per «Due immagini affiancate»)"
+        type: image
+      - name: nuova_pagina
+        label: "Comincia su una pagina nuova"
+        type: boolean
+        default: false
+      - name: lato
+        label: "Lato obbligato"
+        type: select
+        options:
+          values:
+            - { name: destra, label: "Pagina destra" }
+            - { name: sinistra, label: "Pagina sinistra" }
+      - name: pagina_intera
+        label: "Figura: l’immagine è già una pagina intera (con i suoi margini)"
+        type: boolean
+        default: false
+      - name: senza_testata
+        label: "Senza titolo corrente e numero di pagina"
+        type: boolean
+        default: false
+      - name: bozza
+        label: "Bozza (nascosta dal libro)"
+        type: boolean
+        default: false
+      - name: body
+        label: Testo
+        type: rich-text
+        options:
+          format: markdown
