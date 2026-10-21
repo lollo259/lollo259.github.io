@@ -35,6 +35,9 @@
   .ed-tools button { font: 13px Inter, sans-serif; color: var(--ui); background: #fff; border: 1px solid #c9c5c0; border-radius: 6px; padding: 5px 10px; cursor: pointer; min-width: 34px; }
   .ed-tools button:hover { border-color: #8f8a85; }
   .ed-tools .hint { width: 100%; text-align: center; font-size: 11.5px; color: #8a857f; letter-spacing: .02em; }
+  .ed-tools .mic.on { background: #111; color: #fff; border-color: #111; animation: edpulse 1.4s ease-in-out infinite; }
+  @keyframes edpulse { 50% { opacity: .55; } }
+  .ed-interim { color: #9a958f; }
   .ed-tools .sep { width: 1px; background: #c9c5c0; margin: 2px 4px; }
   .ed-col { max-width: 700px; margin: 0 auto; }
   .ed-part { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.08); margin: 0 0 4px; position: relative; }
@@ -110,7 +113,7 @@
     let s = '';
     for (const n of node.childNodes) {
       if (n.nodeType === 3) { s += n.data.replace(/ /g, ' ').replace(/([*_\\`])/g, '\\$1').replace(/\s+/g, ' '); continue; }
-      if (n.nodeType !== 1) continue;
+      if (n.nodeType !== 1 || n.classList.contains('ed-interim')) continue;
       const t = n.tagName, inner = () => mdInline(n);
       if (t === 'BR') { if (!trailingBr(n)) s += '\\\n'; }
       else if (t === 'STRONG' || t === 'B') { const x = inner(); s += x.trim() ? wrap(x, '**') : x; }
@@ -290,8 +293,8 @@
   function dirty(p, b) {
     p._dirty = true; if (b) p._bodyChanged = true;
     const sec = document.querySelector(`.ed-part[data-id="${p._id}"]`); if (sec) sec.classList.add('ed-dirty');
-    salva.classList.add('pending'); say('Modifiche non salvate');
-    preview();
+    salva.classList.add('pending'); if (!dictating) say('Modifiche non salvate');
+    preview(); backupSoon();
   }
   // the book beside the text: re-laid out half a second after you stop typing
   let timer = null, busy = false, again = false, focusId = null;
@@ -456,7 +459,7 @@
       <button data-c="p" title="Testo normale">Testo</button><button data-c="h2" title="Titolo">Titolo</button><button data-c="h3" title="Sottotitolo">Sottotitolo</button>
       <span class="sep"></span><button data-c="bold" title="Grassetto"><b>G</b></button><button data-c="italic" title="Corsivo"><i>C</i></button>
       <span class="sep"></span><button data-c="ul" title="Elenco">• Elenco</button><button data-c="blockquote" title="Citazione rientrata">Citazione</button>
-      <button data-c="img" title="Inserisci un’immagine nel testo">Immagine</button><span class="sep"></span><button data-c="undo" title="Annulla">↶</button><button data-c="redo" title="Ripeti">↷</button><span class="hint">Invio: a capo · Invio due volte: nuovo paragrafo</span>
+      <button data-c="img" title="Inserisci un’immagine nel testo">Immagine</button><span class="sep"></span><button data-c="undo" title="Annulla">↶</button><button data-c="redo" title="Ripeti">↷</button><span class="sep"></span><button data-c="mic" class="mic" title="Detta: parla e il testo si scrive dove c’è il cursore">● Detta</button><button data-c="lang" class="lang" title="Lingua della dettatura">IT</button><span class="hint">Invio: a capo · Invio due volte: nuovo paragrafo · Detta: «virgola», «punto», «a capo», «nuovo paragrafo»</span>
       </div><div class="ed-col"></div>`;
     const col = $('.ed-col', ed);
     const add = i => { const d = document.createElement('div'); d.className = 'ed-add'; d.innerHTML = `<button type="button" data-at="${i}">+ Aggiungi qui</button>`; return d; };
@@ -495,6 +498,8 @@
       const sec = e.target.closest && e.target.closest('.ed-part'); if (sec) { focusId = +sec.dataset.id; follow(focusId); }
     });
     col.addEventListener('click', e => { const sec = e.target.closest('.ed-part'); if (sec && +sec.dataset.id !== focusId) { focusId = +sec.dataset.id; follow(focusId); } });
+    $('.ed-tools .lang', ed).textContent = dictLang === 'it-IT' ? 'IT' : 'EN';
+    if (dictating) $('.ed-tools .mic', ed).classList.add('on'), $('.ed-tools .mic', ed).textContent = '■ Ferma';
     $('.ed-tools', ed).addEventListener('mousedown', e => e.preventDefault());   // keep the selection in the text
     $('.ed-tools', ed).addEventListener('click', e => {
       const c = e.target.closest('button') && e.target.closest('button').dataset.c; if (!c) return;
@@ -502,6 +507,8 @@
       if (!b) { say('Clicca prima dentro un testo'); return; }
       b.focus();
       const p = parts.find(x => x._bodyEl === b);
+      if (c === 'mic') return dictating ? stopDictation() : startDictation(b, p);
+      if (c === 'lang') { dictLang = dictLang === 'it-IT' ? 'en-US' : 'it-IT'; e.target.closest('button').textContent = dictLang === 'it-IT' ? 'IT' : 'EN'; if (dictating) { stopDictation(); startDictation(b, p); } return; }
       if (c === 'img') return pickImage(p, null, b);
       if (c === 'bold' || c === 'italic' || c === 'undo' || c === 'redo') document.execCommand(c);
       else if (c === 'ul') document.execCommand('insertUnorderedList');
@@ -527,6 +534,120 @@
   }
   function focusPart(p) { focusId = p._id; preview(true); const s = document.querySelector(`.ed-part[data-id="${p._id}"]`); if (s) s.scrollIntoView({ block: 'center' }); }
   function syncBodies() { parts.forEach(p => { if (p._bodyEl && p._bodyChanged) { p.body = mdBlocks(p._bodyEl); p._bodyChanged = false; } }); }
+
+
+  // ------------------------------------------------------------------ dictation: speak, and the words are written where the cursor is
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let dictating = false, fresh = false, rec = null, recBody = null, recPart = null, interim = null, wake = null, dictLang = 'it-IT';
+  try { dictLang = localStorage.getItem('quadrante-lingua') || 'it-IT'; } catch (e) {}
+  const CMD = {
+    'it-IT': [[/\bnuovo paragrafo\b/gi, '\u0001P'], [/\ba capo\b/gi, '\u0001B'], [/\bpunto e virgola\b/gi, '\u0001;'], [/\bdue punti\b/gi, '\u0001:'],
+              [/\bpunto interrogativo\b/gi, '\u0001?'], [/\bpunto esclamativo\b/gi, '\u0001!'], [/\bvirgola\b/gi, '\u0001,'],
+              [/\bapri virgolette\b/gi, '\u0001«'], [/\bchiudi virgolette\b/gi, '\u0001»'], [/\bpunto(?=\s*(\u0001|$))/gi, '\u0001.']],
+    'en-US': [[/\bnew paragraph\b/gi, '\u0001P'], [/\bnew line\b/gi, '\u0001B'], [/\bsemicolon\b/gi, '\u0001;'], [/\bcolon\b/gi, '\u0001:'],
+              [/\bquestion mark\b/gi, '\u0001?'], [/\bexclamation (mark|point)\b/gi, '\u0001!'], [/\bcomma\b/gi, '\u0001,'],
+              [/\bopen quotes?\b/gi, '\u0001«'], [/\bclose quotes?\b/gi, '\u0001»'], [/\b(period|full stop)(?=\s*(\u0001|$))/gi, '\u0001.']]};
+  function caretRange() {
+    const sel = getSelection();
+    if (sel.rangeCount && recBody.contains(sel.anchorNode)) return sel.getRangeAt(0);
+    const r = document.createRange(); r.selectNodeContents(recBody.lastElementChild || recBody); r.collapse(false); return r;
+  }
+  function placeCaret(node, after) {
+    const r = document.createRange(); after ? r.setStartAfter(node) : r.setStartBefore(node); r.collapse(true);
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+  }
+  function textBefore() {                         // the text just before the cursor, inside the same paragraph
+    const sel = getSelection(); if (!sel.rangeCount) return '';
+    let blk = sel.anchorNode; while (blk && blk.parentNode !== recBody) blk = blk.parentNode;
+    if (!blk) return '';
+    const r = sel.getRangeAt(0).cloneRange(); r.setStart(blk, 0);
+    return r.toString();
+  }
+  function showInterim(t) {
+    if (!t) { if (interim) { placeCaret(interim); interim.remove(); interim = null; } return; }
+    if (!interim) {
+      interim = document.createElement('span'); interim.className = 'ed-interim';
+      const r = caretRange(); r.insertNode(interim); placeCaret(interim, true);
+    }
+    interim.textContent = (/\S$/.test(textBefore().replace(interim.textContent, '')) ? ' ' : '') + t;
+  }
+  function commit(t) {
+    if (interim) { placeCaret(interim); interim.remove(); interim = null; }
+    else { const r = caretRange(); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+    let x = ' ' + t.trim() + ' ';
+    for (const [re, rep] of CMD[dictLang]) x = x.replace(re, rep);
+    for (const piece of x.split(/(\u0001.)/)) {
+      if (!piece) continue;
+      if (piece[0] === '\u0001') {
+        const k = piece[1];
+        if (k === 'P') { document.execCommand('insertParagraph'); fresh = true; }
+        else if (k === 'B') { document.execCommand('insertLineBreak'); fresh = true; }
+        else if (k === '«') document.execCommand('insertText', false, (/\S$/.test(textBefore()) ? ' ' : '') + '«');
+        else { const b = textBefore(); if (/ $/.test(b)) document.execCommand('delete'); document.execCommand('insertText', false, k); }
+        continue;
+      }
+      let w = piece.replace(/\s+/g, ' ').trim(); if (!w) continue;
+      const b = textBefore();
+      if (fresh || !b.trim() || /[.!?]\s*$/.test(b)) w = w[0].toUpperCase() + w.slice(1);
+      if (!fresh && b && !/[\s«]$/.test(b)) w = ' ' + w;
+      fresh = false;
+      document.execCommand('insertText', false, w);
+    }
+    if (recPart) dirty(recPart, recBody);
+  }
+  function startDictation(b, p) {
+    if (!SR) { say('Questo browser non sa dettare: usa il microfono della tastiera del telefono (funziona uguale).'); return; }
+    recBody = b; recPart = p; dictating = true; fresh = false;
+    try { localStorage.setItem('quadrante-lingua', dictLang); } catch (e) {}
+    const btn = $('.ed-tools .mic'); if (btn) { btn.classList.add('on'); btn.textContent = '■ Ferma'; }
+    try { if (navigator.wakeLock) navigator.wakeLock.request('screen').then(w => { if (dictating) wake = w; else w.release(); }).catch(() => {}); } catch (e) {}   // keep the screen on while dictating
+    const go = () => {
+      rec = new SR(); rec.lang = dictLang; rec.continuous = true; rec.interimResults = true;
+      rec.onresult = e => {
+        let fin = '', mid = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) (e.results[i].isFinal ? (fin += e.results[i][0].transcript) : (mid += e.results[i][0].transcript));
+        if (fin) commit(fin);
+        showInterim(mid.trim());
+      };
+      rec.onerror = e => {
+        if (e.error === 'not-allowed' || e.error === 'service-not-allowed') { say('Il microfono non è autorizzato: permettilo nelle impostazioni del browser.'); stopDictation(); }
+        else if (e.error === 'network') say('Dettatura: serve la connessione.');
+      };
+      rec.onend = () => { if (dictating) setTimeout(() => { if (dictating) try { go(); } catch (x) {} }, 250); };   // the browser stops after a silence: start again
+      try { rec.start(); say(dictLang === 'it-IT' ? 'Ti ascolto… (premi Ferma quando hai finito, poi Salva)' : 'Listening… (press Ferma when done, then Salva)'); } catch (x) {}
+    };
+    recBody.focus(); go();
+  }
+  function stopDictation() {
+    dictating = false;
+    try { rec && rec.stop(); } catch (e) {}
+    rec = null; showInterim('');
+    try { wake && wake.release(); } catch (e) {} wake = null;
+    const btn = $('.ed-tools .mic'); if (btn) { btn.classList.remove('on'); btn.textContent = '● Detta'; }
+    say(parts.some(p => p._dirty) ? 'Dettatura finita. Modifiche non salvate: premi Salva.' : 'Dettatura finita.');
+  }
+  document.addEventListener('visibilitychange', () => { if (dictating && document.visibilityState === 'visible' && navigator.wakeLock) navigator.wakeLock.request('screen').then(w => wake = w).catch(() => {}); });
+
+  // ------------------------------------------------------------------ a copy of unsaved text on this device, in case the page closes
+  const BACKUP = 'quadrante-bozza';
+  let backupTimer = null;
+  function backupSoon() {
+    clearTimeout(backupTimer);
+    backupTimer = setTimeout(() => {
+      try {
+        syncBodies();
+        const keep = {}; parts.forEach(p => { if (p._dirty && p._file && typeof p.body === 'string') keep[p._file] = p.body; });
+        if (Object.keys(keep).length) localStorage.setItem(BACKUP, JSON.stringify({ quando: Date.now(), testi: keep }));
+      } catch (e) {}
+    }, 1500);
+  }
+  function restoreBackup() {
+    let b = null; try { b = JSON.parse(localStorage.getItem(BACKUP) || 'null'); } catch (e) {}
+    if (!b || !b.testi) return 0;
+    let n = 0;
+    for (const p of parts) if (p._file && b.testi[p._file] !== undefined && b.testi[p._file] !== p.body) { p.body = b.testi[p._file]; p._dirty = true; n++; }
+    return n;
+  }
 
   // ------------------------------------------------------------------ modal boxes
   function modal(html) {
@@ -639,6 +760,7 @@
       Q.libro = libro;
       document.querySelectorAll('.ed-dirty').forEach(s => s.classList.remove('ed-dirty'));
       salva.classList.remove('pending');
+      try { localStorage.removeItem(BACKUP); } catch (x) {}
       say('Salvato. Il sito pubblico si aggiorna in circa un minuto.'); preview(true);
     } catch (e) {
       console.error(e);
@@ -653,13 +775,14 @@
     const btn = $('#modifica');
     if (!editing) {
       if (!Q.libro) return;
-      if (!parts.length) fromBook();
+      if (!parts.length) { fromBook(); const n = restoreBackup(); if (n) { salva.classList.add('pending'); setTimeout(() => say(`Recuperato il testo non salvato di ${n} ${n === 1 ? 'parte' : 'parti'} da questo dispositivo: premi Salva per tenerlo.`), 800); } }
       editing = true; document.body.classList.add('editing'); btn.textContent = 'Chiudi';
       document.documentElement.style.setProperty('--barh', $('.barra').offsetHeight + 'px');
       $('#editor').hidden = false; build(); window.scrollTo(0, 0); Q.fit();
       // the pages already shown carry no part ids: lay them out once with ids
       preview(true);
     } else {
+      if (dictating) stopDictation();
       syncBodies();
       clearTimeout(timer);
       editing = false; document.body.classList.remove('editing'); btn.textContent = 'Modifica';
