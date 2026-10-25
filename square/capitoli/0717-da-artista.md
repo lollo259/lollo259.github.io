@@ -21,7 +21,7 @@ Sì. Quanto più l’artista si sente osservato, tanto più si dissocia, osserva
 
 **3** *Cosa si perde tra il vivere la cosa reale e viverne una copia (dal vivo/registrato)?*
 
-Dal vivo l’artefatto deve abbattere il Muro tra l’Arte e il pubblico, e porta con sé l’intera massa emotiva del pubblico come una responsabilità; quando il Muro crolla, la bolla si espande fino a includere tutti e la performance diventa un rituale emozionale. Nella copia si perde quella bolla condivisa. Resta però il racconto: l’opera si separa dall’artista e assume una forma che può essere trasmessa, ripetuta, ricordata da altri. [da completare: esempio personale]
+[da completare: esempio personale]
 
 **4** *Raccontami un momento preciso in cui hai raggiunto il tuo apice, perdendo completamente il controllo.*
 

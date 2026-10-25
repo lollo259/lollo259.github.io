@@ -54,6 +54,8 @@ Orson Welles said that in art ignorance is one of the greatest things, because w
 
 **3** *Che cosa perdi guardando un match su uno schermo invece che dal vivo?*
 
+Dal vivo l’artefatto deve abbattere il Muro tra l’Arte e il pubblico, e porta con sé l’intera massa emotiva del pubblico come una responsabilità; quando il Muro crolla, la bolla si espande fino a includere tutti e la performance diventa un rituale emozionale. Nella copia si perde quella bolla condivisa. Resta però il racconto: l’opera si separa dall’artista e assume una forma che può essere trasmessa, ripetuta, ricordata da altri.\
+\
 L’atmosfera di quella sala. Si può provare a replicarla: come ho detto, metto le cuffie e cerco di isolarmi. Non ci si avvicina nemmeno. Dal vivo, un semplice chop ti fa saltare come un pollo. Anche se i polli non fanno pop. È un’altra cosa.
 
 Questo non toglie niente all’esperienza di casa. Dal vivo è solo più facile che le emozioni scorrano dentro di te e fuori: dentro e fuori. È un flusso, un movimento; anche quando tutto è fermo, scorre. Non ha senso, lo so. A casa, invece, ti puoi stancare. Puoi voler saltare avanti, vedere come finisce una cosa, e a volte senti che non avresti dovuto farlo. O almeno, è quello che sento io, perché sono un idiota, uno stupido idiota, come direbbe Chris Jericho. Dal vivo non puoi saltare avanti, e allora scorri. FTR contro i Cowboy Way, dal vivo: incredibile. Va bene, smetto di fare il fanboy.
