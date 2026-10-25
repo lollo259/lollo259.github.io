@@ -7,6 +7,6 @@ capitolo: "Il quadrante delle emozioni"
 
 *saggio*
 
-## The Art of War
+## L'arte della guerra
 
-*Quattro exploding barbed wire deathmatch FMW, 1993–1997*
+*Cinque exploding barbed wire deathmatch in FMW, 1993–1997, 2013*
