@@ -15,15 +15,13 @@ fondo_da: 471.53
 
 Ricordi, soprattutto. Vivo in un culto dei ricordi dove la vita è definita da ciò che ricordi e da come lo ricordi, e la memoria non è altro che la somma dei propri ricordi. L’arte può evocare emozioni e ricordi passati in chi la riceve, e a volte crea falsi ricordi nella mente dello spettatore. E poi il futuro: brindiamo ai sognatori, al mondo che verrà e a quello in cui viviamo.
 
-**2** *Ti senti osservato mentre lavori, anche quando non c’è nessuno? Diventi ciò che viene visto?*
-
-Sì. Quanto più l’artista si sente osservato, tanto più si dissocia, osservandosi attraverso occhi esterni. Ogni frammento del dominio è simultaneamente osservatore e osservato, carceriere e carcerato. Nel pantheon l’Osservatore è diventato la Lampada: lo sguardo non resta fuori dall’opera, ci entra e la trasforma.
+l’artista si sente osservato, tanto più si dissocia, osservandosi attraverso occhi esterni. Ogni frammento del dominio è simultaneamente osservatore e osservato, carceriere e carcerato. Nel pantheon l’Osservatore è diventato la Lampada: lo sguardo non resta fuori dall’opera, ci entra e la trasforma.
 
 **3** *Cosa si perde tra il vivere la cosa reale e viverne una copia (dal vivo/registrato)?*
 
 [da completare: esempio personale]
 
-**4** *Raccontami un momento preciso in cui hai raggiunto il tuo apice, perdendo completamente il controllo.*
+*.*
 
 [da completare] Il libro non racconta un mio momento preciso. Posso dire solo come lo immagino attraverso Orfeo: quando fissa lo sguardo nel vuoto vede tutto, ed è così sopraffatto che non può sentire nulla. L’eccesso di stimolo produce anestesia, come guardare direttamente il sole.
 
