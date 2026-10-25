@@ -27,6 +27,7 @@ E poi c’è Brodie Lee. Come Luke Harper era stato il primo seguace di Bray, il
 
 ### Gli altri che si guardarono da fuori
 
+\
 Jake “The Snake” Roberts parlava piano. I suoi promo erano quasi sussurrati, e la folla taceva per sentirli. Arrivava con un serpente in un sacco, Damien, e il serpente era il suo personaggio fuori dal corpo: lo lasciava sopra l’uomo che aveva battuto. La sua mossa, il DDT, è semplice e improvvisa, e da allora l’hanno usata tutti. Nel 1991 il suo cobra morse il braccio di Randy Savage. Costruì un personaggio sulla calma, e la calma era ciò che faceva paura.
 
 Doink the Clown arrivò in WWF nel 1992: un clown malvagio, quando i clown dovevano far ridere i bambini. A WrestleMania IX, nel 1993, apparvero due Doink identici, uno come il riflesso dell’altro. Poi diventò buono, e divertente, e il personaggio passò da un wrestler all’altro. Paura e risata appartengono alla stessa gamma di emozioni; Doink le teneva entrambe sotto lo stesso trucco.

@@ -11,9 +11,20 @@ capitolo: "Il quadrante delle emozioni"
 
 *Bray Wyatt, e gli altri che si guardarono da fuori 1987–2023*
 
+Opening, the reflection: the fan who became the hero. Wrestlers don't look like nerds because the job is becoming what the nerd dreamed of.\
+Many are fans first, often obsessive ones: tapes, video games, comics, anime (Omega made gamer and anime culture part of his character; Danielson and Owens are fans who made it). The passion is the same as the audience's. The look is part of the job, not of the person: the body is the instrument, the gear, hair and mask are the costume. The fan wears a superhero's shirt; the wrestler wears the superhero.
+
+Clark Kent inverted: in comics the hero hides in an ordinary body; in wrestling the ordinary person builds a hero body and steps into the light. The gimmick is the secret identity worn in public.\
+When a wrestler keeps the fan's look, the crowd recognises itself: Danielson (an ordinary face, a beard, a body that isn't a statue) became the biggest babyface of his time with the Yes movement. The audience cheered for itself. Also Owens, Moxley.\
+Japan and Mexico make the transformation a ritual: the young lions in black trunks and short hair, all the same, then the excursion abroad and the return transformed (colours, long hair, a character), a rite of passage; in Mexico the mask makes the wrestler someone else, often handed down through families.\
+The fan wears someone else's name on a shirt; the wrestler wears his own. (The Bullet Club shirt had no name: wearing it was joining. Echo for The Ship of Theseus.)\
+Counter-case to decide: those who came from other sports, not from fandom (Roman Reigns from football; John Cena from bodybuilding).
+
 Ogni personaggio è anche un autoritratto: l’artista che si guarda da fuori, come un altro, davanti a migliaia di persone. Nella lucha libre una maschera trasforma un wrestler in un eroe: la indossi, diventi un altro, e fai cose da eroe. Non sei più una persona qualunque. Per un luchador perdere la maschera è come, per un lottatore di sumo, tagliarsi il chignon.
 
 Bray Wyatt era un genio. Sembrava usare il wrestling per fare qualcosa di più: lo portò nel cinema. Non complicato; più profondo. Un wrestler può andare dritto a un’emozione di base e, fatta a un grande livello, è altrettanto profonda, perché ti entra dentro e ci resta. Bray fece qualcosa di diverso: più artistico, più filosofico, più suo. Questa è la sua storia come vive nella memoria dell’autore.
+
+Nietzsche, Daybreak 573: the snake that cannot shed its skin perishes. Bray's skins.
 
 Nacque Windham Rotunda, il 23 maggio 1987, terza generazione di una famiglia di wrestler: il nonno era Blackjack Mulligan, il padre Mike Rotunda, gli zii Barry e Kendall Windham, e il fratello minore Taylor sarebbe diventato Bo Dallas. La sua prima esperienza in WWE fu come Husky Harris, un esordiente di NXT nel 2010 e poi membro del Nexus. Non funzionò. Tornò nel territorio di sviluppo, fu Axel Mulligan per poco tempo, e nel 2012 tornò come qualcun altro: Bray Wyatt, un capo setta delle paludi in camicia hawaiana e cappello di paglia, seduto su una sedia a dondolo, con una lanterna in mano. Le luci si spegnevano; lui diceva «we’re here»; spegneva la lanterna con un soffio. Presto la folla cominciò a rispondere al suo ingresso accendendo le luci dei telefoni, e le arene si riempirono di lucciole.
 
