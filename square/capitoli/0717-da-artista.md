@@ -11,8 +11,6 @@ fondo_da: 471.53
 
 **1** *Come costruisci un’opera? (forma, emozione, ecc.)*
 
-Per me l’opera nasce quando l’Artista e il suo io interiore, dopo aver conciliato la propria Idea, parlano assieme e le loro menti diventano un tutt’uno. Il suolo scompare, e l’artista precipita nel nulla: un foglio nero. Da lì la mente si divide in un arco-nel-cielo, una moltitudine di Sé frantumata in pezzi dello stesso, ma differenti. Non costruisco un sistema ordinato: è un putiferio, una geometria estremamente complessa dell’immaginazione. Tutto diventa materiale, tutto viene ricombinato.
-
 **1b** *Cosa metti nelle tue opere? Ricordi, emozioni, il futuro, ecc.*
 
 Ricordi, soprattutto. Vivo in un culto dei ricordi dove la vita è definita da ciò che ricordi e da come lo ricordi, e la memoria non è altro che la somma dei propri ricordi. L’arte può evocare emozioni e ricordi passati in chi la riceve, e a volte crea falsi ricordi nella mente dello spettatore. E poi il futuro: brindiamo ai sognatori, al mondo che verrà e a quello in cui viviamo.
