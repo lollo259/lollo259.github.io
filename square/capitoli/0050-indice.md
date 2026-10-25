@@ -13,12 +13,10 @@ Ogni riga è una voce: il sito cerca il titolo nel libro e scrive da solo il num
   - Un’equazione
 - Il quadrante delle emozioni
   - Il pinnacolo dell’arte
-    - Il carnevale
-    - Il wrestling
-  - I saggi
-    - The Colour of Armament
-    - The Art of War
-    - The Solitude of the Conqueror
+  - The Colour of Armament
+  - The Art of War
+  - The Ship of Theseus
+  - The Solitude of the Conqueror
 - La parola dell’artista
   - Simone Pinna
   - Diego Allegri
