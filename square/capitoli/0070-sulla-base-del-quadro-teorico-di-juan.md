@@ -5,7 +5,7 @@ tipo: "testo"
 capitolo: "L’architettura delle emozioni"
 ---
 
-Sulla base del quadro teorico di Juan Tamariz, sull’arte dell’illusionismo (e, per estensione, sull’arte in generale) questo studio indaga il Reale, cioè gli effetti psicosomatici che ciò che è Vero (la performance artistica) produce nell’individuo. La ricerca si basa su una serie di concetti originali sviluppati ampliando l’analisi di Tamariz in *The Magic Rainbow*
+Sulla base del quadro teorico di Juan Tamariz, sull’arte dell’illusionismo (e, per estensione, sull’arte in generale) questo studio indaga il Reale, cioè gli effetti psicosomatici che ciò che è Vero (la performance artistica) produce nell’individuo. La ricerca si basa su una serie di concetti originali sviluppati ampliando l’analisi di Tamariz in *The Magic Rainbow.*
 
 L’autore possiede:
 

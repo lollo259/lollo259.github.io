@@ -6,23 +6,23 @@ tipo: "indice"
 
 Ogni riga è una voce: il sito cerca il titolo nel libro e scrive da solo il numero di pagina. Rientro di due spazi = sottovoce.
 
-- Love Tear Us Apart
+- L'amore ci separa
 - L’architettura delle emozioni
-- La topologia
+- La topologia dei domini artistici
   - Il miracolo delle emozioni
-  - Un’equazione
+  - Analisi del quadrato
 - Il quadrante delle emozioni
   - Il pinnacolo dell’arte
-  - The Colour of Armament
-  - The Art of War
-  - The Ship of Theseus
-  - The Solitude of the Conqueror
+  - Il colore dell'armamento
+  - L'arte della guerra
+  - La nave di Teseo
+  - Un dolore ricordato a lungo
 - La parola dell’artista
-  - Simone Pinna
-  - Diego Allegri
-  - Mike Quackenbush
-  - Jimmy Jacobs
+  - Il nomade, Simone Pinna
+  - L'alchimista, Diego Allegri
+  - Il monaco, Mike Quackenbush
+  - Il poeta, Jimmy Jacobs
   - Michael Eric Stankowski
-  - Laurence Who
+  - L'architetto, Laurence Who
 - Glossario
 - Note e riferimenti
