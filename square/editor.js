@@ -38,6 +38,16 @@
   .ed-tools .mic.on { background: #111; color: #fff; border-color: #111; animation: edpulse 1.4s ease-in-out infinite; }
   @keyframes edpulse { 50% { opacity: .55; } }
   .ed-interim { color: #9a958f; }
+  .ed-tools .nav { font-weight: 600; }
+  .ed-nav { position: fixed; z-index: 8; left: 50%; transform: translateX(-50%); width: min(460px, calc(100vw - 32px)); max-height: 70vh; overflow: auto;
+    background: #fff; box-shadow: 0 8px 30px rgba(0,0,0,.22); border-radius: 10px; padding: 6px; overscroll-behavior: contain; }
+  @media (min-width: 1000px) { body.editing .ed-nav { left: 25vw; } }
+  .ed-nav button { display: block; width: 100%; text-align: left; font: 14px Inter, sans-serif; color: var(--ui); background: none; border: 0;
+    padding: 6px 10px; border-radius: 5px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ed-nav button:hover { background: #f1efec; } .ed-nav button.qui { background: #e7eef8; }
+  .ed-nav .l0 { font-weight: 600; margin-top: 6px; } .ed-nav .l0:first-child { margin-top: 0; }
+  .ed-nav .l1 { padding-left: 24px; } .ed-nav .l2 { padding-left: 42px; font-size: 13px; color: #6b6762; }
+  .ed-nav .vuoto { padding: 10px; color: #8a857f; font-size: 13px; }
   .ed-tools .sep { width: 1px; background: #c9c5c0; margin: 2px 4px; }
   .ed-col { max-width: 700px; margin: 0 auto; }
   .ed-part { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.08); margin: 0 0 4px; position: relative; }
@@ -456,6 +466,7 @@
   function build() {
     const ed = $('#editor');
     ed.innerHTML = `<div class="ed-tools" role="toolbar" aria-label="Formattazione">
+      <button data-c="nav" class="nav" title="Vai a un capitolo o a un sottocapitolo" aria-haspopup="true">☰ Capitoli</button><span class="sep"></span>
       <button data-c="p" title="Testo normale">Testo</button><button data-c="h2" title="Titolo">Titolo</button><button data-c="h3" title="Sottotitolo">Sottotitolo</button>
       <span class="sep"></span><button data-c="bold" title="Grassetto"><b>G</b></button><button data-c="italic" title="Corsivo"><i>C</i></button>
       <span class="sep"></span><button data-c="ul" title="Elenco">• Elenco</button><button data-c="blockquote" title="Citazione rientrata">Citazione</button>
@@ -503,6 +514,7 @@
     $('.ed-tools', ed).addEventListener('mousedown', e => e.preventDefault());   // keep the selection in the text
     $('.ed-tools', ed).addEventListener('click', e => {
       const c = e.target.closest('button') && e.target.closest('button').dataset.c; if (!c) return;
+      if (c === 'nav') return toggleNav(e.target.closest('button'));
       const b = document.activeElement && document.activeElement.classList.contains('ed-body') ? document.activeElement : lastBody;
       if (!b) { say('Clicca prima dentro un testo'); return; }
       b.focus();
@@ -531,6 +543,45 @@
         syncBodies(); parts.splice(i, 1); if (!p._new) removed.push(p); build(); salva.classList.add('pending'); say('Modifiche non salvate'); preview(true);
       });
     });
+  }
+  // ------------------------------------------------------------------ travel through chapters and subchapters
+  const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+  let navEl = null;
+  function closeNav() { if (navEl) { navEl.remove(); navEl = null; removeEventListener('pointerdown', navAway, true); removeEventListener('keydown', navKey, true); } }
+  function navAway(e) { if (navEl && !navEl.contains(e.target) && !(e.target.closest && e.target.closest('[data-c=nav]'))) closeNav(); }
+  function navKey(e) { if (e.key === 'Escape') { e.preventDefault(); closeNav(); } }
+  function toggleNav(btn) {
+    if (navEl) return closeNav();
+    const tools = $('.ed-tools'), entries = [];
+    document.querySelectorAll('#editor .ed-part').forEach(sec => {
+      const p = parts.find(x => x._id === +sec.dataset.id); if (!p) return;
+      if ((p.tipo || 'testo') === 'apertura') {
+        const n = parseInt(p.numero, 10), num = isNaN(n) ? (p.numero || '') : '4' + String(n - 1).split('').map(d => SUP[+d]).join('');
+        entries.push({ lv: 0, t: (num ? num + '  ' : '') + (p.titolo || 'Capitolo'), el: sec, id: p._id });
+      }
+      sec.querySelectorAll('.ed-body h1, .ed-body h2, .ed-body h3').forEach(h => {
+        const t = h.textContent.trim(); if (t) entries.push({ lv: h.tagName === 'H3' ? 2 : 1, t, el: h, id: p._id });
+      });
+    });
+    navEl = document.createElement('div'); navEl.className = 'ed-nav'; navEl.setAttribute('role', 'menu'); navEl.setAttribute('aria-label', 'Capitoli e sottocapitoli');
+    navEl.style.top = (tools.getBoundingClientRect().bottom + 6) + 'px';
+    if (!entries.length) navEl.innerHTML = '<div class="vuoto">Nessun capitolo o titolo ancora.</div>';
+    const line = tools.getBoundingClientRect().bottom + 30;
+    let cur = -1; entries.forEach((x, i) => { if (x.el.getBoundingClientRect().top <= line) cur = i; });
+    entries.forEach((x, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'l' + x.lv + (i === cur ? ' qui' : ''); b.setAttribute('role', 'menuitem'); b.textContent = x.t;
+      b.addEventListener('click', () => {
+        closeNav();
+        const barh = $('.barra') ? $('.barra').getBoundingClientRect().height : 49;
+        const top = x.el.getBoundingClientRect().top + scrollY - barh - $('.ed-tools').offsetHeight - 12;
+        scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        focusId = x.id; follow(focusId);
+      });
+      navEl.appendChild(b);
+    });
+    document.body.appendChild(navEl);
+    const q = navEl.querySelector('.qui'); if (q) q.scrollIntoView({ block: 'center' });
+    setTimeout(() => { addEventListener('pointerdown', navAway, true); addEventListener('keydown', navKey, true); });
   }
   function focusPart(p) { focusId = p._id; preview(true); const s = document.querySelector(`.ed-part[data-id="${p._id}"]`); if (s) s.scrollIntoView({ block: 'center' }); }
   function syncBodies() { parts.forEach(p => { if (p._bodyEl && p._bodyChanged) { p.body = mdBlocks(p._bodyEl); p._bodyChanged = false; } }); }
