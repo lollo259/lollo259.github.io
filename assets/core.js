@@ -27,11 +27,12 @@ var bg=h.querySelector('.lw-bg'),fg=h.querySelector('.lw-fg'),tx=h.querySelector
 function A(el,k,o){return el.animate(k,o)}
 /* intro ~2.3s: slow push-in, figure settles, name rises behind it */
 (function(){var D=document.documentElement;function rel(){D.classList.add('lw-hero-in')}
- if(h.hidden){rel();return}
- function run(){if(RM){A(h,[{opacity:0},{opacity:1}],{duration:400});rel();return}
+ var introDone;window.__lwIntro=new Promise(function(r){introDone=function(p){Promise.resolve(p).then(r)}});setTimeout(function(){introDone()},6000);
+ if(h.hidden){rel();introDone();return}
+ function run(){if(RM){A(h,[{opacity:0},{opacity:1}],{duration:400});rel();introDone();return}
  var o={easing:EO,fill:'backwards'};
  /* perf: opacity/transform only (compositor), started after the photos are decoded */
- A(bg,[{transform:'scale(1.14)',opacity:0},{transform:'scale(1)',opacity:1}],Object.assign({duration:2200},o));
+ var ab=A(bg,[{transform:'scale(1.14)',opacity:0},{transform:'scale(1)',opacity:1}],Object.assign({duration:2200},o));introDone(ab.finished.catch(function(){}));
  A(fg,[{transform:'scale(1.1) translateY(2%)',opacity:0},{transform:'none',opacity:1}],Object.assign({duration:2000,delay:150},o));
  A(tx,[{transform:'translateY(.5em)',opacity:0},{transform:'none',opacity:1}],Object.assign({duration:1500,delay:450},o));
  [].forEach.call(act.children,function(b,i){A(b,[{transform:'translateY(12px)',opacity:0},{transform:'none',opacity:1}],Object.assign({duration:1000,delay:1250+i*140},o))});
