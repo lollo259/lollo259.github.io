@@ -1,5 +1,5 @@
 ---
-ordine: 745
+ordine: 735
 titolo: "Pascoli nel cielo"
 tipo: "figura"
 capitolo: "La parola dell’artista"

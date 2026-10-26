@@ -1,5 +1,5 @@
 {
- "generato": "2026-10-25T16:37:32.739Z",
+ "generato": "2026-10-26T23:55:51.820Z",
  "parti": [
   {
    "file": "0010-frontespizio.md",
@@ -612,6 +612,20 @@
    "body": ""
   },
   {
+   "file": "0745-figura-pascoli.md",
+   "ordine": 735,
+   "titolo": "Pascoli nel cielo",
+   "tipo": "figura",
+   "capitolo": "La parola dell’artista",
+   "immagine": "/square/media/fig-pascoli.png",
+   "scala": 100,
+   "num_x": 5.94,
+   "num_y": 5.03,
+   "pagina_intera": true,
+   "senza_testata": true,
+   "body": ""
+  },
+  {
    "file": "0740-figura-s69.md",
    "ordine": 740,
    "titolo": "Pascoli nel cielo: i vetrini",
@@ -622,20 +636,6 @@
    "senza_testata": true,
    "num_x": 5.89,
    "num_y": 5.03,
-   "body": ""
-  },
-  {
-   "file": "0745-figura-pascoli.md",
-   "ordine": 745,
-   "titolo": "Pascoli nel cielo",
-   "tipo": "figura",
-   "capitolo": "La parola dell’artista",
-   "immagine": "/square/media/fig-pascoli.png",
-   "scala": 100,
-   "num_x": 5.94,
-   "num_y": 5.03,
-   "pagina_intera": true,
-   "senza_testata": true,
    "body": ""
   },
   {
