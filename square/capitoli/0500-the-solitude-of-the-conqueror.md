@@ -7,7 +7,7 @@ capitolo: "Il quadrante delle emozioni"
 
 *saggio*
 
-## The Solitude of the Conqueror
+## Un dolore ricordato a lungo
 
 *Bray Wyatt, e gli altri che si guardarono da fuori 1987–2023*
 
