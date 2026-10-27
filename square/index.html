@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
 <meta name="googlebot" content="noindex, nofollow">
 <title>Quadrante delle emozioni</title>
@@ -18,6 +19,7 @@
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
+html { color-scheme: only light; }
 body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
 
 /* ---------- interface */
@@ -99,6 +101,9 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
 .page .apt { position: absolute; z-index: 2; bottom: 72px; font-weight: 800; font-size: 96px; line-height: .9; letter-spacing: -.05em; color: #fff; }
 .page .rd { color: #c8102e; }
 .page.apertura .apnum { left: 72px; color: #111; } .page.apertura .apt { left: 72px; right: 72px; }
+.page.splash.sx .apnum { right: auto; left: 72px; } .page.splash.sx .apt { text-align: left; }
+.page .velo { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.page.splash .velo { background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.3) 36%, rgba(0,0,0,0) 58%), linear-gradient(to bottom, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 28%); }
 .page.splash .apnum { right: 72px; color: #fff; } .page.splash .apt { right: 72px; left: 72px; text-align: right; }
 .page.splash img, .page.doppia img { position: absolute; top: 0; height: 100%; width: 200%; object-fit: cover; }
 .page.splash.sx img, .page.doppia.sx img { left: 0; } .page.splash.dx img, .page.doppia.dx img { left: -100%; }
@@ -382,7 +387,7 @@ function toLeft() { if (pages.length % 2 === 0) blank(); }     // next page will
 let numN = 0, figN = 0, idxEntries = [], idxSpec = '';
 function place(x, tipo, cap, html) {
     if (tipo === 'apertura') {
-      // chapter 1 is a photo across the spread; chapters 2–4 open on a left-hand page with the ring in negative, the photo facing it
+      // every chapter opens with its photo across the spread; number and title sit on the chapter's first page (page 1 on the right, then 4, 16, 64 on the left)
       const n = parseInt(x.numero, 10);
       const [ta, tb] = splitTitle(x.titolo || '');
       const title = `<div class="apt">${esc(ta)}${tb ? `<br><span class="rd">${esc(tb)}</span>` : ''}</div>`;
@@ -397,14 +402,19 @@ function place(x, tipo, cap, html) {
       let p;
       if ((isNaN(n) || n === 1) && x.immagine) {
         toLeft();
-        const a = newPage('splash', cap, { folio: false, head: false, area: false }); a.el.innerHTML = `<img src="${x.immagine}" alt="">`;
+        const a = newPage('splash', cap, { folio: false, head: false, area: false }); a.el.innerHTML = `<img src="${x.immagine}" alt=""><div class="velo"></div>`;
         p = newPage('splash', cap, { folio: false, head: false, area: false });
-        p.el.innerHTML = `<img src="${x.immagine}" alt=""><div class="apnum"></div>${title}`;
+        p.el.innerHTML = `<img src="${x.immagine}" alt=""><div class="velo"></div><div class="apnum"></div>${title}`;
       } else {
+        // chapters 2–4: the photo across the whole spread; number and title on the chapter's first page (the left one)
         toLeft();
-        p = newPage('apertura', cap, { folio: false, head: false, area: false });
-        p.el.innerHTML = ringSVG(true, '#000', '#000', '#c4c4c4') + `<div class="apnum"></div>${title}`;
-        if (x.immagine) { const f = newPage('foto', cap, { folio: false, head: false, area: false }); f.el.innerHTML = `<img src="${x.immagine}" alt="">`; }
+        const SP = { 'ap-sammartino.jpg': ['ap-sammartino-originale.jpg', '50% 0%'], 'ap-okada.jpg': ['ap-okada-originale.jpg', '50% 12%'] };
+        let src = x.immagine || '', pos = '50% 50%';
+        const fn = src.split('/').pop(); if (SP[fn]) { src = src.replace(fn, SP[fn][0]); pos = SP[fn][1]; }
+        const img = src ? `<img src="${src}" alt="" style="object-position:${pos}">` : '';
+        p = newPage('splash', cap, { folio: false, head: false, area: false });
+        p.el.innerHTML = img + `<div class="velo"></div><div class="apnum"></div>${title}`;
+        const b2 = newPage('splash', cap, { folio: false, head: false, area: false }); b2.el.innerHTML = img + '<div class="velo"></div>';
       }
       fitText(p.el.querySelector('.apt'), 672, 96);
       p.apNumEl = p.el.querySelector('.apnum');
