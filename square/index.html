@@ -46,84 +46,97 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
 .page.dx .area { left: var(--inner); right: var(--outer); }
 .page.sx .area { left: var(--outer); right: var(--inner); }
 /* running head: small spaced capitals; folio at the bottom, outer side */
-.page .testata { position: absolute; top: 48px; font-size: 9.5px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #777; }
+.page .testata { position: absolute; top: 48px; font-size: 12px; line-height: 21px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #777; }
 .page.sx .testata { left: 72px; } .page.dx .testata { right: 72px; }
-.page .folio { position: absolute; bottom: 46px; font-size: 10.5px; font-weight: 500; white-space: nowrap; }
+.page .folio { position: absolute; bottom: 46px; font-size: 12px; font-variant-numeric: lining-nums tabular-nums; font-weight: 500; white-space: nowrap; }
 .page.sx .folio { left: 72px; } .page.dx .folio { right: 72px; }
 .page .folio .ft { margin: 0 26px; }
 
 /* text pages: one column pushed toward the fold, the outer margin is a column for subheadings, notes and numbers */
-.area { font-size: 13.5px; line-height: 21px; hyphens: manual; }
+.area { font-size: 13.5px; line-height: 21px; hyphens: auto; -webkit-hyphens: auto; font-variant-numeric: oldstyle-nums proportional-nums; }
+/* everything sits on a 21px grid: every block is a whole number of lines, spaces are whole lines */
 .page.testo.dx .area { left: 88px; right: 72px; padding-right: 216px; }
 .page.testo.sx .area { left: 72px; right: 88px; padding-left: 216px; }
-.area p { margin: 0 0 .5em; orphans: 2; widows: 2; }
+.area p { margin: 0; orphans: 2; widows: 2; text-align: justify; text-indent: 1.4em; }
+/* no indent at the start: after a heading, a rule, a figure, a list; continuations; questions and glossary entries */
+.area h1 + p, .area h2 + p, .area h3 + p, .area h4 + p, .area hr + p, .area figure + p, .area img + p, .area ul + p, .area ol + p,
+.area p.segue, .area p.q, .area p.q + p, .area p.g, .area p.epi, .area li p, .area blockquote p, .area p.sub { text-indent: 0; }
+.area p + blockquote.m + p:not(.segue):not(.q):not(.g), .area p + blockquote.m + blockquote.m + p:not(.segue):not(.q):not(.g) { text-indent: 1.4em; }
 .area > :first-child { margin-top: 0; }
-.area ul, .area ol { margin: 0 0 .5em; padding-left: 1.3em; }
-.area li { margin: 0 0 .2em; }
-.area ul ul { margin-top: .2em; }
-.area hr { border: 0; margin: .5em 0; text-align: center; }
+.area ul, .area ol { margin: 0; padding-left: 1.3em; }
+.area li { margin: 0; text-align: justify; }
+.area ul ul { margin-top: 0; }
+.area hr { border: 0; margin: 0; height: 21px; text-align: center; }
+.area figure { margin: 0; }
+/* drop cap, first paragraph of every essay: three lines of the grid, from the cap height of line 1 to the baseline of line 3 */
+.area p.capo { text-indent: 0; }
+.area p.capo::first-letter { float: left; font-weight: 800; font-size: 71.2px; line-height: 63px; height: 63px; margin: 0 8px 0 -1px; color: #000; font-variant-numeric: lining-nums; }
 .area hr::after { content: "·"; }
 .area img { max-width: 100%; }
 .area a { color: inherit; }
 /* in the margin column, at the height where they fall in the text */
 .area .m { position: absolute; width: 190px; margin: 0; }
 .page.dx .area .m { right: 0; } .page.sx .area .m { left: 0; }
-.area h3.m { font-weight: 800; font-size: 19px; line-height: 21px; letter-spacing: -.02em; }
+.area h3.m { font-weight: 800; font-size: 20px; line-height: 21px; text-align: left; hyphens: manual; letter-spacing: -.02em; }
 .area blockquote.m { font-size: 12px; line-height: 21px; font-style: italic; }
-.area blockquote.m p { margin: 0 0 .4em; }
+.area blockquote.m p { margin: 0; text-align: left; }
 /* sub-chapters (the entries of the contents), Glossario, Note: bold, in the column */
-.area h1, .area h2, .area h3.sotto { font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -.03em; margin: 42px 0 30px; }
+.area h1, .area h2, .area h3.sotto { font-weight: 800; font-size: 44px; line-height: 42px; letter-spacing: -.03em; margin: 42px 0 21px; text-align: left; hyphens: manual; font-variant-numeric: lining-nums; }
 .area > h1:first-child, .area > h2:first-child, .area > h3.sotto:first-child { margin-top: 0; }
 /* sections: small spaced capitals */
-.area h3.sez { font-weight: 600; font-size: 11px; line-height: 21px; letter-spacing: .22em; text-transform: uppercase; margin: 21px 0 0; }
-.area h4 { font-weight: 700; font-size: 13.5px; margin: 1em 0 .2em; }
+.area h3.sez { font-weight: 600; font-size: 12px; line-height: 21px; letter-spacing: .22em; text-transform: uppercase; margin: 21px 0 0; }
+.area h4 { font-weight: 700; font-size: 13.5px; line-height: 21px; margin: 21px 0 0; }
 /* interviews: epithet and name, same size, same black, same bold */
-.area .epi { font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -.03em; color: var(--ink); margin: 0; }
+.area .epi { font-weight: 800; font-size: 44px; line-height: 42px; text-align: left; letter-spacing: -.03em; color: var(--ink); margin: 0; }
 .area .epi em { font-style: normal; }
 .area .epi + h2 { margin-top: 0; }
-.area p.q { position: relative; font-weight: 700; margin-top: 1em; }
+.area p.q { position: relative; font-weight: 700; margin-top: 21px; }
 .area p.q em { font-style: normal; }
-.area .qn, .area .gt { position: absolute; width: 190px; font-weight: 800; font-size: 19px; line-height: 21px; }
+.area .qn, .area .gt { position: absolute; width: 190px; font-weight: 800; font-size: 20px; line-height: 21px; text-indent: 0; text-align: left; font-variant-numeric: lining-nums tabular-nums; }
 .page.dx .area .qn, .page.dx .area .gt { right: -216px; } .page.sx .area .qn, .page.sx .area .gt { left: -216px; }
-.parola blockquote { margin: .2em 0 .8em; }
-.parola blockquote p { margin: 0 0 .3em; font-style: italic; color: #555; font-weight: 400; }
+.parola blockquote { margin: 0; }
+.parola blockquote p { margin: 0; font-style: italic; color: #555; font-weight: 400; }
 /* glossary: the term in the margin */
 .area p.g { position: relative; }
-.area .gt { font-size: 12px; font-weight: 700; line-height: 21px; }
+.area .gt { font-size: 12px; font-weight: 700; line-height: 21px; hyphens: manual; }
 /* notes: smaller, the chapter in the margin */
-.note.area { font-size: 11.5px; line-height: 18px; }
-.note.area h3.m { font-size: 12px; line-height: 18px; font-weight: 700; letter-spacing: 0; }
+.note.area { font-size: 12px; line-height: 21px; }
+.note.area h3.m { font-size: 12px; line-height: 21px; font-weight: 700; letter-spacing: 0; }
 
 /* chapter openers */
 .page.apertura { background: #fff; }
 .page svg.ring { position: absolute; inset: 0; width: 100%; height: 100%; }
-.page .apnum { position: absolute; z-index: 2; top: 72px; font-weight: 800; font-size: 150px; line-height: .8; letter-spacing: -.05em; }
+.page .apnum { position: absolute; z-index: 2; top: 72px; font-variant-numeric: lining-nums tabular-nums; font-weight: 800; font-size: 150px; line-height: .8; letter-spacing: -.05em; }
 .page .apt { position: absolute; z-index: 2; bottom: 72px; font-weight: 800; font-size: 96px; line-height: .9; letter-spacing: -.05em; color: #fff; }
 .page .rd { color: #c8102e; }
 .page.apertura .apnum { left: 72px; color: #111; } .page.apertura .apt { left: 72px; right: 72px; }
 .page.splash.sx .apnum { right: auto; left: 72px; }
 .page .velo { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.page.splash .velo { background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.3) 36%, rgba(0,0,0,0) 58%), linear-gradient(to bottom, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 28%); }
+.page.splash .velo { background: none; }
+/* shade only where the type sits: the bottom-right corner under the title, a small one under the number */
+.page.splash .velo.t { background: radial-gradient(ellipse 95% 60% at 100% 100%, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 40%, rgba(0,0,0,0) 78%); }
+.page.splash .velo.nl { background: radial-gradient(ellipse 50% 40% at 0 0, rgba(0,0,0,.5) 0%, rgba(0,0,0,.22) 45%, rgba(0,0,0,0) 80%); }
+.page.splash .velo.t.nr { background: radial-gradient(ellipse 95% 60% at 100% 100%, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 40%, rgba(0,0,0,0) 78%), radial-gradient(ellipse 50% 40% at 100% 0, rgba(0,0,0,.5) 0%, rgba(0,0,0,.22) 45%, rgba(0,0,0,0) 80%); }
 .page.splash .apnum { right: 72px; color: #fff; } .page.splash .apt { right: 72px; left: 72px; text-align: right; }
 .page.splash img, .page.doppia img { position: absolute; top: 0; height: 100%; width: 200%; object-fit: cover; }
 .page.splash.sx img, .page.doppia.sx img { left: 0; } .page.splash.dx img, .page.doppia.dx img { left: -100%; }
 /* essay openers: the ring in white on black, the title on the white mat */
 .page.saggio { background: #000; color: #fff; }
 .page.saggio .area { inset: 0; overflow: visible; }
-.page.saggio .area > p:first-child { position: absolute; top: 48px; left: 72px; margin: 0; font-size: 9.5px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #8a8a8a; }
+.page.saggio .area > p:first-child { position: absolute; top: 48px; left: 72px; margin: 0; font-size: 12px; font-weight: 500; letter-spacing: .14em; text-indent: 0; text-transform: uppercase; color: #8a8a8a; }
 .page.saggio .area > p:first-child em { font-style: normal; }
 .page.saggio .area h2 { position: absolute; z-index: 2; left: 72px; right: 72px; bottom: 72px; margin: 0; font-size: 96px; line-height: .9; letter-spacing: -.05em; color: #111; }
-.page.saggio .area p.sub { position: absolute; top: 72px; left: 72px; width: 520px; margin: 0; font-size: 13.5px; line-height: 21px; color: #bdbdbd; }
+.page.saggio .area p.sub { text-align: left; position: absolute; top: 72px; left: 72px; width: 520px; margin: 0; font-size: 13.5px; line-height: 21px; color: #bdbdbd; }
 
 /* other pages */
 .page.frontespizio .area { top: auto; bottom: 60px; left: auto; right: 72px; text-align: right; }
 .page.frontespizio h1 { font-weight: 800; font-size: 96px; line-height: .9; letter-spacing: -.05em; margin: 0; }
 .page.frontespizio h1 + h1 { color: #c8102e; }
-.page.frontespizio p { font-weight: 700; font-size: 13px; margin: 16px 0 0; }
+.page.frontespizio p { font-weight: 700; font-size: 13.5px; margin: 16px 0 0; }
 .page.dedica .area { top: auto; bottom: 60px; left: auto; right: 72px; max-width: 600px; text-align: right; }
 .page.dedica h1 { font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -.03em; margin: 0 0 22px; }
 .page.dedica p { font-style: italic; font-size: 13.5px; line-height: 21px; color: #333; margin: 0; }
-.page.colophon .area { top: auto; bottom: 60px; left: 72px; right: auto; font-size: 10.5px; line-height: 17px; color: #333; }
+.page.colophon .area { top: auto; bottom: 60px; left: 72px; right: auto; font-size: 12px; line-height: 21px; color: #333; }
 .page.colophon .area p { margin: 0; }
 .page.colophon .area p:first-child { font-weight: 700; color: #111; }
 .page.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -137,20 +150,20 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
 
 /* contents: a black spread, the four chapters as a line of time, the page numbers growing like the powers of 4 */
 .page.indice { background: #000; color: #fff; }
-.page.indice h1 { position: absolute; left: 72px; top: 64px; font-weight: 800; font-size: 22px; margin: 0; }
+.page.indice h1 { position: absolute; left: 72px; top: 64px; font-weight: 800; font-size: 20px; margin: 0; }
 .page.indice .cn { position: absolute; width: 300px; bottom: 300px; }
 .page.indice .cn b { display: block; font-weight: 800; line-height: .8; letter-spacing: -.05em; }
-.page.indice .cn i { display: block; font-style: normal; font-weight: 200; font-size: 18px; margin-top: 12px; }
+.page.indice .cn i { display: block; font-style: normal; font-weight: 200; font-size: 20px; margin-top: 12px; }
 .page.indice .cn sup { font-size: .55em; }
 .page.indice .ct { position: absolute; width: 300px; top: 540px; }
 .page.indice .r { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
 .page.indice .r .p { font-variant-numeric: tabular-nums; }
-.page.indice .r.c { font-weight: 800; font-size: 18px; line-height: 1.1; letter-spacing: -.02em; margin-bottom: 6px; }
+.page.indice .r.c { font-weight: 800; font-size: 20px; line-height: 1.1; letter-spacing: -.02em; margin-bottom: 6px; }
 .page.indice .r.c .p { font-size: 12px; font-weight: 600; letter-spacing: 0; }
-.page.indice .r.s, .page.indice .r.s2 { font-size: 11px; line-height: 17px; color: #ddd; }
+.page.indice .r.s, .page.indice .r.s2 { font-size: 12px; line-height: 17px; color: #ddd; }
 .page.indice .r.s .p, .page.indice .r.s2 .p { color: #888; }
 .page.indice .r.s2 { padding-left: 12px; }
-.page.indice .gen { position: absolute; left: 72px; bottom: 56px; display: flex; gap: 40px; font-size: 13px; font-weight: 600; }
+.page.indice .gen { position: absolute; left: 72px; bottom: 56px; display: flex; gap: 40px; font-size: 13.5px; font-weight: 600; }
 .page.indice .gen span + span { margin-left: 8px; }
 .page.indice a { color: inherit; text-decoration: none; }
 
@@ -182,8 +195,8 @@ body { background: var(--desk); color: var(--ink); font-family: Inter, "Helvetic
   <button id="modifica" type="button">Modifica</button>
 </div>
 <div id="stato">Impagino il libro…</div>
-<div class="libro" id="libro"></div>
-<div id="misura"></div>
+<div class="libro" id="libro" lang="it"></div>
+<div id="misura" lang="it"></div>
 <div id="editor" hidden></div>
 
 <script>
@@ -316,7 +329,7 @@ function splitToFit(el, area) {
   // keep at least two lines on each side (simple widow/orphan control by words)
   const r = document.createRange(); r.setStart(ps[lo][0], ps[lo][1]); r.setEndAfter(el.lastChild);
   const frag = r.extractContents();
-  const rest = el.cloneNode(false); rest.appendChild(frag); rest.classList.add('segue');
+  const rest = el.cloneNode(false); rest.appendChild(frag); rest.classList.add('segue'); rest.classList.remove('capo');
   // trim the leading space of the remainder
   const fw = document.createTreeWalker(rest, NodeFilter.SHOW_TEXT).nextNode(); if (fw) fw.data = fw.data.replace(/^\s+/, '');
   if (tag === 'LI') rest.style.listStyle = 'none';
@@ -384,7 +397,7 @@ function blank(cap) { const p = newPage('vuota', cap, { area: false, folio: fals
 function toRight() { if (pages.length % 2 === 1) blank(); }    // next page will be odd
 function toLeft() { if (pages.length % 2 === 0) blank(); }     // next page will be even
 
-let numN = 0, figN = 0, idxEntries = [], idxSpec = '';
+let capoNext = false, numN = 0, figN = 0, idxEntries = [], idxSpec = '';
 function place(x, tipo, cap, html) {
     if (tipo === 'apertura') {
       // every chapter opens with its photo across the spread; number and title sit on the chapter's first page (page 1 on the right, then 4, 16, 64 on the left)
@@ -402,7 +415,7 @@ function place(x, tipo, cap, html) {
       let p;
       // the photo across the spread, from the high-resolution originals, framed a little low so faces are whole
       const SP = { 'ap-caranoir.jpg': ['ap-caranoir-originale.jpg', '50% 65%'], 'ap-mistico.jpg': ['ap-mistico-originale.jpg', '50% 100%'],
-                   'ap-sammartino.jpg': ['ap-sammartino-originale.jpg', '50% 24%'], 'ap-okada.jpg': ['ap-okada-originale.jpg', '50% 36%'] };
+                   'ap-sammartino.jpg': ['ap-sammartino-originale.jpg', '50% 24%'], 'ap-okada.jpg': ['ap-okada-bn.jpg', '50% 36%'] };
       let src = x.immagine || '', pos = '50% 50%';
       const fn = src.split('/').pop(); if (SP[fn]) { src = src.replace(fn, SP[fn][0]); pos = SP[fn][1]; }
       const img = src ? `<img src="${src}" alt="" style="object-position:${pos}">` : '';
@@ -411,12 +424,12 @@ function place(x, tipo, cap, html) {
       const right = newPage('splash', cap, { folio: false, head: false, area: false });
       let tp;
       if (isNaN(n) || n === 1) {            // chapter 1: number and title on page 1, the right half
-        left.el.innerHTML = img + '<div class="velo"></div>';
-        right.el.innerHTML = img + `<div class="velo"></div><div class="apnum"></div>${title}`;
+        left.el.innerHTML = img;
+        right.el.innerHTML = img + `<div class="velo t nr"></div><div class="apnum"></div>${title}`;
         p = right; tp = right;
       } else {                              // chapters 2–4: the number on the left half, the title on the right half
-        left.el.innerHTML = img + '<div class="velo"></div><div class="apnum"></div>';
-        right.el.innerHTML = img + `<div class="velo"></div>${title}`;
+        left.el.innerHTML = img + '<div class="velo nl"></div><div class="apnum"></div>';
+        right.el.innerHTML = img + `<div class="velo t"></div>${title}`;
         p = left; tp = right;
       }
       fitText(tp.el.querySelector('.apt'), 672, 96);
@@ -450,8 +463,11 @@ function place(x, tipo, cap, html) {
       const quiet = x.senza_testata === true;
       const p = newPage('figpiena', cap, { area: false, folio: !quiet, head: !quiet });
       // size: the figure shrinks around the centre of the page, so its place never changes
-      const k = Math.min(100, Math.max(20, +x.scala || 100)), o = (100 - k) / 2;
-      p.el.innerHTML = `<img src="${x.immagine}" alt="${esc(x.titolo || '')}" style="left:${o}%;top:${o}%;width:${k}%;height:${k}%">`;
+      // the plates redrawn without their internal title, all in the same frame (the frame is in the file)
+      let fsrc = x.immagine || ''; const fb = fsrc.split('/').pop().replace(/\.png$/, '');
+      const pul = PULITE.has(fb); if (pul) fsrc = fsrc.replace(/\.png$/, '-pulita.png');
+      const k = pul ? 100 : Math.min(100, Math.max(20, +x.scala || 100)), o = (100 - k) / 2;
+      p.el.innerHTML = `<img src="${fsrc}" alt="${esc(x.titolo || '')}" style="left:${o}%;top:${o}%;width:${k}%;height:${k}%">`;
       p.idxTitle = x.titolo; if (!quiet) p.figTitle = x.titolo || ''; return true;
     }
     if (tipo === 'figura' || tipo === 'disegno') {
@@ -467,6 +483,7 @@ function place(x, tipo, cap, html) {
 
 let pageOf = {};                       // part (editor id) -> index of its first page
 function mark(x, n) { if (x._pid !== undefined) pageOf[x._pid] = Math.min(n, pages.length - 1); }
+const PULITE = new Set(['fig-s15', 'fig-quadrante', 'fig-nomogramma', 'fig-domini', 'fig-glossario1', 'fig-glossario2', 'fig-ringdim', 'fig-s36', 'fig-s37', 'fig-dallalto', 'fig-conteggio', 'fig-pac', 'fig-tree']);
 const NOIMG = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#eeeeee"/><text x="200" y="205" font-family="sans-serif" font-size="16" fill="#999" text-anchor="middle">immagine da scegliere</text></svg>');
 let avvisi = [];
 // "negativo": white on black (figures are inverted, photos stay as they are)
@@ -477,7 +494,7 @@ function render(parti) {
   pageOf = {}; Q.pageOf = pageOf;
   const idxPart = parti.find(x => x.tipo === 'indice');
   var subSet = new Set(((idxPart && idxPart.body) || '').split('\n').filter(l => /^\s{2,}[-*]\s+/.test(l)).map(l => norm(l.replace(/^\s*[-*]\s+/, ''))));
-  pages = []; misura.innerHTML = ''; figN = 0; numN = 0; idxEntries = []; pending = []; idxSpec = '';
+  pages = []; misura.innerHTML = ''; figN = 0; numN = 0; capoNext = false; idxEntries = []; pending = []; idxSpec = '';
   const floating = x => (x.tipo === 'foto' || x.tipo === 'figura' || x.tipo === 'doppia' || x.tipo === 'disegno') && x.fluttua !== false;
   for (const x of parti) {
     const tipo = x.tipo || 'testo', cap = x.capitolo || '';
@@ -534,7 +551,10 @@ function render(parti) {
       if (kids[j] && kids[j].tagName === 'P' && /^<em>[^<]*<\/em>$/.test(kids[j].innerHTML.trim())) { kids[j].classList.add('sub'); op.area.appendChild(kids[j]); j++; }
       fitText(h, 672, 96);
       flowKids = kids.slice(j); startNew = true;
+      capoNext = true;
     }
+    // drop cap: the first paragraph of an essay, even when it comes in the next part
+    if (capoNext && flowKids.length) { const fp = flowKids.find(k => !k.classList.contains('m')); if (fp && fp.tagName === 'P' && !fp.classList.contains('q')) fp.classList.add('capo'); capoNext = false; }
     if (flowKids.length) flowText(flowKids, 'testo', cap, cls, startNew);
     if (x.immagine_fondo) closeOnLeft(x, cap, cls);
     if (x._pid !== undefined) { const pe = kids[0] && kids[0].closest('.page'); pageOf[x._pid] = pe ? pages.findIndex(q => q.el === pe) : pages.length - 1; }
@@ -542,13 +562,17 @@ function render(parti) {
   flushPending(true);
   // heads, folios, index
   const start = pages.findIndex(p => p.capStart);
+  let curSub = '', curCap = null;
   pages.forEach((p, i) => {
+    // running head: left page the chapter, right page the sub-chapter or essay the page belongs to
+    if (p.capStart || p.cap !== curCap) { curSub = ''; curCap = p.cap; }
+    { const h = p.el.querySelector('.area h1:not(.segue), .area h2:not(.segue), .area h3.sotto'); if (h) curSub = h.textContent.trim(); }
     side(p);
     const n = i + 1, f = start >= 0 && i >= start ? i - start + 1 : null; p.n = f || roman(n);
     if (p.apNumEl) p.apNumEl.textContent = p.apFixed || f || '';
     if (p.head && f && p.kind !== 'vuota') {
       const t = document.createElement('div'); t.className = 'testata';
-      t.textContent = n % 2 === 0 ? BOOK : (p.cap || BOOK); p.el.appendChild(t);
+      t.textContent = n % 2 === 0 ? (p.cap || BOOK) : (curSub || p.cap || BOOK); p.el.appendChild(t);
     }
     const fol = f || (p.kind === 'testo' ? roman(n) : null);      // the pages before chapter 1 (the letter) in roman numerals
     if (p.folio && fol && p.kind !== 'vuota') {
